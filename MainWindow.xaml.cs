@@ -218,7 +218,6 @@ namespace SacLauncher
             Stutter_on_desync.IsEnabled = true;
             Stutter_on_desync.IsChecked = true;
             No_particles.IsEnabled = true;
-            No_particles.IsChecked = true;
             Slaughter.IsEnabled = true;
             Map_list.IsEnabled = true;
             Map_select.IsEnabled = true;
@@ -276,7 +275,14 @@ namespace SacLauncher
 
         private void Game_mode_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (Game_mode_list.SelectedIndex == 0 || Game_mode_list.SelectedIndex == 1)
+            {
+                No_particles.IsChecked = false;
+            }
+            else if (Game_mode_list.SelectedIndex == 2 || Game_mode_list.SelectedIndex == 3)
+            {
+                No_particles.IsChecked = true;
+            }
         }
 
         private void Start_souls_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -427,6 +433,7 @@ namespace SacLauncher
         private void SaveSettings()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append("--hotkeys=hotkeys.txt").Append(Environment.NewLine); 
             sb.AppendFormat("--name={0}", Nickname.Text).Append(Environment.NewLine);
             sb.AppendFormat("--wizard={0}", (Wizard_list.SelectedItem as ComboBoxItem)?.Content).Append(Environment.NewLine);
 
@@ -475,10 +482,7 @@ namespace SacLauncher
                 sb.Append("--zerotier-network=6ab565387ab194c6").Append(Environment.NewLine);
                 sb.Append("--join").Append(Environment.NewLine);
             }
-            else if (Singleplayer.IsChecked == true)
-            {
-                sb.Append("# --join").Append(Environment.NewLine);
-            }
+            else if (Singleplayer.IsChecked == true) ;
             if (Host.IsChecked == true) sb.AppendFormat("--{0}", (Game_mode_list.SelectedItem as ComboBoxItem)?.Content).Append(Environment.NewLine);
             sb.AppendFormat("--souls={0}", Start_souls_slider.Value).Append(Environment.NewLine);
             sb.AppendFormat("--level={0}", Start_level_slider.Value).Append(Environment.NewLine);
@@ -489,14 +493,8 @@ namespace SacLauncher
             if (Stutter_on_desync.IsChecked == true) sb.Append("--stutter-on-desynch").Append(Environment.NewLine);
             if (No_particles.IsChecked == true) sb.Append("--no-particles").Append(Environment.NewLine);
             if (Slaughter.IsChecked == true) sb.AppendFormat("--slaughter={0}", Slaugher_target_kills.Value).Append(Environment.NewLine);
-            if (Map_list.IsChecked == true) 
-            {
-                sb.AppendFormat("--map-list={0}", (Map_list1.SelectedItem as ComboBoxItem)?.Content).Append(Environment.NewLine);
-            }
-            else if (Map_select.IsChecked == true)
-            {
-                sb.AppendFormat("maps/{0}", Map_selection.Text).Append(Environment.NewLine);
-            }
+            if (Map_list.IsChecked == true) sb.AppendFormat("--map-list={0}", (Map_list1.SelectedItem as ComboBoxItem)?.Content).Append(Environment.NewLine);
+            else if (Map_select.IsChecked == true) sb.AppendFormat("maps/{0}", Map_selection.Text).Append(Environment.NewLine);
             if (Observer.IsChecked == true) sb.Append("--observer").Append(Environment.NewLine);
             if (Savereplays.IsChecked == true) sb.Append("--record-folder=replays").Append(Environment.NewLine);
 
