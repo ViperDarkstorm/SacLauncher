@@ -1,0 +1,232 @@
+﻿<Window x:Class="SacLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SacLauncher"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ContentRendered="Window_ContentRendered"
+        Title="SacEngine Launcher" Height="575" Width="1080">
+    <Grid x:Name="___No_Name_">
+        <Image x:Name="Background" Stretch="UniformToFill" Source="images/Sacrifice_1920x1200.jpg" HorizontalAlignment="Center" Margin="0,0,0,-24" Width="1080"/>
+        <TextBlock x:Name="Player_options" HorizontalAlignment="Left" Margin="120,10,0,0" TextWrapping="Wrap" Text="Player" VerticalAlignment="Top" Height="30" Width="188" FontSize="22" FontWeight="Bold" TextAlignment="Center" Foreground="#FFFFAF00"/>
+        <TextBlock x:Name="Graphics_options" HorizontalAlignment="Left" Margin="120,87,0,0" TextWrapping="Wrap" Text="Graphics options" VerticalAlignment="Top" Height="30" Width="188" FontSize="22" FontWeight="Bold" TextAlignment="Center" Foreground="#FFFFAF00"/>
+        <TextBlock x:Name="Audio_options" HorizontalAlignment="Left" Margin="120,370,0,0" TextWrapping="Wrap" Text="Audio options" VerticalAlignment="Top" Height="30" Width="188" FontSize="22" FontWeight="Bold" TextAlignment="Center" Foreground="#FFFFAF00"/>
+        <TextBlock x:Name="Multiplayer_options" HorizontalAlignment="Left" Margin="680,10,0,0" TextWrapping="Wrap" Text="Multiplayer options" VerticalAlignment="Top" Height="30" Width="284" FontSize="22" FontWeight="Bold" TextAlignment="Center" Foreground="#FFFFAF00"/>
+        <TextBlock HorizontalAlignment="Left" Margin="25,40,0,0" TextWrapping="Wrap" Text="Nickname:" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="Nickname" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="120,40,0,0" TextWrapping="Wrap" Text="Player Name" VerticalAlignment="Top" Width="188" Foreground="Black" TextChanged="Nickname_TextChanged" Height="20" RenderTransformOrigin="0.5,0.502">
+            <TextBox.OpacityMask>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                </RadialGradientBrush>
+            </TextBox.OpacityMask>
+        </TextBox>
+        <TextBlock HorizontalAlignment="Left" Margin="25,70,0,0" TextWrapping="Wrap" Text="Wizard:" VerticalAlignment="Top" Foreground="White"/>
+        <ComboBox x:Name="Wizard_list" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="120,70,0,0" VerticalAlignment="Top" Width="188" Height="20" Foreground="Black" SelectionChanged="Wizard_list_SelectionChanged">
+            <ComboBox.OpacityMask>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                </RadialGradientBrush>
+            </ComboBox.OpacityMask>
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#3FFFFFFF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem Content="Abraxus"/>
+            <ComboBoxItem Content="Acheron"/>
+            <ComboBoxItem Content="Ambassador Buta"/>
+            <ComboBoxItem Content="Charlotte"/>
+            <ComboBoxItem Content="Eldred"/>
+            <ComboBoxItem Content="Grakkus"/>
+            <ComboBoxItem Content="Hachimen"/>
+            <ComboBoxItem Content="Jadugarr"/>
+            <ComboBoxItem Content="Marduk"/>
+            <ComboBoxItem Content="Mithras"/>
+            <ComboBoxItem Content="Seerix"/>
+            <ComboBoxItem Content="Shakti"/>
+            <ComboBoxItem Content="Sorcha"/>
+            <ComboBoxItem Content="The Ragman"/>
+            <ComboBoxItem Content="Yogo"/>
+        </ComboBox>
+        <RadioButton x:Name="Detect_Resolution" Content="Detect Resolution" GroupName="Resolution" HorizontalAlignment="Left" Margin="25,150,0,0" VerticalAlignment="Top" Foreground="White" Checked="Detect_Resolution_Checked"/>
+        <RadioButton x:Name="Choose_Resolution" Content="Choose Resolution" GroupName="Resolution" HorizontalAlignment="Left" Margin="150,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.0,0.0" Foreground="White" Checked="Choose_Resolution_Checked"/>
+        <ComboBox x:Name="Resolution_list" HorizontalAlignment="Left" Margin="280,145,0,0" VerticalAlignment="Top" Width="120" Height="20" SelectionChanged="Resolution_list_SelectionChanged">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFE5E5E5" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBox.OpacityMask>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                </RadialGradientBrush>
+            </ComboBox.OpacityMask>
+            <ComboBoxItem Content="640x480"/>
+            <ComboBoxItem Content="800x600"/>
+            <ComboBoxItem Content="1024x768"/>
+            <ComboBoxItem Content="1280x720"/>
+            <ComboBoxItem Content="1366x768"/>
+            <ComboBoxItem Content="1440x900"/>
+            <ComboBoxItem Content="1600x900"/>
+            <ComboBoxItem Content="1600x1200"/>
+            <ComboBoxItem Content="1920x1080"/>
+            <ComboBoxItem Content="2560x1440"/>
+            <ComboBoxItem Content="4096x2160"/>
+        </ComboBox>
+        <CheckBox x:Name="Fullscreen" Content="Fullscreen" HorizontalAlignment="Left" Margin="25,170,0,0" VerticalAlignment="Top" Foreground="White" Checked="Fullscreen_Checked" Unchecked="Fullscreen_UnChecked" Height="17"/>
+        <CheckBox x:Name="Widgets" Content="Disable widgets" HorizontalAlignment="Left" Margin="25,190,0,0" VerticalAlignment="Top" Foreground="White" Checked="Widgets_Checked" Unchecked="Widgets_UnChecked"/>
+        <CheckBox x:Name="Fog" Content="Disable fogging" HorizontalAlignment="Left" Margin="25,210,0,0" VerticalAlignment="Top" Foreground="White" Checked="Fog_Checked" Unchecked="Fog_UnChecked"/>
+        <CheckBox x:Name="MapBottom" Content="Map bottom(Disable this option if you have performance issues!)" HorizontalAlignment="Left" Margin="25,230,0,0" VerticalAlignment="Top" Foreground="White" Checked="MapBottom_Checked" Unchecked="MapBottom_UnChecked"/>
+        <CheckBox x:Name="Glow" Content="Enable glow" HorizontalAlignment="Left" Margin="25,250,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_Checked" Unchecked="Glow_UnChecked"/>
+        <CheckBox x:Name="Glow_brightness" Content="Glow brightness" HorizontalAlignment="Left" Margin="25,270,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_brightness_Checked" Unchecked="Glow_brightness_UnChecked" Height="58"/>
+        <Slider x:Name="Glow_brightness_slider" Margin="150,270,0,0" Width="120" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Glow_brightness_slider_ValueChanged"/>
+        <TextBlock x:Name="Glow1" Text="{Binding ElementName=Glow_brightness_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="275,267,0,0"
+                   FontSize="16" TextAlignment="Center" Background="White" Width="20" Height="18"/>
+        <CheckBox x:Name="Antialiasing" Content="Antialiasing" HorizontalAlignment="Left" Margin="25,290,0,0" VerticalAlignment="Top" Foreground="White" Checked="Antialiasing_Checked" Unchecked="Antialiasing_UnChecked"/>
+        <CheckBox x:Name="Sun_strength" Content="Sun strength" HorizontalAlignment="Left" Margin="25,310,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sun_strength_Checked" Unchecked="Sun_strength_UnChecked" Height="17"/>
+        <Slider x:Name="Sun_strength_slider" Margin="150,310,0,0" Width="120" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Sun_strength_slider_ValueChanged"/>
+        <TextBlock x:Name="Sun" Text="{Binding ElementName=Sun_strength_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="275,307,0,0"
+                   FontSize="16" Background="White" Width="20" Height="18" TextAlignment="Center"/>
+        <CheckBox x:Name="Ambient_strength" Content="Ambient strength" HorizontalAlignment="Left" Margin="25,330,0,0" VerticalAlignment="Top" Foreground="White" Checked="Ambient_strength_Checked" Unchecked="Ambient_strength_UnChecked" Height="17"/>
+        <Slider x:Name="Ambient_strength_slider" Margin="150,330,0,0" Width="120" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Ambient_strength_slider_ValueChanged"/>
+        <TextBlock x:Name="Ambient" Text="{Binding ElementName=Ambient_strength_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="275,327,0,0"
+                   FontSize="16" 
+                   Background="White" Width="20" Height="18" TextAlignment="Center"/>
+        <CheckBox x:Name="Master_volume" Content="Volume" HorizontalAlignment="Left" Margin="25,410,0,0" VerticalAlignment="Top" Foreground="White" Checked="Master_volume_Checked" Unchecked="Master_volume_UnChecked"/>
+        <Slider x:Name="Master_volume_slider" Margin="150,410,0,0" Width="120" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Master_volume_slider_ValueChanged"/>
+        <TextBlock x:Name="Master" Text="{Binding ElementName=Master_volume_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="275,407,0,0"
+                   FontSize="16" 
+                   Background="White" Width="20" Height="18" TextAlignment="Center"/>
+        <CheckBox x:Name="Music_volume" Content="Music volume" HorizontalAlignment="Left" Margin="25,430,0,0" VerticalAlignment="Top" Foreground="White" Checked="Music_volume_Checked" Unchecked="Music_volume_UnChecked"/>
+        <Slider x:Name="Music_volume_slider" Margin="150,430,0,0" Width="120" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Music_volume_slider_ValueChanged"/>
+        <TextBlock x:Name="Music" Text="{Binding ElementName=Music_volume_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="275,427,0,0"
+                   FontSize="16" 
+                   Background="White" Width="20" Height="18" TextAlignment="Center"/>
+        <CheckBox x:Name="Sound_volume" Content="Sound volume" HorizontalAlignment="Left" Margin="25,450,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sound_volume_Checked" Unchecked="Sound_volume_UnChecked"/>
+        <Slider x:Name="Sound_volume_slider" Margin="150,450,0,0" Width="120" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Sound_volume_slider_ValueChanged"/>
+        <TextBlock x:Name="Sound" Text="{Binding ElementName=Sound_volume_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="275,447,0,0"
+                   FontSize="16" 
+                   Background="White" Width="20" Height="18" TextAlignment="Center"/>
+        <CheckBox x:Name="No_advisor_help_speech" Content="Advisor help speech(Zyzyx)" HorizontalAlignment="Left" Margin="25,470,0,0" VerticalAlignment="Top" Foreground="White" Checked="No_advisor_help_speech_Checked"/>
+        <Button x:Name="Save_Button" Content="Save" Margin="913,400,45,25" Background="#FF00CA31" FontSize="22" Click="Save_Button_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.516,0.36"/>
+        <RadioButton x:Name="Host" Content="Host" GroupName="Multiplayer" HorizontalAlignment="Left" Margin="697,59,0,0" VerticalAlignment="Top" Foreground="White" Checked="Host_Checked"/>
+        <RadioButton x:Name="Guest" Content="Guest" GroupName="Multiplayer" HorizontalAlignment="Left" Margin="772,59,0,0" VerticalAlignment="Top" Foreground="White" Checked="Guest_Checked"/>
+        <RadioButton x:Name="Singleplayer" Content="Singleplayer" GroupName="Multiplayer" HorizontalAlignment="Left" Margin="847,59,0,0" VerticalAlignment="Top" Foreground="White" Checked="Singleplayer_Checked"/>
+        <TextBlock x:Name="Game_mode" TextWrapping="Wrap" Margin="697,84,0,0" Text="Game mode" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White"/>
+        <ComboBox x:Name="Game_mode_list" HorizontalAlignment="Left" Margin="822,82,0,0" VerticalAlignment="Top" Width="120" Height="20" SelectionChanged="Game_mode_list_SelectionChanged">
+            <ComboBox.OpacityMask>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                </RadialGradientBrush>
+            </ComboBox.OpacityMask>
+            <ComboBoxItem Content="1v1"/>
+            <ComboBoxItem Content="2v2"/>
+            <ComboBoxItem Content="3v3"/>
+            <ComboBoxItem Content="4v4"/>
+            <ComboBoxItem Content="FFA"/>
+        </ComboBox>
+        <TextBlock x:Name="Starting_souls" HorizontalAlignment="Left" Margin="697,104,0,0" TextWrapping="Wrap" Text="Starting souls:" VerticalAlignment="Top" Foreground="White"/>
+        <Slider x:Name="Start_souls_slider" Margin="822,104,0,0" Width="120" Height="20" Minimum="0" Maximum="24" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Text="{Binding ElementName=Start_souls_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="947,101,0,0"
+                   FontSize="16" 
+                   Background="White" Width="20" Height="18" TextAlignment="Center"/>
+        <TextBlock x:Name="Starting_level" HorizontalAlignment="Left" Margin="697,124,0,0" TextWrapping="Wrap" Text="Starting level:" VerticalAlignment="Top" Foreground="White"/>
+        <Slider x:Name="Start_level_slider" Margin="822,124,0,0" Width="120" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Text="{Binding ElementName=Start_level_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="947,121,0,0"
+                   FontSize="16" 
+                   Background="White" Width="20" Height="18" TextAlignment="Center"/>
+        <TextBlock x:Name="Min_level" HorizontalAlignment="Left" Margin="697,144,0,0" TextWrapping="Wrap" Text="Minimum level:" VerticalAlignment="Top" Foreground="White"/>
+        <Slider x:Name="Min_level_slider" Margin="822,144,0,0" Width="120" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Text="{Binding ElementName=Min_level_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="947,141,0,0"
+                   FontSize="16" 
+                   Background="White" Width="20" Height="18" TextAlignment="Center"/>
+        <TextBlock x:Name="Max_level" HorizontalAlignment="Left" Margin="697,164,0,0" TextWrapping="Wrap" Text="Maximum level:" VerticalAlignment="Top" Foreground="White"/>
+        <Slider x:Name="Max_level_slider" Margin="822,164,0,0" Width="120" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Text="{Binding ElementName=Max_level_slider, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="947,162,0,0"
+                   FontSize="16" 
+                   Background="White" Width="20" Height="18" TextAlignment="Center"/>
+        <CheckBox x:Name="Random_gods" Content="Random gods" HorizontalAlignment="Left" Margin="697,184,0,0" VerticalAlignment="Top" Foreground="White" Checked="Random_gods_Checked"/>
+        <CheckBox x:Name="Shuffle_sides" Content="Shuffle sides" HorizontalAlignment="Left" Margin="697,204,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.51,0.466" Checked="Shuffle_sides_Checked"/>
+        <CheckBox x:Name="Stutter_on_desync" Content="Stutter on desynchronization" HorizontalAlignment="Left" Margin="697,224,0,0" VerticalAlignment="Top" Foreground="White" Checked="Stutter_on_desynch_Checked"/>
+        <CheckBox x:Name="No_particles" Content="No particles" HorizontalAlignment="Left" Margin="697,244,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.504,0.533" Checked="No_particles_Checked"/>
+        <CheckBox x:Name="Slaughter" Content="Enable slaughter" HorizontalAlignment="Left" Margin="697,264,0,0" VerticalAlignment="Top" Foreground="White" Checked="Slaughter_Checked"/>
+        <Slider x:Name="Slaugher_target_kills" Margin="822,264,0,0" Width="120" Height="20" Minimum="0" Maximum="999" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Text="{Binding ElementName=Slaugher_target_kills, Path=Value}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="947,264,0,0"
+                   FontSize="16" 
+                   Background="White" Width="25" Height="18" TextAlignment="Center"/>
+        <RadioButton x:Name="Map_list" Content="Map list" HorizontalAlignment="Left" Margin="697,284,0,0" VerticalAlignment="Top" Foreground="White" Checked="Map_list_Checked"/>
+        <ComboBox x:Name="Map_list1" HorizontalAlignment="Left" Margin="822,284,0,0" VerticalAlignment="Top" Width="120" Height="20">
+            <ComboBox.OpacityMask>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                </RadialGradientBrush>
+            </ComboBox.OpacityMask>
+            <ComboBoxItem Content="maps-shiny-1v1.txt"/>
+            <ComboBoxItem Content="maps-shiny-2v2.txt"/>
+            <ComboBoxItem Content="maps-shiny-3ffa.txt"/>
+            <ComboBoxItem Content="maps-shiny-4ffa.txt"/>
+            <ComboBoxItem Content="maps-tg-1v1.txt"/>
+            <ComboBoxItem Content="maps-tg-2v2.txt"/>
+            <ComboBoxItem Content="maps-tg-3v3.txt"/>
+            <ComboBoxItem Content="maps-tg-4v4.txt"/>
+            <ComboBoxItem Content="maps-tg-3ffa.txt"/>
+            <ComboBoxItem Content="maps-tree-1v1.txt"/>
+            <ComboBoxItem Content="maps-tree-2v2.txt"/>
+            <ComboBoxItem Content="maps-tree-3ffa.txt"/>
+            <ComboBoxItem Content="maps-tree-5ffa.txt"/>
+        </ComboBox>
+        <RadioButton x:Name="Map_select" Content="Enter map name:" HorizontalAlignment="Left" Margin="697,304,0,0" VerticalAlignment="Top" Foreground="White" Checked="Map_select_Checked"/>
+        <TextBox x:Name="Map_selection" TextWrapping="Wrap" Text="(2) Ferry.scp" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="822,304,0,0" TextAlignment="Center" FontWeight="Bold">
+            <TextBox.OpacityMask>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                </RadialGradientBrush>
+            </TextBox.OpacityMask>
+        </TextBox>
+        <CheckBox x:Name="Observer" Content="Observer" HorizontalAlignment="Left" Margin="788,341,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+    </Grid>
+</Window>

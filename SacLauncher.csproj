@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>images\4run.ico</ApplicationIcon>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="images\4run.ico" />
+    <None Remove="images\Sacrifice_1920x1200.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="images\4run.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\4run.ico" />
+    <Resource Include="images\Sacrifice_1920x1200.jpg" />
+  </ItemGroup>
+
+</Project>
