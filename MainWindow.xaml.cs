@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -367,9 +368,60 @@ namespace SacLauncher
             Map_selection.IsEnabled = true;
         }
 
+        private void Savereplays_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
             SaveSettings();
+        }
+
+        private void LaunchButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string executablePath = FindLatestBuildExecutable();
+                if (!string.IsNullOrEmpty(executablePath))
+                {
+                    Process.Start(executablePath);
+                }
+                else
+                {
+                    MessageBox.Show("Executable not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private string FindLatestBuildExecutable()
+        {
+            string directoryPath = AppDomain.CurrentDomain.BaseDirectory; // Get the directory of the running application
+            string filePattern = "SacEngine-*.exe";
+            string[] files = Directory.GetFiles(directoryPath, filePattern);
+
+            DateTime latestDate = DateTime.MinValue;
+            string latestFile = null;
+
+            foreach (var file in files)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(file);
+                string timestamp = fileName.Substring("SacEngine-".Length);
+                if (DateTime.TryParseExact(timestamp, "yyyy-MM-dd-HH-mm-ss", null, System.Globalization.DateTimeStyles.None, out DateTime buildDate))
+                {
+                    if (buildDate > latestDate)
+                    {
+                        latestDate = buildDate;
+                        latestFile = file;
+                    }
+                }
+            }
+
+            return latestFile;
         }
 
         private void SaveSettings()
@@ -401,10 +453,10 @@ namespace SacLauncher
             else sb.AppendFormat("# --glow-brightness={0}", Glow_brightness_slider.Value).Append(Environment.NewLine);
             if (Antialiasing.IsChecked == true) sb.Append("--antialiasing").Append(Environment.NewLine);
             else sb.Append("# --antialiasing").Append(Environment.NewLine);
-            if (Sun_strength.IsChecked == true) sb.AppendFormat(CultureInfo.InvariantCulture, "--sun-strength={0:F1}", Sun_strength_slider.Value).Append(Environment.NewLine);
-            else sb.AppendFormat("# --sun-strength={0}", Sun_strength_slider.Value).Append(Environment.NewLine);
-            if (Ambient_strength.IsChecked == true) sb.AppendFormat(CultureInfo.InvariantCulture, "--ambient-strength={0:F1}", Ambient_strength_slider.Value).Append(Environment.NewLine);
-            else sb.AppendFormat("# --ambient-strength={0}", Ambient_strength_slider.Value).Append(Environment.NewLine);
+            if (Sun_strength.IsChecked == true) sb.AppendFormat(CultureInfo.InvariantCulture, "--sun-factor={0:F1}", Sun_strength_slider.Value).Append(Environment.NewLine);
+            else sb.AppendFormat("# --sun-factor={0}", Sun_strength_slider.Value).Append(Environment.NewLine);
+            if (Ambient_strength.IsChecked == true) sb.AppendFormat(CultureInfo.InvariantCulture, "--ambient-factor={0:F1}", Ambient_strength_slider.Value).Append(Environment.NewLine);
+            else sb.AppendFormat("# --ambient-factor={0}", Ambient_strength_slider.Value).Append(Environment.NewLine);
             if (Master_volume.IsChecked == true) sb.AppendFormat(CultureInfo.InvariantCulture, "--volume={0:F1}", Master_volume_slider.Value).Append(Environment.NewLine);
             else sb.AppendFormat("# --volume={0}", Master_volume_slider.Value).Append(Environment.NewLine);
             if (Music_volume.IsChecked == true) sb.AppendFormat(CultureInfo.InvariantCulture, "--music-volume={0:F1}", Music_volume_slider.Value).Append(Environment.NewLine);
@@ -446,6 +498,7 @@ namespace SacLauncher
                 sb.AppendFormat("maps/{0}", Map_selection.Text).Append(Environment.NewLine);
             }
             if (Observer.IsChecked == true) sb.Append("--observer").Append(Environment.NewLine);
+            if (Savereplays.IsChecked == true) sb.Append("--record-folder=replays").Append(Environment.NewLine);
 
             File.WriteAllText("settings.txt", sb.ToString());
             MessageBox.Show("Settings saved successfully!", "Save Settings", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -572,14 +625,14 @@ namespace SacLauncher
                     case "# --antialiasing":
                         Antialiasing.IsChecked = false;
                         break;
-                    case "--sun-strength":
+                    case "--sun-factor":
                         if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double sunStrength))
                         {
                             Sun_strength_slider.Value = sunStrength;
                             Sun_strength.IsChecked = true;
                         }
                         break;
-                    case "--ambient-strength":
+                    case "--ambient-factor":
                         if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double ambientStrength))
                         {
                             Ambient_strength_slider.Value = ambientStrength;
@@ -715,6 +768,9 @@ namespace SacLauncher
                         break;
                     case "--observer":
                         Observer.IsChecked = true;
+                        break;
+                    case "--record-folder":
+                        Savereplays.IsChecked = true;
                         break;
                     default:
                         Console.WriteLine("Unhandled key: " + key);

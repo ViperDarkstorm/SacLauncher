@@ -133,7 +133,32 @@
                    FontSize="16" 
                    Background="White" Width="20" Height="18" TextAlignment="Center"/>
         <CheckBox x:Name="No_advisor_help_speech" Content="Advisor help speech(Zyzyx)" HorizontalAlignment="Left" Margin="25,470,0,0" VerticalAlignment="Top" Foreground="White" Checked="No_advisor_help_speech_Checked"/>
-        <Button x:Name="Save_Button" Content="Save" Margin="913,400,45,25" Background="#FF00CA31" FontSize="22" Click="Save_Button_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.516,0.36"/>
+        <Button x:Name="Save_Button" Content="Save" Margin="898,373,60,130" FontSize="22" Click="Save_Button_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.483,0.488">
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF1EF301"/>
+                    <GradientStop Color="#FF7DFF00" Offset="1"/>
+                    <GradientStop Color="#FFE81B28"/>
+                    <GradientStop Color="#FFE32027"/>
+                    <GradientStop Color="#FFDE2426"/>
+                    <GradientStop Color="#FFBED825"/>
+                    <GradientStop Color="#FF22C5DA" Offset="0.408"/>
+                    <GradientStop Color="#FFCF3131" Offset="0.512"/>
+                </LinearGradientBrush>
+            </Button.Foreground>
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF00FFF9"/>
+                    <GradientStop Color="#660800FF" Offset="1"/>
+                </RadialGradientBrush>
+            </Button.Background>
+            <Button.OpacityMask>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#B2FFFFFF" Offset="1"/>
+                </RadialGradientBrush>
+            </Button.OpacityMask>
+        </Button>
         <RadioButton x:Name="Host" Content="Host" GroupName="Multiplayer" HorizontalAlignment="Left" Margin="697,59,0,0" VerticalAlignment="Top" Foreground="White" Checked="Host_Checked"/>
         <RadioButton x:Name="Guest" Content="Guest" GroupName="Multiplayer" HorizontalAlignment="Left" Margin="772,59,0,0" VerticalAlignment="Top" Foreground="White" Checked="Guest_Checked"/>
         <RadioButton x:Name="Singleplayer" Content="Singleplayer" GroupName="Multiplayer" HorizontalAlignment="Left" Margin="847,59,0,0" VerticalAlignment="Top" Foreground="White" Checked="Singleplayer_Checked"/>
@@ -226,7 +251,29 @@
                 </RadialGradientBrush>
             </TextBox.OpacityMask>
         </TextBox>
-        <CheckBox x:Name="Observer" Content="Observer" HorizontalAlignment="Left" Margin="788,341,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <CheckBox x:Name="Observer" Content="Observer" HorizontalAlignment="Left" Margin="744,340,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <CheckBox x:Name="Savereplays" Content="Save replays" HorizontalAlignment="Left" Margin="850,340,0,0" VerticalAlignment="Top" Foreground="White" Checked="Savereplays_Checked"/>
+        <Button x:Name="LaunchButton" Content="Start SacEngine" Margin="697,440,60,10" FontSize="22" FontWeight="Bold" Click="LaunchButton_Click" >
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFF3535"/>
+                    <GradientStop Color="#FF4661F5" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Foreground>
+            <Button.OpacityMask>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#99FFFFFF" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.OpacityMask>
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF00FF27" Offset="0.426"/>
+                    <GradientStop Color="#19FF0000" Offset="1"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        
 
     </Grid>
 </Window>
