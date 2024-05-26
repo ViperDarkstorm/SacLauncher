@@ -818,7 +818,9 @@ namespace SacLauncher
 
             // Append observer and save replays settings
             if (Observer.IsChecked == true) sb.AppendLine("--observer");
+            if (Observer.IsChecked == false) sb.AppendLine("# --observer");
             if (Savereplays.IsChecked == true) sb.AppendLine("--record-folder=replays");
+            if (Savereplays.IsChecked == false) sb.AppendLine("# --record-folder=replays");
 
             return sb.ToString();
         }
