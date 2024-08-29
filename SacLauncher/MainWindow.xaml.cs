@@ -6,9 +6,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.ComponentModel;
+using System.Windows.Controls.Primitives;
 
 namespace SacLauncher
 {
+
     public partial class MainWindow : Window
     {
         private readonly string folderPath;
@@ -17,8 +20,154 @@ namespace SacLauncher
         {
             InitializeComponent();
             folderPath = AppDomain.CurrentDomain.BaseDirectory;
+            LoadReplays();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Player_details_grid.Visibility = Visibility.Hidden;
+            Settings_grid.Visibility = Visibility.Hidden;
+            Save_button.Visibility = Visibility.Hidden;
+            Glow_brightness_slider.Value = 0.5;
+            Sun_strength_slider.Value = 1;
+            Ambient_strength_slider.Value = 1;
+            Master_volume_slider.Value = 0.5;  
+            Sound_volume_slider.Value = 0.5;   
+            Music_volume_slider.Value = 0.5;   
+            Start_souls_slider.Value = 12;
+            Max_level_slider.Value = 9;
+            Min_level_slider.Value = 5;
+            Start_level_slider.Value = 5;
+            Slaughter_target_kills.Value = 999;
             LoadSettings();
         }
+
+        private void SetSingleplayerMode()
+        {
+            Settings_grid.Visibility = Visibility.Hidden;
+            Player_details_grid.Visibility = Visibility.Visible;
+            Save_button.Visibility = Visibility.Visible;
+            Players.Visibility = Visibility.Visible;
+            EnterIP.Visibility = Visibility.Hidden;
+            IP.Visibility = Visibility.Hidden;
+            Game_mode.Visibility = Visibility.Visible;
+            Game_mode_list.Visibility = Visibility.Visible;
+            Random_gods.Visibility = Visibility.Visible;
+            Custom_souls.Visibility = Visibility.Visible;
+            Custom_level.Visibility = Visibility.Visible;
+            Custom_level_bounds.Visibility = Visibility.Visible;
+            Shuffle_sides.Visibility = Visibility.Visible;
+            Stutter_on_desync.Visibility = Visibility.Visible;
+            No_particles.Visibility = Visibility.Visible;
+            Slaughter.Visibility = Visibility.Visible;
+            Slaughter_target_kills.Visibility = Visibility.Visible;
+            Slaughter_kills_number.Visibility = Visibility.Visible;
+            Reroll_button.Visibility = Visibility.Visible;
+            Map_list.Visibility = Visibility.Visible;
+            Map_list1.Visibility = Visibility.Visible;
+            Map_select.Visibility = Visibility.Visible;
+            Map_selection.Visibility = Visibility.Visible;
+            Restart_game.Visibility = Visibility.Hidden;
+            Watch_replay.Visibility = Visibility.Visible;
+            ReplaysComboBox.Visibility = Visibility.Visible;
+            Continue_at.Visibility = Visibility.Hidden;
+            Continue_at2.Visibility = Visibility.Visible;
+            Frame.Visibility = Visibility.Visible;
+            LaunchButton1.Visibility = Visibility.Visible;
+            SetPlayerVisibility(Visibility.Visible);
+            SetPlayerEnabled(true);
+            SetControlsEnabled(true);
+            P6.IsChecked = true;
+            UpdateNoParticlesCheckbox();
+            Singleplayer.IsChecked = true;
+        }
+
+        private void SetHostMode()
+        {
+            Settings_grid.Visibility = Visibility.Hidden;
+            Player_details_grid.Visibility = Visibility.Visible;
+            Save_button.Visibility = Visibility.Visible;
+            Players.Visibility = Visibility.Visible;
+            EnterIP.Visibility = Visibility.Hidden;
+            IP.Visibility = Visibility.Hidden;
+            Game_mode.Visibility = Visibility.Visible;
+            Game_mode_list.Visibility = Visibility.Visible;
+            Random_gods.Visibility = Visibility.Visible;
+            Custom_souls.Visibility = Visibility.Visible;
+            Custom_level.Visibility = Visibility.Visible;
+            Custom_level_bounds.Visibility = Visibility.Visible;
+            Shuffle_sides.Visibility = Visibility.Visible;
+            Stutter_on_desync.Visibility = Visibility.Visible;
+            No_particles.Visibility = Visibility.Visible;
+            Slaughter.Visibility = Visibility.Visible;
+            Slaughter_target_kills.Visibility = Visibility.Visible;
+            Slaughter_kills_number.Visibility = Visibility.Visible;
+            Reroll_button.Visibility = Visibility.Visible;
+            Map_list.Visibility = Visibility.Visible;
+            Map_list1.Visibility = Visibility.Visible;
+            Map_select.Visibility = Visibility.Visible;
+            Map_selection.Visibility = Visibility.Visible;
+            Restart_game.Visibility = Visibility.Visible;
+            Watch_replay.Visibility = Visibility.Hidden;
+            ReplaysComboBox.Visibility = Visibility.Visible;
+            Continue_at.Visibility = Visibility.Visible;
+            Continue_at2.Visibility = Visibility.Hidden;
+            Frame.Visibility = Visibility.Visible;
+            LaunchButton1.Visibility = Visibility.Visible;
+            SetPlayerVisibility(Visibility.Visible);
+            SetPlayerEnabled(true);
+            SetControlsEnabled(true);
+            P6.IsChecked = true;
+            UpdateNoParticlesCheckbox();
+            Host_game.IsChecked = true;
+        }
+
+        private void SetJoinMode()
+        {
+            Settings_grid.Visibility = Visibility.Hidden;
+            Player_details_grid.Visibility = Visibility.Visible;
+            Save_button.Visibility = Visibility.Visible;
+            Players.Visibility = Visibility.Hidden;
+            Game_mode.Visibility = Visibility.Hidden;
+            Game_mode_list.Visibility = Visibility.Hidden;
+            EnterIP.Visibility = Visibility.Visible;
+            IP.Visibility = Visibility.Visible;
+            Random_gods.Visibility = Visibility.Hidden;
+            Custom_souls.Visibility = Visibility.Hidden;
+            Custom_level.Visibility = Visibility.Hidden;
+            Custom_level_bounds.Visibility = Visibility.Hidden;
+            Shuffle_sides.Visibility = Visibility.Hidden;
+            Stutter_on_desync.Visibility = Visibility.Hidden;
+            No_particles.Visibility = Visibility.Hidden;
+            Slaughter.Visibility = Visibility.Hidden;
+            Slaughter_target_kills.Visibility = Visibility.Hidden;
+            Slaughter_kills_number.Visibility = Visibility.Hidden;
+            Reroll_button.Visibility = Visibility.Hidden;
+            Map_list.Visibility = Visibility.Hidden;
+            Map_list1.Visibility = Visibility.Hidden;
+            Map_select.Visibility = Visibility.Hidden;
+            Map_selection.Visibility = Visibility.Hidden;
+            Restart_game.Visibility = Visibility.Hidden;
+            Watch_replay.Visibility = Visibility.Hidden;
+            ReplaysComboBox.Visibility = Visibility.Hidden;
+            Continue_at.Visibility = Visibility.Hidden;
+            Continue_at2.Visibility = Visibility.Hidden;
+            Frame.Visibility = Visibility.Hidden;
+            LaunchButton1.Visibility = Visibility.Visible;
+            SetPlayerVisibility(Visibility.Hidden);
+            SetPlayerCheckStates(false);
+            SetControlsEnabled(false);
+            Join_game.IsChecked = true;
+        }
+
+        private void SetSettingsMode()
+        {
+            Settings_grid.Visibility = Visibility.Visible;
+            Player_details_grid.Visibility = Visibility.Hidden;
+            Save_button.Visibility = Visibility.Visible;
+            Settings.IsChecked = true;
+        }
+
 
         private void PopulateDropdown(string pattern)
         {
@@ -59,7 +208,7 @@ namespace SacLauncher
                 }
                 else
                 {
-                MessageBox.Show("No matching files found for pattern: " + pattern);
+                MessageBox.Show("Couldn't locate a maplist file pattern: " + pattern);
                 }
             }
             catch (IOException ex)
@@ -79,7 +228,25 @@ namespace SacLauncher
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             UpdateGame_mode_listDropdown();
-            UpdateMaplist1Dropdown();
+            UpdateNoParticlesCheckbox();
+        }
+
+        private void UpdateNoParticlesCheckbox()
+        {
+            if (P2.IsChecked == true || P3.IsChecked == true || P4.IsChecked == true || P5.IsChecked == true)
+            {
+                Random_gods.IsChecked = true;
+                Shuffle_sides.IsChecked = true;
+                Stutter_on_desync.IsChecked = true;
+                No_particles.IsChecked = false;
+            }
+            else if (P6.IsChecked == true || P7.IsChecked == true || P8.IsChecked == true)
+            {
+                Random_gods.IsChecked = true;
+                Shuffle_sides.IsChecked = true;
+                Stutter_on_desync.IsChecked = true;
+                No_particles.IsChecked = true;
+            }
         }
 
         private void Game_mode_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -137,16 +304,16 @@ namespace SacLauncher
 
             string pattern = selectedType switch
             {
-                "1v1" => @"maps-.*-1v1\.txt",
-                "2v2" => @"maps-.*-2v2\.txt",
-                "3v3" => @"maps-.*-3v3\.txt",
-                "4v4" => @"maps-.*-4v4\.txt",
-                "ffa" when P3.IsChecked == true => @"maps-.*-3ffa\.txt",
-                "ffa" when P4.IsChecked == true => @"maps-.*-4ffa\.txt",
-                "ffa" when P5.IsChecked == true => @"maps-.*-5ffa\.txt",
-                "ffa" when P6.IsChecked == true => @"maps-.*-6ffa\.txt",
-                "ffa" when P7.IsChecked == true => @"maps-.*-7ffa\.txt",
-                "ffa" when P8.IsChecked == true => @"maps-.*-8ffa\.txt",
+                "1v1" => @"maps-.*-1v1.txt",
+                "2v2" => @"maps-.*-2v2.txt",
+                "3v3" => @"maps-.*-3v3.txt",
+                "4v4" => @"maps-.*-4v4.txt",
+                "ffa" when P3.IsChecked == true => @"maps-.*-3ffa.txt",
+                "ffa" when P4.IsChecked == true => @"maps-.*-4ffa.txt",
+                "ffa" when P5.IsChecked == true => @"maps-.*-5ffa.txt",
+                "ffa" when P6.IsChecked == true => @"maps-.*-6ffa.txt",
+                "ffa" when P7.IsChecked == true => @"maps-.*-7ffa.txt",
+                "ffa" when P8.IsChecked == true => @"maps-.*-8ffa.txt",
                 _ => string.Empty
             };
 
@@ -200,6 +367,26 @@ namespace SacLauncher
             return entries.Count > 0 ? entries[random.Next(entries.Count)] : null;
         }
 
+        private void Singleplayer1_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Host_game_button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Join_game_button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
         private void ButtonRoll_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(folderPath) || !(Map_list1.SelectedItem is string selectedFileName))
@@ -217,6 +404,33 @@ namespace SacLauncher
             }
 
             Map_selection.Text = randomEntry ?? "No entries found.";
+        }
+
+        private void LoadReplays()
+        {
+            string replaysFolder = Path.Combine(Directory.GetCurrentDirectory(), "replays");
+
+            if (Directory.Exists(replaysFolder))
+            {
+                var rcpFiles = Directory.GetFiles(replaysFolder, "*.rcp")
+                                        .Select(Path.GetFileName)
+                                        .ToList();
+
+                ReplaysComboBox.ItemsSource = rcpFiles;
+            }
+            else
+            {
+                MessageBox.Show("Replays folder not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ReplaysComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedFile = ReplaysComboBox.SelectedItem as string;
+            if (selectedFile != null)
+            {
+                MessageBox.Show($"Selected file: {selectedFile}", "File Selected", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
@@ -263,9 +477,13 @@ namespace SacLauncher
 
         private void Detect_Resolution_Checked(object sender, RoutedEventArgs e)
         {
-            Choose_Resolution.IsChecked = false;
-            Resolution_list.Visibility = Visibility.Hidden;
+            if (Choose_Resolution != null) 
+            {
+                Choose_Resolution.IsChecked = false;
+                Resolution_list.Visibility = Visibility.Hidden;
+            }
         }
+
 
         private void Choose_Resolution_Checked(object sender, RoutedEventArgs e)
         {
@@ -330,12 +548,20 @@ namespace SacLauncher
 
         private void Glow_brightness_Checked(object sender, RoutedEventArgs e)
         {
-            // Handle glow brightness checked event if needed
+            if (Glow_brightness_slider != null)
+            {
+                Glow_brightness_slider.Value = 0.5;
+                Glow_brightness_slider.IsEnabled = true;
+            }
         }
 
         private void Glow_brightness_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Handle glow brightness unchecked event if needed
+            if (Glow_brightness_slider != null)
+            {
+                Glow_brightness_slider.Value = 0.5;
+                Glow_brightness_slider.IsEnabled = false;
+            }
         }
 
         private void Glow_brightness_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -355,12 +581,20 @@ namespace SacLauncher
 
         private void Sun_strength_Checked(object sender, RoutedEventArgs e)
         {
-            // Handle sun strength checked event if needed
+            if (Sun_strength_slider != null)
+            {
+                Sun_strength_slider.Value = 1;
+                Sun_strength_slider.IsEnabled = true;
+            }
         }
 
         private void Sun_strength_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Handle sun strength unchecked event if needed
+            if (Sun_strength_slider != null)
+            {
+                Sun_strength_slider.Value = 1;
+                Sun_strength_slider.IsEnabled = false;
+            }
         }
 
         private void Sun_strength_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -370,12 +604,20 @@ namespace SacLauncher
 
         private void Ambient_strength_Checked(object sender, RoutedEventArgs e)
         {
-            // Handle ambient strength checked event if needed
+            if (Ambient_strength_slider != null)
+            {
+                Ambient_strength_slider.Value = 1;
+                Ambient_strength_slider.IsEnabled = true;
+            }
         }
 
         private void Ambient_strength_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Handle ambient strength unchecked event if needed
+            if (Ambient_strength_slider != null)
+            {
+                Ambient_strength_slider.Value = 1;
+                Ambient_strength_slider.IsEnabled = false;
+            }
         }
 
         private void Ambient_strength_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -385,76 +627,261 @@ namespace SacLauncher
 
         private void Master_volume_Checked(object sender, RoutedEventArgs e)
         {
-            // Handle master volume checked event if needed
+            if (Master_volume_slider != null)
+            {
+                Master_volume_slider.Value = 0.5;  // Set the slider to a default value when the checkbox is checked
+                Master_volume_slider.IsEnabled = true;  // Enable the slider
+            }
         }
 
         private void Master_volume_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Handle master volume unchecked event if needed
+            if (Master_volume_slider != null)
+            {
+                Master_volume_slider.Value = 0;  // Set the slider value to 0 when the checkbox is unchecked
+                Master_volume_slider.IsEnabled = true;  // Keep the slider enabled
+            }
         }
 
         private void Master_volume_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Master.Text = Master_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+            if (Master_volume_slider != null)
+            {
+                Master.Text = Master_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+
+                // If the slider value is 0, uncheck the checkbox
+                if (Master_volume_slider.Value == 0)
+                {
+                    Master_volume.IsChecked = false;
+                }
+                else if (Master_volume_slider.Value > 0 && Master_volume.IsChecked == false)
+                {
+                    // If the slider is moved above 0, recheck the checkbox if it was unchecked
+                    Master_volume.IsChecked = true;
+                }
+            }
         }
+
 
         private void Music_volume_Checked(object sender, RoutedEventArgs e)
         {
-            // Handle music volume checked event if needed
+            if (Music_volume_slider != null)
+            {
+                // Set the slider to a default value (0.5) when the checkbox is checked
+                Music_volume_slider.Value = 0.5;
+            }
         }
 
         private void Music_volume_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Handle music volume unchecked event if needed
+            if (Music_volume_slider != null)
+            {
+                // Set the slider value to 0 when the checkbox is unchecked
+                Music_volume_slider.Value = 0;
+            }
         }
 
         private void Music_volume_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Music.Text = Music_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+            if (Music_volume_slider != null)
+            {
+                // Update the label with the current slider value
+                Music.Text = Music_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+
+                // If the slider value is 0, uncheck the checkbox
+                if (Music_volume_slider.Value == 0)
+                {
+                    Music_volume.IsChecked = false;
+                }
+                else if (Music_volume_slider.Value > 0 && Music_volume.IsChecked == false)
+                {
+                    // If the slider is moved above 0, recheck the checkbox if it was unchecked
+                    Music_volume.IsChecked = true;
+                }
+            }
         }
 
         private void Sound_volume_Checked(object sender, RoutedEventArgs e)
         {
-            // Handle sound volume checked event if needed
+            if (Sound_volume_slider != null)
+            {
+                Sound_volume_slider.Value = 0.5;  // Set the slider to a default value when the checkbox is checked
+                Sound_volume_slider.IsEnabled = true;  // Enable the slider
+            }
         }
 
         private void Sound_volume_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Handle sound volume unchecked event if needed
+            if (Sound_volume_slider != null)
+            {
+                Sound_volume_slider.Value = 0;  // Set the slider value to 0 when the checkbox is unchecked
+                Sound_volume_slider.IsEnabled = true;  // Keep the slider enabled
+            }
         }
 
         private void Sound_volume_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Sound.Text = Sound_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+            if (Sound_volume_slider != null)
+            {
+                Sound.Text = Sound_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+
+                // If the slider value is 0, uncheck the checkbox
+                if (Sound_volume_slider.Value == 0)
+                {
+                    Sound_volume.IsChecked = false;
+                }
+                else if (Sound_volume_slider.Value > 0 && Sound_volume.IsChecked == false)
+                {
+                    // If the slider is moved above 0, recheck the checkbox if it was unchecked
+                    Sound_volume.IsChecked = true;
+                }
+            }
         }
+
 
         private void No_advisor_help_speech_Checked(object sender, RoutedEventArgs e)
         {
             // Handle no advisor help speech checked event if needed
         }
 
-        private void Host_Checked(object sender, RoutedEventArgs e)
+        /*private void Host_game_Checked(object sender, RoutedEventArgs e)
         {
+            Settings_grid.Visibility = Visibility.Hidden;
+            Player_details_grid.Visibility = Visibility.Visible;
+            Save_button.Visibility = Visibility.Visible;
+            Players.Visibility = Visibility.Visible;
+            EnterIP.Visibility = Visibility.Hidden;
+            IP.Visibility = Visibility.Hidden;
+            Game_mode.Visibility = Visibility.Visible;
+            Game_mode_list.Visibility = Visibility.Visible;
+            Random_gods.Visibility = Visibility.Visible;
+            Custom_souls.Visibility = Visibility.Visible;
+            Custom_level.Visibility = Visibility.Visible;
+            Custom_level_bounds.Visibility = Visibility.Visible;
+            Shuffle_sides.Visibility = Visibility.Visible;
+            Stutter_on_desync.Visibility = Visibility.Visible;
+            No_particles.Visibility = Visibility.Visible;
+            Slaughter.Visibility = Visibility.Visible;
+            Slaughter_target_kills.Visibility = Visibility.Visible;
+            Slaughter_kills_number.Visibility = Visibility.Visible;
+            Reroll_button.Visibility = Visibility.Visible;
+            Map_list.Visibility = Visibility.Visible;
+            Map_list1.Visibility = Visibility.Visible;
+            Map_select.Visibility = Visibility.Visible;
+            Map_selection.Visibility = Visibility.Visible;
+            Restart_game.Visibility = Visibility.Visible;
+            Watch_replay.Visibility = Visibility.Hidden;
+            ReplaysComboBox.Visibility = Visibility.Visible;
+            Continue_at.Visibility = Visibility.Visible;
+            Continue_at2.Visibility = Visibility.Hidden;
+            Frame.Visibility = Visibility.Visible;
+            LaunchButton1.Visibility = Visibility.Visible;
             SetPlayerVisibility(Visibility.Visible);
             SetPlayerEnabled(true);
-            P6.IsChecked = true;
             SetControlsEnabled(true);
+            P6.IsChecked = true;
+            UpdateNoParticlesCheckbox();
+            Singleplayer1.IsChecked = false;
+            Join_game.IsChecked = false;
+            Settings.IsChecked = false;
         }
+        
 
-
-        private void Guest_Checked(object sender, RoutedEventArgs e)
+        private void Join_game_Checked(object sender, RoutedEventArgs e)
         {
+            Settings_grid.Visibility = Visibility.Hidden;
+            Player_details_grid.Visibility = Visibility.Visible;
+            Save_button.Visibility = Visibility.Visible;
+            Players.Visibility = Visibility.Hidden;
+            Game_mode.Visibility = Visibility.Hidden;
+            Game_mode_list.Visibility = Visibility.Hidden;
+            EnterIP.Visibility = Visibility.Visible;
+            IP.Visibility = Visibility.Visible;
+            Random_gods.Visibility = Visibility.Hidden;
+            Custom_souls.Visibility = Visibility.Hidden;
+            Custom_level.Visibility = Visibility.Hidden;
+            Custom_level_bounds.Visibility = Visibility.Hidden;
+            Shuffle_sides.Visibility = Visibility.Hidden;
+            Stutter_on_desync.Visibility = Visibility.Hidden;
+            No_particles.Visibility = Visibility.Hidden;
+            Slaughter.Visibility = Visibility.Hidden;
+            Slaughter_target_kills.Visibility = Visibility.Hidden;
+            Slaughter_kills_number.Visibility = Visibility.Hidden;
+            Reroll_button.Visibility = Visibility.Hidden;
+            Map_list.Visibility = Visibility.Hidden;
+            Map_list1.Visibility = Visibility.Hidden;
+            Map_select.Visibility = Visibility.Hidden;
+            Map_selection.Visibility = Visibility.Hidden;
+            Restart_game.Visibility = Visibility.Hidden;
+            Watch_replay.Visibility = Visibility.Hidden;
+            ReplaysComboBox.Visibility = Visibility.Hidden;
+            Continue_at.Visibility = Visibility.Hidden;
+            Continue_at2.Visibility = Visibility.Hidden;
+            Frame.Visibility = Visibility.Hidden;
+            LaunchButton1.Visibility = Visibility.Visible;
             SetPlayerVisibility(Visibility.Hidden);
             SetPlayerCheckStates(false);
             SetControlsEnabled(false);
+            Singleplayer.IsChecked = false;
+            Host_game.IsChecked = false;
+            Settings.IsChecked = false;
         }
 
         private void Singleplayer_Checked(object sender, RoutedEventArgs e)
         {
-            SetPlayerVisibility(Visibility.Hidden);
-            SetPlayerCheckStates(false);
-            SetControlsEnabled(true);
+            { 
+                Settings_grid.Visibility = Visibility.Hidden;
+                Player_details_grid.Visibility = Visibility.Visible;
+                Save_button.Visibility = Visibility.Visible;
+                Players.Visibility = Visibility.Visible;
+                EnterIP.Visibility = Visibility.Hidden;
+                IP.Visibility = Visibility.Hidden;
+                Game_mode.Visibility = Visibility.Visible;
+                Game_mode_list.Visibility = Visibility.Visible;
+                Random_gods.Visibility = Visibility.Visible;
+                Custom_souls.Visibility = Visibility.Visible;
+                Custom_level.Visibility = Visibility.Visible;
+                Custom_level_bounds.Visibility = Visibility.Visible;
+                Shuffle_sides.Visibility = Visibility.Visible;
+                Stutter_on_desync.Visibility = Visibility.Visible;
+                No_particles.Visibility = Visibility.Visible;
+                Slaughter.Visibility = Visibility.Visible;
+                Slaughter_target_kills.Visibility = Visibility.Visible;
+                Slaughter_kills_number.Visibility = Visibility.Visible;
+                Reroll_button.Visibility = Visibility.Visible;
+                Map_list.Visibility = Visibility.Visible;
+                Map_list1.Visibility = Visibility.Visible;
+                Map_select.Visibility = Visibility.Visible;
+                Map_selection.Visibility = Visibility.Visible;
+                Restart_game.Visibility = Visibility.Hidden;
+                Watch_replay.Visibility = Visibility.Visible;
+                ReplaysComboBox.Visibility = Visibility.Visible;
+                Continue_at.Visibility = Visibility.Hidden;
+                Continue_at2.Visibility = Visibility.Visible;
+                Frame.Visibility = Visibility.Visible;
+                LaunchButton1.Visibility = Visibility.Visible;
+                SetPlayerVisibility(Visibility.Visible);
+                SetPlayerEnabled(true);
+                SetControlsEnabled(true);
+                P6.IsChecked = true;
+                UpdateNoParticlesCheckbox();
+                Host_game.IsChecked = false;
+                Join_game.IsChecked = false;
+                Settings.IsChecked = false; 
+            }
         }
+
+        private void Settings_Checked(object sender, RoutedEventArgs e)
+        {
+            Player_details_grid.Visibility = Visibility.Hidden;
+            Settings_grid.Visibility = Visibility.Visible;
+            Singleplayer.IsChecked = false;
+            Host_game.IsChecked = false;
+            Join_game.IsChecked = false;
+            Settings.IsChecked = true;
+        }*/
+
+
 
         private void Start_souls_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -463,22 +890,70 @@ namespace SacLauncher
 
         private void Start_level_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // Handle start level slider value changed event if needed
+            if (Start_level_slider == null || Min_level_slider == null || Max_level_slider == null)
+                return;
+
+            // Ensure the start level is within the min and max bounds
+            if (Start_level_slider.Value < Min_level_slider.Value)
+            {
+                Start_level_slider.Value = Min_level_slider.Value;
+            }
+            if (Start_level_slider.Value > Max_level_slider.Value)
+            {
+                Start_level_slider.Value = Max_level_slider.Value;
+            }
         }
 
         private void Min_level_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // Handle min level slider value changed event if needed
+            if (Start_level_slider == null || Min_level_slider == null || Max_level_slider == null)
+                return;
+
+            // Ensure the minimum level does not exceed the start level
+            if (Min_level_slider.Value > Max_level_slider.Value)
+            {
+                Min_level_slider.Value = Max_level_slider.Value;
+            }
+            if (Min_level_slider.Value > Start_level_slider.Value)
+            {
+                Start_level_slider.Value = Min_level_slider.Value;
+            }
         }
 
         private void Max_level_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // Handle max level slider value changed event if needed
+            if (Start_level_slider == null || Min_level_slider == null || Max_level_slider == null)
+                return;
+
+            // Ensure the maximum level is not below the start level
+            if (Max_level_slider.Value < Min_level_slider.Value)
+            {
+                Max_level_slider.Value = Min_level_slider.Value;
+            }
+            if (Max_level_slider.Value < Start_level_slider.Value)
+            {
+                Start_level_slider.Value = Max_level_slider.Value;
+            }
         }
 
         private void Random_gods_Checked(object sender, RoutedEventArgs e)
         {
             // Handle random gods checked event if needed
+        }
+
+        private void Custom_souls_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Custom_level_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Custom_level_bounds_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void Random_gods_Unchecked(object sender, RoutedEventArgs e)
@@ -566,6 +1041,41 @@ namespace SacLauncher
         private void Map_select_Unchecked(object sender, RoutedEventArgs e)
         {
             // Handle map select unchecked event if needed
+        }
+
+        private void Restart_game_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Watch_replay_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Resetbutton_Click(object sender, RoutedEventArgs e)
+        {
+            network.Text = "6ab565387ab194c6";
+            Host_game.IsChecked = true;
+            P6.IsChecked = true;
+            Start_souls_slider.Value = 12;
+            Max_level_slider.Value = 9;
+            Min_level_slider.Value = 5;
+            Start_level_slider.Value = 5;
+            Randomgod.IsChecked = true;
+            Random_gods.IsChecked = true;
+            Custom_souls.IsChecked = false;
+            Custom_level.IsChecked = false;
+            Custom_level_bounds.IsChecked = false;
+            Shuffle_sides.IsChecked = true;
+            Stutter_on_desync.IsChecked = true;
+            No_particles.IsChecked = true;
+            Slaughter.IsChecked = false;
+            Slaughter_target_kills.Value = 999; 
+            Observer.IsChecked = false;
+            Watch_replay.IsChecked = false;
+            Restart_game.IsChecked = false;
+            Frame.Clear();
         }
 
         private void Selection_GotFocus(object sender, RoutedEventArgs e)
@@ -662,13 +1172,9 @@ namespace SacLauncher
         private void SetControlsEnabled(bool isEnabled)
         {
             Game_mode_list.IsEnabled = isEnabled;
-            Random_gods.IsChecked = isEnabled;
             Random_gods.IsEnabled = isEnabled;
-            Shuffle_sides.IsChecked = isEnabled;
             Shuffle_sides.IsEnabled = isEnabled;
-            Stutter_on_desync.IsChecked = isEnabled;
             Stutter_on_desync.IsEnabled = isEnabled;
-            No_particles.IsChecked = isEnabled;
             No_particles.IsEnabled = isEnabled;
             Slaughter.IsEnabled = isEnabled;
         }
@@ -682,6 +1188,54 @@ namespace SacLauncher
         private void Savereplays_Checked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Menus_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is not ToggleButton checkedToggleButton)
+            {
+                return;
+            }
+
+            foreach (ToggleButton toggleButton in Menus.Children.OfType<ToggleButton>())
+            {
+                // Set IsChecked to true only for the clicked button, false for others
+                toggleButton.IsChecked = toggleButton == checkedToggleButton;
+
+                // Make other buttons non-interactive, only the active one can be clicked again
+                toggleButton.IsHitTestVisible = toggleButton != checkedToggleButton;
+            }
+            // Apply specific logic based on which ToggleButton was checked
+            switch (checkedToggleButton.Name)
+            {
+                case "Singleplayer":
+                    // Logic for ToggleButton1
+                    SetSingleplayerMode();
+                    break;
+                case "Host_game":
+                    // Logic for ToggleButton2
+                    SetHostMode();
+                    break;
+                case "Join_game":
+                    // Logic for ToggleButton3
+                    SetJoinMode();
+                    break;
+                case "Settings":
+                    // Logic for ToggleButton4
+                    SetSettingsMode();
+                    break;
+            }
+        }
+
+        private void Save_button_Click(object sender, RoutedEventArgs e)
+        {
+            SaveSettings();
+            MessageBox.Show("Settings saved successfully!", "Save Settings", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Quit_button_Click(object sender, RoutedEventArgs e)
+        {
+            CloseApplication();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -708,6 +1262,9 @@ namespace SacLauncher
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            Restart_game.IsChecked = false;
+            Watch_replay.IsChecked = false;
+            Frame.Clear();
         }
 
         private string FindLatestBuildExecutable()
@@ -827,11 +1384,11 @@ namespace SacLauncher
             sb.AppendLine(No_advisor_help_speech.IsChecked == true ? "# --no-advisor-help-speech" : "--no-advisor-help-speech");
 
             // Append network configuration based on selected mode
-            if (Host.IsChecked == true && !string.IsNullOrWhiteSpace(network.Text))
+            if (Host_game.IsChecked == true && !string.IsNullOrWhiteSpace(network.Text))
                 sb.AppendLine($"--zerotier-network={network.Text}");
-            if (Guest.IsChecked == true && !string.IsNullOrWhiteSpace(network.Text))
+            if (Join_game.IsChecked == true && !string.IsNullOrWhiteSpace(network.Text))
                 sb.AppendLine($"--zerotier-network={network.Text}");
-            if (Guest.IsChecked == true)
+            if (Join_game.IsChecked == true)
             {
                 if (!string.IsNullOrWhiteSpace(IP.Text))
                 {
@@ -847,27 +1404,34 @@ namespace SacLauncher
                 sb.AppendLine("# --join");
             }
             // Append player count for hosting or single player mode
-            if (P2.IsChecked == true) sb.Append("--host=2").Append(Environment.NewLine);
-            if (P3.IsChecked == true) sb.Append("--host=3").Append(Environment.NewLine);
-            if (P4.IsChecked == true) sb.Append("--host=4").Append(Environment.NewLine);
-            if (P5.IsChecked == true) sb.Append("--host=5").Append(Environment.NewLine);
-            if (P6.IsChecked == true) sb.Append("--host=6").Append(Environment.NewLine);
-            if (P7.IsChecked == true) sb.Append("--host=7").Append(Environment.NewLine);
-            if (P8.IsChecked == true) sb.Append("--host=8").Append(Environment.NewLine);
+            if (Host_game.IsChecked == true && P2.IsChecked == true) sb.Append("--host=2").Append(Environment.NewLine);
+            if (Host_game.IsChecked == true && P3.IsChecked == true) sb.Append("--host=3").Append(Environment.NewLine);
+            if (Host_game.IsChecked == true && P4.IsChecked == true) sb.Append("--host=4").Append(Environment.NewLine);
+            if (Host_game.IsChecked == true && P5.IsChecked == true) sb.Append("--host=5").Append(Environment.NewLine);
+            if (Host_game.IsChecked == true && P6.IsChecked == true) sb.Append("--host=6").Append(Environment.NewLine);
+            if (Host_game.IsChecked == true && P7.IsChecked == true) sb.Append("--host=7").Append(Environment.NewLine);
+            if (Host_game.IsChecked == true && P8.IsChecked == true) sb.Append("--host=8").Append(Environment.NewLine);
 
             // Append selected game mode if available
-            if (Host.IsChecked == true && Game_mode_list.SelectedItem != null)
+            if (Host_game.IsChecked == true && Game_mode_list.SelectedItem != null)
                 sb.AppendLine($"--{Game_mode_list.SelectedItem}");
 
             // Append soul, level, min-level, max-level settings
             sb.AppendLine($"--souls={Start_souls_slider.Value}")
+                .AppendLine($"--max-level={Max_level_slider.Value}")
                 .AppendLine($"--level={Start_level_slider.Value}")
-                .AppendLine($"--min-level={Min_level_slider.Value}")
-                .AppendLine($"--max-level={Max_level_slider.Value}");
+                .AppendLine($"--min-level={Min_level_slider.Value}");
+                
 
             // Append random gods, shuffle sides, stutter on desync, no particles, and slaughter settings
             if (Random_gods.IsChecked == true) sb.AppendLine("--random-gods");
             if (Random_gods.IsChecked == false) sb.AppendLine("# --random-gods");
+            if (Custom_souls.IsChecked == true) sb.AppendLine("--no-synchronize-souls");
+            if (Custom_souls.IsChecked == false) sb.AppendLine("# --no-synchronize-souls");
+            if (Custom_level.IsChecked == true) sb.AppendLine("--no-synchronize-level");
+            if (Custom_level.IsChecked == false) sb.AppendLine("# --no-synchronize-level");
+            if (Custom_level_bounds.IsChecked == true) sb.AppendLine("--no-synchronize-level-bounds");
+            if (Custom_level_bounds.IsChecked == false) sb.AppendLine("# --no-synchronize-level-bounds");
             if (Shuffle_sides.IsChecked == true) sb.AppendLine("--shuffle-sides");
             if (Shuffle_sides.IsChecked == false) sb.AppendLine("# --shuffle-sides");
             if (Stutter_on_desync.IsChecked == true) sb.AppendLine("--stutter-on-desynch");
@@ -878,9 +1442,9 @@ namespace SacLauncher
             else if (Slaughter.IsChecked == false) sb.AppendLine($"# --slaughter={Slaughter_target_kills.Value}");
 
             // Append map list and selection settings
-            if (string.IsNullOrWhiteSpace(Map_selection.Text)) sb.AppendLine($"--map-list={Map_list1.Text}");
-            else sb.AppendLine($"# --map-list={Map_list1.Text}");
-            if (Host.IsChecked == true && !string.IsNullOrWhiteSpace(Map_selection.Text))
+            if (string.IsNullOrWhiteSpace(Map_selection.Text) && !string.IsNullOrWhiteSpace(Map_list1.Text)) sb.AppendLine($"--map-list={Map_list1.Text}");
+            else if (!string.IsNullOrWhiteSpace(Map_list1.Text)) sb.AppendLine($"# --map-list={Map_list1.Text}");
+            if (Host_game.IsChecked == true && !string.IsNullOrWhiteSpace(Map_selection.Text))
                 sb.AppendLine($"maps/{Map_selection.Text}");
             if (Singleplayer.IsChecked == true && !string.IsNullOrWhiteSpace(Map_selection.Text))
             {
@@ -890,7 +1454,16 @@ namespace SacLauncher
             // Append observer and save replays settings
             sb.AppendLine(Observer.IsChecked == true ? "--observer" : "# --observer");
             sb.AppendLine(Savereplays.IsChecked == true ? "--record-folder=replays" : "# --record-folder=replays");
-
+            if (Host_game.IsChecked == true && Restart_game.IsChecked == true)
+            {
+                sb.AppendLine($"--continue=replays/{ReplaysComboBox.Text}");
+                if (!string.IsNullOrWhiteSpace(Frame.Text))sb.AppendLine($"--continue-at={Frame.Text}");
+            }
+            if (Singleplayer.IsChecked == true && Watch_replay.IsChecked == true)
+            {
+                sb.AppendLine($"--play=replays/{ReplaysComboBox.Text}");
+                if (!string.IsNullOrWhiteSpace(Frame.Text)) sb.AppendLine($"--continue-at={Frame.Text}");
+            }
             return sb.ToString();
         }
 
@@ -1038,6 +1611,13 @@ namespace SacLauncher
                             Glow_brightness.IsChecked = true;
                         }
                         break;
+                    case "# --glow-brightness":
+                        if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double glowBrightness1))
+                        {
+                            Glow_brightness_slider.Value = glowBrightness1;
+                            Glow_brightness.IsChecked = true;
+                        }
+                        break;
                     case "--antialiasing":
                         Antialiasing.IsChecked = true;
                         break;
@@ -1051,6 +1631,13 @@ namespace SacLauncher
                             Sun_strength.IsChecked = true;
                         }
                         break;
+                    case "# --sun-factor":
+                        if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double sunStrength1))
+                        {
+                            Sun_strength_slider.Value = sunStrength1;
+                            Sun_strength.IsChecked = true;
+                        }
+                        break;
                     case "--ambient-factor":
                         if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double ambientStrength))
                         {
@@ -1058,25 +1645,102 @@ namespace SacLauncher
                             Ambient_strength.IsChecked = true;
                         }
                         break;
+                    case "# --ambient-factor":
+                        if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double ambientStrength1))
+                        {
+                            Ambient_strength_slider.Value = ambientStrength1;
+                            Ambient_strength.IsChecked = true;
+                        }
+                        break;
                     case "--volume":
                         if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double masterVolume))
                         {
-                            Master_volume_slider.Value = masterVolume;
-                            Master_volume.IsChecked = true;
+                            if (masterVolume == 0)
+                            {
+                                Master_volume_slider.Value = 0;  // Ensure slider is set to 0 first
+                                Master_volume.IsChecked = false; // Then uncheck the checkbox
+                            }
+                            else
+                            {
+                                Master_volume.IsChecked = true;
+                                Master_volume_slider.Value = masterVolume;
+                            }
+                        }
+                        break;
+
+                    case "# --volume":
+                        if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double masterVolume1))
+                        {
+                            if (masterVolume1 == 0)
+                            {
+                                Master_volume_slider.Value = 0;  // Ensure slider is set to 0 first
+                                Master_volume.IsChecked = false; // Then uncheck the checkbox
+                            }
+                            else
+                            {
+                                Master_volume.IsChecked = true;
+                                Master_volume_slider.Value = masterVolume1;
+                            }
                         }
                         break;
                     case "--music-volume":
                         if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double musicVolume))
                         {
-                            Music_volume_slider.Value = musicVolume;
-                            Music_volume.IsChecked = true;
+                            if (musicVolume == 0)
+                            {
+                                Music_volume_slider.Value = 0;  // Ensure slider is set to 0 first
+                                Music_volume.IsChecked = false; // Then uncheck the checkbox
+                            }
+                            else
+                            {
+                                Music_volume.IsChecked = true;
+                                Music_volume_slider.Value = musicVolume;
+                            }
+                        }
+                        break;
+                    case "# --music-volume":
+                        if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double musicVolume1))
+                        {
+                            if (musicVolume1 == 0)
+                            {
+                                Music_volume_slider.Value = 0;  // Ensure slider is set to 0 first
+                                Music_volume.IsChecked = false; // Then uncheck the checkbox
+                            }
+                            else
+                            {
+                                Music_volume.IsChecked = true;
+                                Music_volume_slider.Value = musicVolume1;
+                            }
                         }
                         break;
                     case "--sound-volume":
                         if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double soundVolume))
                         {
-                            Sound_volume_slider.Value = soundVolume;
-                            Sound_volume.IsChecked = true;
+                            if (soundVolume == 0)
+                            {
+                                Sound_volume_slider.Value = 0;  // Ensure slider is set to 0 first
+                                Sound_volume.IsChecked = false; // Then uncheck the checkbox
+                            }
+                            else
+                            {
+                                Sound_volume.IsChecked = true;
+                                Sound_volume_slider.Value = soundVolume;
+                            }
+                        }
+                        break;
+                    case "# --sound-volume":
+                        if (value != null && double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double soundVolume1))
+                        {
+                            if (soundVolume1 == 0)
+                            {
+                                Sound_volume_slider.Value = 0;  // Ensure slider is set to 0 first
+                                Sound_volume.IsChecked = false; // Then uncheck the checkbox
+                            }
+                            else
+                            {
+                                Sound_volume.IsChecked = true;
+                                Sound_volume_slider.Value = soundVolume1;
+                            }
                         }
                         break;
                     case "--no-advisor-help-speech":
@@ -1092,40 +1756,40 @@ namespace SacLauncher
                             switch (hostValue)
                             {
                                 case 2:
-                                    Host.IsChecked = true;
+                                    Host_game.IsChecked = true;
                                     P2.IsChecked = true;
                                     Game_mode_list.SelectedIndex = 0;
                                     Map_list1.SelectedIndex = 4;
                                     break;
                                 case 3:
-                                    Host.IsChecked = true;
+                                    Host_game.IsChecked = true;
                                     P3.IsChecked = true;
                                     Game_mode_list.SelectedIndex = 0;
                                     break;
                                 case 4:
-                                    Host.IsChecked = true;
+                                    Host_game.IsChecked = true;
                                     P4.IsChecked = true;
                                     Game_mode_list.SelectedIndex = 0;
                                     Map_list1.SelectedIndex = 5;
                                     break;
                                 case 5:
-                                    Host.IsChecked = true;
+                                    Host_game.IsChecked = true;
                                     P5.IsChecked = true;
                                     Game_mode_list.SelectedIndex = 0;
                                     break;
                                 case 6:
-                                    Host.IsChecked = true;
+                                    Host_game.IsChecked = true;
                                     P6.IsChecked = true;
                                     Game_mode_list.SelectedIndex = 0;
                                     Map_list1.SelectedIndex = 6;
                                     break;
                                 case 7:
-                                    Host.IsChecked = true;
+                                    Host_game.IsChecked = true;
                                     P7.IsChecked = true;
                                     Game_mode_list.SelectedIndex = 0;
                                     break;
                                 case 8:
-                                    Host.IsChecked = true;
+                                    Host_game.IsChecked = true;
                                     P8.IsChecked = true;
                                     Game_mode_list.SelectedIndex = 0;
                                     Map_list1.SelectedIndex = 7;
@@ -1137,7 +1801,7 @@ namespace SacLauncher
                         }
                         break;
                     case "--join":
-                        Guest.IsChecked = true;
+                        Join_game.IsChecked = true;
                         if (value != null)
                         {
                             IP.Text = value;
@@ -1155,7 +1819,7 @@ namespace SacLauncher
                         {
                             network.Text = "6ab565387ab194c6";
                         }
-                            break;
+                        break;
                     case "--souls":
                         if (value != null && double.TryParse(value, out double souls))
                         {
@@ -1185,6 +1849,24 @@ namespace SacLauncher
                         break;
                     case "# --random-gods":
                         Random_gods.IsChecked = false;
+                        break;
+                    case "--no-synchronize-souls":
+                        Custom_souls.IsChecked = true;
+                        break;
+                    case "# --no-synchronize-souls":
+                        Custom_souls.IsChecked = false;
+                        break;
+                    case "--no-synchronize-level":
+                        Custom_level.IsChecked = true;
+                        break;
+                    case "# --no-synchronize-level":
+                        Custom_level.IsChecked = false;
+                        break;
+                    case "--no-synchronize-level-bounds":
+                        Custom_level_bounds.IsChecked = true;
+                        break;
+                    case "# --no-synchronize-level-bounds":
+                        Custom_level_bounds.IsChecked = false;
                         break;
                     case "--shuffle-sides":
                         Shuffle_sides.IsChecked = true;
@@ -1241,17 +1923,12 @@ namespace SacLauncher
                     case "# --record-folder":
                         Savereplays.IsChecked = false;
                         break;
+
                     default:
                         Console.WriteLine("Unhandled key: " + key);
                         break;
                 }
             }
-        }
-        [STAThread]
-        public static void Main()
-        {
-            Application app = new Application();
-            app.Run(new MainWindow());
         }
     }
 }
