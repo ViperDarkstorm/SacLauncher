@@ -12,6 +12,7 @@ using System.Windows.Controls.Primitives;
 namespace SacLauncher
 {
 
+
     public partial class MainWindow : Window
     {
         private readonly string folderPath;
@@ -37,7 +38,7 @@ namespace SacLauncher
             Start_souls_slider.Value = 12;
             Max_level_slider.Value = 9;
             Min_level_slider.Value = 5;
-            Start_level_slider.Value = 5;
+            xp_rate_slider.Value = 1.00;
             Slaughter_target_kills.Value = 999;
             LoadSettings();
         }
@@ -54,6 +55,7 @@ namespace SacLauncher
             Game_mode_list.Visibility = Visibility.Visible;
             Random_gods.Visibility = Visibility.Visible;
             Custom_souls.Visibility = Visibility.Visible;
+            Custom_xp_rate.Visibility = Visibility.Visible;
             Custom_level.Visibility = Visibility.Visible;
             Custom_level_bounds.Visibility = Visibility.Visible;
             Shuffle_sides.Visibility = Visibility.Visible;
@@ -94,6 +96,7 @@ namespace SacLauncher
             Game_mode_list.Visibility = Visibility.Visible;
             Random_gods.Visibility = Visibility.Visible;
             Custom_souls.Visibility = Visibility.Visible;
+            Custom_xp_rate.Visibility = Visibility.Visible;
             Custom_level.Visibility = Visibility.Visible;
             Custom_level_bounds.Visibility = Visibility.Visible;
             Shuffle_sides.Visibility = Visibility.Visible;
@@ -134,6 +137,7 @@ namespace SacLauncher
             IP.Visibility = Visibility.Visible;
             Random_gods.Visibility = Visibility.Hidden;
             Custom_souls.Visibility = Visibility.Hidden;
+            Custom_xp_rate.Visibility = Visibility.Hidden;
             Custom_level.Visibility = Visibility.Hidden;
             Custom_level_bounds.Visibility = Visibility.Hidden;
             Shuffle_sides.Visibility = Visibility.Hidden;
@@ -491,6 +495,22 @@ namespace SacLauncher
             Resolution_list.Visibility = Visibility.Visible;
         }
 
+        private void Enable_green_souls_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Refuse_green_souls != null)
+            {
+                Refuse_green_souls.IsChecked = false;
+            }
+        }
+
+        private void Refuse_green_souls_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Enable_green_souls != null)
+            {
+                Enable_green_souls.IsChecked = false;
+            }
+        }
+
         private void Resolution_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Handle resolution selection change event if needed
@@ -599,7 +619,7 @@ namespace SacLauncher
 
         private void Sun_strength_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Sun.Text = Sun_strength_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+            Sun1.Text = Sun_strength_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
         }
 
         private void Ambient_strength_Checked(object sender, RoutedEventArgs e)
@@ -622,7 +642,7 @@ namespace SacLauncher
 
         private void Ambient_strength_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Ambient.Text = Ambient_strength_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+            Ambient1.Text = Ambient_strength_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
         }
 
         private void Master_volume_Checked(object sender, RoutedEventArgs e)
@@ -647,7 +667,7 @@ namespace SacLauncher
         {
             if (Master_volume_slider != null)
             {
-                Master.Text = Master_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+                Master1.Text = Master_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
 
                 // If the slider value is 0, uncheck the checkbox
                 if (Master_volume_slider.Value == 0)
@@ -686,7 +706,7 @@ namespace SacLauncher
             if (Music_volume_slider != null)
             {
                 // Update the label with the current slider value
-                Music.Text = Music_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+                Music1.Text = Music_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
 
                 // If the slider value is 0, uncheck the checkbox
                 if (Music_volume_slider.Value == 0)
@@ -723,7 +743,7 @@ namespace SacLauncher
         {
             if (Sound_volume_slider != null)
             {
-                Sound.Text = Sound_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
+                Sound1.Text = Sound_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
 
                 // If the slider value is 0, uncheck the checkbox
                 if (Sound_volume_slider.Value == 0)
@@ -885,28 +905,17 @@ namespace SacLauncher
 
         private void Start_souls_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // Handle start souls slider value changed event if needed
+            
         }
 
-        private void Start_level_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void xp_rate_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (Start_level_slider == null || Min_level_slider == null || Max_level_slider == null)
-                return;
-
-            // Ensure the start level is within the min and max bounds
-            if (Start_level_slider.Value < Min_level_slider.Value)
-            {
-                Start_level_slider.Value = Min_level_slider.Value;
-            }
-            if (Start_level_slider.Value > Max_level_slider.Value)
-            {
-                Start_level_slider.Value = Max_level_slider.Value;
-            }
+            Xprate1.Text = xp_rate_slider.Value.ToString("F2", CultureInfo.InvariantCulture);
         }
 
         private void Min_level_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (Start_level_slider == null || Min_level_slider == null || Max_level_slider == null)
+            if (Min_level_slider == null || Max_level_slider == null)
                 return;
 
             // Ensure the minimum level does not exceed the start level
@@ -914,25 +923,17 @@ namespace SacLauncher
             {
                 Min_level_slider.Value = Max_level_slider.Value;
             }
-            if (Min_level_slider.Value > Start_level_slider.Value)
-            {
-                Start_level_slider.Value = Min_level_slider.Value;
-            }
         }
 
         private void Max_level_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (Start_level_slider == null || Min_level_slider == null || Max_level_slider == null)
+            if (Min_level_slider == null || Max_level_slider == null)
                 return;
 
             // Ensure the maximum level is not below the start level
             if (Max_level_slider.Value < Min_level_slider.Value)
             {
                 Max_level_slider.Value = Min_level_slider.Value;
-            }
-            if (Max_level_slider.Value < Start_level_slider.Value)
-            {
-                Start_level_slider.Value = Max_level_slider.Value;
             }
         }
 
@@ -942,6 +943,11 @@ namespace SacLauncher
         }
 
         private void Custom_souls_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Custom_XP_rate_Checked(object sender, RoutedEventArgs e)
         {
 
         }
@@ -1061,10 +1067,11 @@ namespace SacLauncher
             Start_souls_slider.Value = 12;
             Max_level_slider.Value = 9;
             Min_level_slider.Value = 5;
-            Start_level_slider.Value = 5;
+            xp_rate_slider.Value = 1.00;
             Randomgod.IsChecked = true;
             Random_gods.IsChecked = true;
             Custom_souls.IsChecked = false;
+            Custom_xp_rate.IsChecked = false;
             Custom_level.IsChecked = false;
             Custom_level_bounds.IsChecked = false;
             Shuffle_sides.IsChecked = true;
@@ -1185,11 +1192,6 @@ namespace SacLauncher
             Application.Current.Shutdown();
         }
 
-        private void Savereplays_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Menus_Checked(object sender, RoutedEventArgs e)
         {
             if (sender is not ToggleButton checkedToggleButton)
@@ -1234,11 +1236,6 @@ namespace SacLauncher
         }
 
         private void Quit_button_Click(object sender, RoutedEventArgs e)
-        {
-            CloseApplication();
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             CloseApplication();
         }
@@ -1310,80 +1307,42 @@ namespace SacLauncher
         private string GenerateConfiguration()
         {
             StringBuilder sb = new StringBuilder();
-
-            // Append hotkeys
             sb.AppendLine("--hotkeys=hotkeys.txt");
-
-            // Append nickname
             sb.AppendLine($"--name={Nickname.Text}");
-
-            // Append wizard
             sb.AppendLine($"--wizard={(Wizard_list.SelectedItem as ComboBoxItem)?.Content}");
-
-            // Append god
             if (Randomgod.IsChecked == true)
                 sb.AppendLine("# --god=" + (God_list.SelectedItem as ComboBoxItem)?.Content);
             else
                 sb.AppendLine($"--god={(God_list.SelectedItem as ComboBoxItem)?.Content}");
-
-            // Append resolution
             if (Detect_Resolution.IsChecked == true)
                 sb.AppendLine("--detect-resolution");
             else if (Choose_Resolution.IsChecked == true)
                 sb.AppendLine($"--resolution={(Resolution_list.SelectedItem as ComboBoxItem)?.Content}");
-
-            // Append fullscreen
             sb.AppendLine(Fullscreen.IsChecked == true ? "--fullscreen" : "# --fullscreen");
-
-            // Append widgets
             sb.AppendLine(Widgets.IsChecked == true ? "--no-widgets" : "# --no-widgets");
-
-            // Append fog
             sb.AppendLine(Fog.IsChecked == true ? "# --fog" : "--fog");
-
-            // Append map bottom
             sb.AppendLine(MapBottom.IsChecked == true ? "# --no-map-bottom" : "--no-map-bottom");
-
-            // Append glow
             sb.AppendLine(Glow.IsChecked == true ? "# --no-glow" : "--no-glow");
-
-            // Append glow brightness
             sb.AppendLine(Glow_brightness.IsChecked == true ?
                 $"--glow-brightness={Glow_brightness_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}" :
                 $"# --glow-brightness={Glow_brightness_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}");
-
-            // Append antialiasing
             sb.AppendLine(Antialiasing.IsChecked == true ? "--antialiasing" : "# --antialiasing");
-
-            // Append sun strength
             sb.AppendLine(Sun_strength.IsChecked == true ?
                 $"--sun-factor={Sun_strength_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}" :
                 $"# --sun-factor={Sun_strength_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}");
-
-            // Append ambient strength
             sb.AppendLine(Ambient_strength.IsChecked == true ?
                 $"--ambient-factor={Ambient_strength_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}" :
                 $"# --ambient-factor={Ambient_strength_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}");
-
-            // Append master volume
             sb.AppendLine(Master_volume.IsChecked == true ?
                 $"--volume={Master_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}" :
                 $"# --volume={Master_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}");
-
-            // Append music volume
             sb.AppendLine(Music_volume.IsChecked == true ?
                 $"--music-volume={Music_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}" :
                 $"# --music-volume={Music_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}");
-
-            // Append sound volume
             sb.AppendLine(Sound_volume.IsChecked == true ?
                 $"--sound-volume={Sound_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}" :
                 $"# --sound-volume={Sound_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture)}");
-
-            // Append no advisor help speech
             sb.AppendLine(No_advisor_help_speech.IsChecked == true ? "# --no-advisor-help-speech" : "--no-advisor-help-speech");
-
-            // Append network configuration based on selected mode
             if (Host_game.IsChecked == true && !string.IsNullOrWhiteSpace(network.Text))
                 sb.AppendLine($"--zerotier-network={network.Text}");
             if (Join_game.IsChecked == true && !string.IsNullOrWhiteSpace(network.Text))
@@ -1403,7 +1362,6 @@ namespace SacLauncher
             {
                 sb.AppendLine("# --join");
             }
-            // Append player count for hosting or single player mode
             if (Host_game.IsChecked == true && P2.IsChecked == true) sb.Append("--host=2").Append(Environment.NewLine);
             if (Host_game.IsChecked == true && P3.IsChecked == true) sb.Append("--host=3").Append(Environment.NewLine);
             if (Host_game.IsChecked == true && P4.IsChecked == true) sb.Append("--host=4").Append(Environment.NewLine);
@@ -1411,35 +1369,24 @@ namespace SacLauncher
             if (Host_game.IsChecked == true && P6.IsChecked == true) sb.Append("--host=6").Append(Environment.NewLine);
             if (Host_game.IsChecked == true && P7.IsChecked == true) sb.Append("--host=7").Append(Environment.NewLine);
             if (Host_game.IsChecked == true && P8.IsChecked == true) sb.Append("--host=8").Append(Environment.NewLine);
-
-            // Append selected game mode if available
             if (Host_game.IsChecked == true && Game_mode_list.SelectedItem != null)
+            {
                 sb.AppendLine($"--{Game_mode_list.SelectedItem}");
-
-            // Append soul, level, min-level, max-level settings
-            sb.AppendLine($"--souls={Start_souls_slider.Value}")
-                .AppendLine($"--max-level={Max_level_slider.Value}")
-                .AppendLine($"--level={Start_level_slider.Value}")
-                .AppendLine($"--min-level={Min_level_slider.Value}");
-                
-
-            // Append random gods, shuffle sides, stutter on desync, no particles, and slaughter settings
-            if (Random_gods.IsChecked == true) sb.AppendLine("--random-gods");
-            if (Random_gods.IsChecked == false) sb.AppendLine("# --random-gods");
-            if (Custom_souls.IsChecked == true) sb.AppendLine("--no-synchronize-souls");
-            if (Custom_souls.IsChecked == false) sb.AppendLine("# --no-synchronize-souls");
-            if (Custom_level.IsChecked == true) sb.AppendLine("--no-synchronize-level");
-            if (Custom_level.IsChecked == false) sb.AppendLine("# --no-synchronize-level");
-            if (Custom_level_bounds.IsChecked == true) sb.AppendLine("--no-synchronize-level-bounds");
-            if (Custom_level_bounds.IsChecked == false) sb.AppendLine("# --no-synchronize-level-bounds");
-            if (Shuffle_sides.IsChecked == true) sb.AppendLine("--shuffle-sides");
-            if (Shuffle_sides.IsChecked == false) sb.AppendLine("# --shuffle-sides");
-            if (Stutter_on_desync.IsChecked == true) sb.AppendLine("--stutter-on-desynch");
-            if (Stutter_on_desync.IsChecked == false) sb.AppendLine("# --stutter-on-desynch");
-            if (No_particles.IsChecked == true) sb.AppendLine("--no-particles");
-            if (No_particles.IsChecked == false) sb.AppendLine("# --no-particles");
-            if (Slaughter.IsChecked == true) sb.AppendLine($"--slaughter={Slaughter_target_kills.Value}");
-            else if (Slaughter.IsChecked == false) sb.AppendLine($"# --slaughter={Slaughter_target_kills.Value}");
+            }
+            sb.AppendLine($"--souls={Start_souls_slider.Value}");
+            sb.AppendLine($"--level={Min_level_slider.Value}");
+            sb.AppendLine($"--min-level={Min_level_slider.Value}");
+            sb.AppendLine($"--max-level={Max_level_slider.Value}");
+            sb.AppendLine($"--xp-rate={xp_rate_slider.Value}");
+            sb.AppendLine(Random_gods.IsChecked == true ? "--random-gods" : "# --random-gods");
+            sb.AppendLine(Custom_souls.IsChecked == true ? "--no-synchronize-souls" : "# --no-synchronize-souls");
+            sb.AppendLine(Custom_xp_rate.IsChecked == true ? "--no-synchronize-xp-rate" : "# --no-synchronize-xp-rate");
+            sb.AppendLine(Custom_level.IsChecked == true ? "--no-synchronize-level" : "# --no-synchronize-level");
+            sb.AppendLine(Custom_level_bounds.IsChecked == true ? "--no-synchronize-level-bounds" : "# --no-synchronize-level-bounds");
+            sb.AppendLine(Shuffle_sides.IsChecked == true ? "--shuffle-sides" : "# --shuffle-sides");
+            sb.AppendLine(Stutter_on_desync.IsChecked == true ? "--stutter-on-desynch" : "# --stutter-on-desynch");
+            sb.AppendLine(No_particles.IsChecked == true ? "--no-particles" : "# --no-particles");
+            sb.AppendLine(Slaughter.IsChecked == true ? $"--slaughter={Slaughter_target_kills.Value}" : $"# --slaughter={Slaughter_target_kills.Value}");
 
             // Append map list and selection settings
             if (string.IsNullOrWhiteSpace(Map_selection.Text) && !string.IsNullOrWhiteSpace(Map_list1.Text)) sb.AppendLine($"--map-list={Map_list1.Text}");
@@ -1453,6 +1400,8 @@ namespace SacLauncher
 
             // Append observer and save replays settings
             sb.AppendLine(Observer.IsChecked == true ? "--observer" : "# --observer");
+            if (Enable_green_souls.IsChecked == true) sb.AppendLine("--green-ally-souls");
+            if (Refuse_green_souls.IsChecked == true) sb.AppendLine("--refuse-green-souls");
             sb.AppendLine(Savereplays.IsChecked == true ? "--record-folder=replays" : "# --record-folder=replays");
             if (Host_game.IsChecked == true && Restart_game.IsChecked == true)
             {
@@ -1826,12 +1775,6 @@ namespace SacLauncher
                             Start_souls_slider.Value = souls;
                         }
                         break;
-                    case "--level":
-                        if (value != null && double.TryParse(value, out double level))
-                        {
-                            Start_level_slider.Value = level;
-                        }
-                        break;
                     case "--min-level":
                         if (value != null && double.TryParse(value, out double minlvl))
                         {
@@ -1842,6 +1785,12 @@ namespace SacLauncher
                         if (value != null && double.TryParse(value, out double maxlvl))
                         {
                             Max_level_slider.Value = maxlvl;
+                        }
+                        break;
+                    case "--xp-rate":
+                        if (value != null && double.TryParse(value, out double xprate))
+                        {
+                            xp_rate_slider.Value = xprate;
                         }
                         break;
                     case "--random-gods":
@@ -1855,6 +1804,12 @@ namespace SacLauncher
                         break;
                     case "# --no-synchronize-souls":
                         Custom_souls.IsChecked = false;
+                        break;
+                    case "--no-synchronize-xp-rate":
+                        Custom_xp_rate.IsChecked = true;
+                        break;
+                    case "# --no-synchronize-xp-rate":
+                        Custom_xp_rate.IsChecked = false;
                         break;
                     case "--no-synchronize-level":
                         Custom_level.IsChecked = true;
@@ -1888,11 +1843,17 @@ namespace SacLauncher
                         break;
                     case "--slaughter":
                         Slaughter.IsChecked = true;
-                        Slaughter_target_kills.Value = double.Parse(value);
+                        if(value != null && double.TryParse(value, out double slaughter))
+                        {
+                            Slaughter_target_kills.Value = slaughter;
+                        }
                         break;
                     case "# --slaughter":
                         Slaughter.IsChecked = false;
-                        Slaughter_target_kills.Value = double.Parse(value);
+                        if (value != null && double.TryParse(value, out double slaughter1))
+                        {
+                            Slaughter_target_kills.Value = slaughter1;
+                        }
                         break;
                     case "# --map-list":
                         if (value != null)
@@ -1916,6 +1877,12 @@ namespace SacLauncher
                         break;
                     case "# --observer":
                         Observer.IsChecked = false;
+                        break;
+                    case "--green-ally-souls":
+                        Enable_green_souls.IsChecked = true;
+                        break;
+                    case "--refuse-green-souls":
+                        Refuse_green_souls.IsChecked = true;
                         break;
                     case "--record-folder":
                         Savereplays.IsChecked = true;

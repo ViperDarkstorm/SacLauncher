@@ -13,15 +13,15 @@
         ResizeMode="NoResize">
     <Grid>
         <Image x:Name="Background" Stretch="Uniform" Source="images/Sacrifice_1920x1200.jpg" HorizontalAlignment="Center" Width="1250" Height="720"/>
-        <Grid Background="#5A000000">
-            <Grid Margin="490,150,510,150">
+        <Grid>
+            <Grid Margin="490,150,490,150">
                 <StackPanel x:Name="Menus">
                     <ToggleButton x:Name="Singleplayer" Content="Singleplayer" HorizontalAlignment="Center" VerticalAlignment="Top" Checked="Menus_Checked" Width="150" Height="22" BorderBrush="#00000000" Margin="0,0,0,0" FontFamily="Verdana">
                         <ToggleButton.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFE09002"/>
-                                <GradientStop Color="#FFE09002" Offset="1"/>
-                                <GradientStop Color="White" Offset="0.373"/>
+                                <GradientStop Color="#FF8C6600"/>
+                                <GradientStop Color="#FF8C6600" Offset="1"/>
+                                <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
                             </LinearGradientBrush>
                         </ToggleButton.Foreground>
                         <ToggleButton.Background>
@@ -35,7 +35,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
                                             </Border>
                                             <ControlTemplate.Triggers>
 
@@ -57,6 +57,15 @@
                                                     <Setter TargetName="border" Property="Background">
                                                         <Setter.Value>
                                                             <ImageBrush ImageSource="/images/Button2.png"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter TargetName="border" Property="TextBlock.Foreground">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                <GradientStop Color="#FFBA8D1E"/>
+                                                                <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                                <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                            </LinearGradientBrush>
                                                         </Setter.Value>
                                                     </Setter>
                                                 </MultiTrigger>
@@ -71,9 +80,9 @@
                     <ToggleButton x:Name="Host_game" Content="Host game" HorizontalAlignment="Center" VerticalAlignment="Top" Checked="Menus_Checked" Width="150" Height="22" BorderBrush="#00000000" Margin="0,0,0,0" FontFamily="Verdana">
                         <ToggleButton.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFE09002"/>
-                                <GradientStop Color="#FFE09002" Offset="1"/>
-                                <GradientStop Color="White" Offset="0.373"/>
+                                <GradientStop Color="#FF8C6600"/>
+                                <GradientStop Color="#FF8C6600" Offset="1"/>
+                                <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
                             </LinearGradientBrush>
                         </ToggleButton.Foreground>
                         <ToggleButton.Background>
@@ -87,7 +96,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
                                             </Border>
                                             <ControlTemplate.Triggers>
 
@@ -109,6 +118,15 @@
                                                     <Setter TargetName="border" Property="Background">
                                                         <Setter.Value>
                                                             <ImageBrush ImageSource="/images/Button2.png"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter TargetName="border" Property="TextBlock.Foreground">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                <GradientStop Color="#FFBA8D1E"/>
+                                                                <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                                <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                            </LinearGradientBrush>
                                                         </Setter.Value>
                                                     </Setter>
                                                 </MultiTrigger>
@@ -123,9 +141,9 @@
                     <ToggleButton x:Name="Join_game" Content="Join game" HorizontalAlignment="Center" VerticalAlignment="Top" Checked="Menus_Checked" Width="150" Height="22" BorderBrush="#00000000" Margin="0,0,0,0" FontFamily="Verdana">
                         <ToggleButton.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFE09002"/>
-                                <GradientStop Color="#FFE09002" Offset="1"/>
-                                <GradientStop Color="White" Offset="0.373"/>
+                                <GradientStop Color="#FF8C6600"/>
+                                <GradientStop Color="#FF8C6600" Offset="1"/>
+                                <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
                             </LinearGradientBrush>
                         </ToggleButton.Foreground>
                         <ToggleButton.Background>
@@ -139,7 +157,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
                                             </Border>
                                             <ControlTemplate.Triggers>
 
@@ -161,6 +179,15 @@
                                                     <Setter TargetName="border" Property="Background">
                                                         <Setter.Value>
                                                             <ImageBrush ImageSource="/images/Button2.png"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter TargetName="border" Property="TextBlock.Foreground">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                <GradientStop Color="#FFBA8D1E"/>
+                                                                <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                                <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                            </LinearGradientBrush>
                                                         </Setter.Value>
                                                     </Setter>
                                                 </MultiTrigger>
@@ -175,9 +202,9 @@
                     <ToggleButton x:Name="Settings" Content="Settings" HorizontalAlignment="Center" VerticalAlignment="Top" Checked="Menus_Checked" Width="150" Height="22" BorderBrush="#00000000" Margin="0,0,0,0" FontFamily="Verdana">
                         <ToggleButton.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFE09002"/>
-                                <GradientStop Color="#FFE09002" Offset="1"/>
-                                <GradientStop Color="White" Offset="0.373"/>
+                                <GradientStop Color="#FF8C6600"/>
+                                <GradientStop Color="#FF8C6600" Offset="1"/>
+                                <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
                             </LinearGradientBrush>
                         </ToggleButton.Foreground>
                         <ToggleButton.Background>
@@ -191,7 +218,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
                                             </Border>
                                             <ControlTemplate.Triggers>
 
@@ -215,6 +242,15 @@
                                                             <ImageBrush ImageSource="/images/Button2.png"/>
                                                         </Setter.Value>
                                                     </Setter>
+                                                    <Setter TargetName="border" Property="TextBlock.Foreground">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                <GradientStop Color="#FFBA8D1E"/>
+                                                                <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                                <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                            </LinearGradientBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
                                                 </MultiTrigger>
 
                                             </ControlTemplate.Triggers>
@@ -225,12 +261,12 @@
                         </ToggleButton.Style>
                     </ToggleButton>
                 </StackPanel>
-                <Button x:Name="Quit_button" Content="Quit" Padding="0,0,0,0" Margin="0,100,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Quit_button_Click">
+                <Button x:Name="Quit_button" Content="Quit" Padding="0,0,0,0" Margin="0,100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Quit_button_Click">
                     <Button.Foreground>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFE09002"/>
-                            <GradientStop Color="#FFE09002" Offset="1"/>
-                            <GradientStop Color="White" Offset="0.373"/>
+                            <GradientStop Color="#FF8C6600"/>
+                            <GradientStop Color="#FF8C6600" Offset="1"/>
+                            <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
                         </LinearGradientBrush>
                     </Button.Foreground>
                     <Button.Background>
@@ -244,13 +280,22 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="Button">
                                         <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <Setter TargetName="border" Property="Background">
                                                     <Setter.Value>
                                                         <ImageBrush ImageSource="/images/Button2.png"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Setter TargetName="border" Property="TextBlock.Foreground">
+                                                    <Setter.Value>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FFBA8D1E"/>
+                                                            <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                            <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                        </LinearGradientBrush>
                                                     </Setter.Value>
                                                 </Setter>
                                             </Trigger>
@@ -269,439 +314,490 @@
                     </Button.Style>
                 </Button>
             </Grid>
+            <Grid x:Name="Player_details_grid" Margin="30,30,0,0">
+                <Grid Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="388" Width="450">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="images/frame.png"/>
+                    </Grid.Background>
+                    <TextBlock x:Name="Player_details" HorizontalAlignment="Center" Padding="10" Margin="0,0,0,0" TextWrapping="Wrap" Text="P l a y e r   D e t a i l s" VerticalAlignment="Top" Height="40" Width="400" FontSize="18" TextAlignment="Center" FontFamily="ElGar" Foreground="White"/>
+                </Grid>
+                <Grid Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="400" Width="450">
+                    <TextBlock x:Name="Nick" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nickname:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="29,49,0,0"/>
+                    <TextBox x:Name="Nickname" GotFocus="Nickname_GotFocus" PreviewMouseDown="Nickname_PreviewMouseDown" Margin="159,49,0,0" Padding="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"  TextWrapping="NoWrap" Text="Player Name" Width="140" Foreground="Black" TextChanged="Nickname_TextChanged" Height="20" RenderTransformOrigin="0.5,0.502" FontWeight="Bold">
+                        <TextBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </TextBox.OpacityMask>
+                    </TextBox>
+                    <TextBlock x:Name="Wiz" HorizontalAlignment="Left" Margin="29,75,0,0" TextWrapping="Wrap" Text="Wizard:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+                    <ComboBox x:Name="Wizard_list" HorizontalAlignment="Left" SelectedIndex="0" Padding="3,1,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="159,75,0,0" VerticalAlignment="Top" Width="140" Height="20" Foreground="Black" SelectionChanged="Wizard_list_SelectionChanged" FontWeight="Bold" TextBlock.FontWeight="Bold">
+                        <ComboBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </ComboBox.OpacityMask>
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="#FFF0F0F0"/>
+                                <GradientStop Color="#3FFFFFFF" Offset="1"/>
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
+                        <ComboBoxItem Content="Abraxus"/>
+                        <ComboBoxItem Content="Acheron"/>
+                        <ComboBoxItem Content="Ambassador Buta"/>
+                        <ComboBoxItem Content="Charlotte"/>
+                        <ComboBoxItem Content="Eldred"/>
+                        <ComboBoxItem Content="Grakkus"/>
+                        <ComboBoxItem Content="Hachimen"/>
+                        <ComboBoxItem Content="Jadugarr"/>
+                        <ComboBoxItem Content="Marduk"/>
+                        <ComboBoxItem Content="Mithras"/>
+                        <ComboBoxItem Content="Seerix"/>
+                        <ComboBoxItem Content="Shakti"/>
+                        <ComboBoxItem Content="Sorcha"/>
+                        <ComboBoxItem Content="The Ragman"/>
+                        <ComboBoxItem Content="Yogo"/>
+                    </ComboBox>
+                    <TextBlock x:Name="God" HorizontalAlignment="Left" Margin="29,99,0,0" TextWrapping="Wrap" Text="God:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" RenderTransformOrigin="1.055,-1.253"/>
+                    <ComboBox x:Name="God_list" HorizontalAlignment="Left" SelectedIndex="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="3,0,0,0" Margin="159,99,0,0" VerticalAlignment="Top" Width="140" Height="20" Foreground="Black" SelectionChanged="God_list_SelectionChanged" FontWeight="Bold" TextBlock.FontWeight="Bold">
+                        <ComboBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </ComboBox.OpacityMask>
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="#FFF0F0F0"/>
+                                <GradientStop Color="#3FFFFFFF" Offset="1"/>
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
+                        <ComboBoxItem Content="persephone"/>
+                        <ComboBoxItem Content="james"/>
+                        <ComboBoxItem Content="stratos"/>
+                        <ComboBoxItem Content="pyro"/>
+                        <ComboBoxItem Content="charnel"/>
+                    </ComboBox>
+                    <CheckBox x:Name="Randomgod" Content="Random god" IsChecked="True" Foreground="White" Margin="309,99,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="Randomgod_Checked" TextBlock.FontWeight="Bold"/>
+                    <TextBlock x:Name="zerotier" HorizontalAlignment="Left" Margin="29,125,0,0" TextWrapping="Wrap" Text="Zerotier network ID:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+                    <TextBox x:Name="network" GotFocus="network_GotFocus" PreviewMouseDown="network_PreviewMouseDown" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="159,125,0,0" TextWrapping="NoWrap" Text="6ab565387ab194c6" VerticalAlignment="Top" Width="140" FontWeight="Bold" Height="22" TextChanged="network_TextChanged">
+                        <TextBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </TextBox.OpacityMask>
+                    </TextBox>
 
-            <Grid x:Name="Player_details_grid" Margin="25,0,0,0">
-                <TextBlock x:Name="Nick" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nickname:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="35,55,0,0"/>
-                <TextBox x:Name="Nickname" GotFocus="Nickname_GotFocus" PreviewMouseDown="Nickname_PreviewMouseDown" Margin="165,55,0,0" Padding="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="Player Name" Width="140" Foreground="Black" TextChanged="Nickname_TextChanged" Height="20" RenderTransformOrigin="0.5,0.502" FontWeight="Bold">
-                    <TextBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </TextBox.OpacityMask>
-                </TextBox>
-                <TextBlock x:Name="Wiz" HorizontalAlignment="Left" Margin="35,80,0,0" TextWrapping="Wrap" Text="Wizard:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                <ComboBox x:Name="Wizard_list" HorizontalAlignment="Left" SelectedIndex="0" Padding="3,1,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="165,80,0,0" VerticalAlignment="Top" Width="140" Height="20" Foreground="Black" SelectionChanged="Wizard_list_SelectionChanged" FontWeight="Bold" TextBlock.FontWeight="Bold">
-                    <ComboBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </ComboBox.OpacityMask>
-                    <ComboBox.Background>
-                        <LinearGradientBrush EndPoint="0,1">
-                            <GradientStop Color="#FFF0F0F0"/>
-                            <GradientStop Color="#3FFFFFFF" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ComboBox.Background>
-                    <ComboBoxItem Content="Abraxus"/>
-                    <ComboBoxItem Content="Acheron"/>
-                    <ComboBoxItem Content="Ambassador Buta"/>
-                    <ComboBoxItem Content="Charlotte"/>
-                    <ComboBoxItem Content="Eldred"/>
-                    <ComboBoxItem Content="Grakkus"/>
-                    <ComboBoxItem Content="Hachimen"/>
-                    <ComboBoxItem Content="Jadugarr"/>
-                    <ComboBoxItem Content="Marduk"/>
-                    <ComboBoxItem Content="Mithras"/>
-                    <ComboBoxItem Content="Seerix"/>
-                    <ComboBoxItem Content="Shakti"/>
-                    <ComboBoxItem Content="Sorcha"/>
-                    <ComboBoxItem Content="The Ragman"/>
-                    <ComboBoxItem Content="Yogo"/>
-                </ComboBox>
-                <TextBlock x:Name="God" HorizontalAlignment="Left" Margin="35,105,0,0" TextWrapping="Wrap" Text="God:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" RenderTransformOrigin="1.055,-1.253"/>
-                <ComboBox x:Name="God_list" HorizontalAlignment="Left" SelectedIndex="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="3,0,0,0" Margin="165,105,0,0" VerticalAlignment="Top" Width="140" Height="20" Foreground="Black" SelectionChanged="God_list_SelectionChanged" FontWeight="Bold" TextBlock.FontWeight="Bold">
-                    <ComboBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </ComboBox.OpacityMask>
-                    <ComboBox.Background>
-                        <LinearGradientBrush EndPoint="0,1">
-                            <GradientStop Color="#FFF0F0F0"/>
-                            <GradientStop Color="#3FFFFFFF" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ComboBox.Background>
-                    <ComboBoxItem Content="persephone"/>
-                    <ComboBoxItem Content="james"/>
-                    <ComboBoxItem Content="stratos"/>
-                    <ComboBoxItem Content="pyro"/>
-                    <ComboBoxItem Content="charnel"/>
-                </ComboBox>
-                <CheckBox x:Name="Randomgod" Content="Random god" IsChecked="True" Foreground="White" Margin="315,105,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="Randomgod_Checked" TextBlock.FontWeight="Bold"/>
-                <TextBlock x:Name="zerotier" HorizontalAlignment="Left" Margin="35,130,0,0" TextWrapping="Wrap" Text="Zerotier network ID:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                <TextBox x:Name="network" GotFocus="network_GotFocus" PreviewMouseDown="network_PreviewMouseDown" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="165,130,0,0" TextWrapping="Wrap" Text="6ab565387ab194c6" VerticalAlignment="Top" Width="140" FontWeight="Bold" Height="22" TextChanged="network_TextChanged">
-                    <TextBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </TextBox.OpacityMask>
-                </TextBox>
-                <TextBlock x:Name="Players" TextWrapping="Wrap" Margin="668,54,0,0" Text="Players:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                <RadioButton x:Name="P2" GroupName="Players" Content="2" HorizontalAlignment="Left" Margin="778,54,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                <RadioButton x:Name="P3" GroupName="Players" Content="3" HorizontalAlignment="Left" Margin="818,54,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                <RadioButton x:Name="P4" GroupName="Players" Content="4" HorizontalAlignment="Left" Margin="858,54,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                <RadioButton x:Name="P5" GroupName="Players" Content="5" HorizontalAlignment="Left" Margin="898,54,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                <RadioButton x:Name="P6" GroupName="Players" Content="6" HorizontalAlignment="Left" Margin="938,54,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                <RadioButton x:Name="P7" GroupName="Players" Content="7" HorizontalAlignment="Left" Margin="978,54,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                <RadioButton x:Name="P8" GroupName="Players" Content="8" HorizontalAlignment="Left" Margin="1018,54,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                <!-- Enter IP TextBlock -->
-                <TextBlock x:Name="EnterIP" TextWrapping="Wrap" Text="Enter IP:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="720,106,0,0" Foreground="White" FontWeight="Bold">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsChecked, ElementName=Guest}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-                <!-- IP TextBox -->
-                <TextBox x:Name="IP" GotFocus="IP_GotFocus" PreviewMouseDown="IP_PreviewMouseDown" TextWrapping="Wrap" Width="145" Margin="900,106,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Height="21" TextChanged="IP_TextChanged">
-                    <TextBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </TextBox.OpacityMask>
-                    <TextBox.Style>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsChecked, ElementName=Guest}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <TextBlock x:Name="Game_mode" TextWrapping="Wrap" Margin="668,79,0,0" Text="Game mode:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                <ComboBox x:Name="Game_mode_list" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Padding="3,1,0,0" Margin="848,79,0,0"  VerticalContentAlignment="Top" VerticalAlignment="Top" Width="144" Height="20" SelectionChanged="Game_mode_list_SelectionChanged" FontWeight="Bold">
-                    <ComboBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </ComboBox.OpacityMask>
-                </ComboBox>
-                <TextBlock x:Name="Starting_souls" HorizontalAlignment="Left" Margin="35,161,0,0" TextWrapping="Wrap" Text="Starting souls:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                <Slider x:Name="Start_souls_slider" Margin="165,161,0,0" Width="144" Height="20" Minimum="0" Maximum="24" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBlock Text="{Binding ElementName=Start_souls_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="315,161,0,0" FontSize="16" Background="White" Width="46" Height="18" TextAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <TextBlock x:Name="Starting_level" HorizontalAlignment="Left" Margin="35,186,0,0" TextWrapping="Wrap" Text="Starting level:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                <Slider x:Name="Start_level_slider" Margin="165,186,0,0" Width="144" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Start_level_slider_ValueChanged"/>
-                <TextBlock Text="{Binding ElementName=Start_level_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="315,186,0,0" FontSize="16" Background="White" Width="46" Height="18" TextAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <TextBlock x:Name="Min_level" HorizontalAlignment="Left" Margin="35,211,0,0" TextWrapping="Wrap" Text="Minimum level:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                <Slider x:Name="Min_level_slider" Margin="165,211,0,0" Width="144" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Min_level_slider_ValueChanged"/>
-                <TextBlock Text="{Binding ElementName=Min_level_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="315,211,0,0" FontSize="16" Background="White" Width="46" Height="18" TextAlignment="Center" RenderTransformOrigin="0.5,0.502" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <TextBlock x:Name="Max_level" HorizontalAlignment="Left" Margin="35,236,0,0" TextWrapping="Wrap" Text="Maximum level:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                <Slider x:Name="Max_level_slider" Margin="165,236,0,0" Width="144" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Max_level_slider_ValueChanged"/>
-                <TextBlock Text="{Binding ElementName=Max_level_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="315,236,0,0" FontSize="16" Background="White" Width="46" Height="18" TextAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <CheckBox x:Name="Observer" Content="Observer" HorizontalAlignment="Left" Margin="35,261,0,0" VerticalAlignment="Top" Foreground="White" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Savereplays" Content="Save replays" HorizontalAlignment="Left" IsChecked="True" Margin="165,261,0,0" VerticalAlignment="Top" Foreground="White" Checked="Savereplays_Checked" RenderTransformOrigin="0.575,0.599" TextBlock.FontWeight="Bold"/>
-                <Button x:Name="Resetbutton" Content="Reset for hosting" Padding="0,0,0,0" Margin="235,344,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Resetbutton_Click">
-                    <Button.Foreground>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFE09002"/>
-                            <GradientStop Color="#FFE09002" Offset="1"/>
-                            <GradientStop Color="White" Offset="0.373"/>
-                        </LinearGradientBrush>
-                    </Button.Foreground>
-                    <Button.Background>
-                        <ImageBrush ImageSource="/images/Button1.png"/>
-                    </Button.Background>
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#00000000"/>
-                            <!-- Default background color -->
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="Background">
-                                                    <Setter.Value>
-                                                        <ImageBrush ImageSource="/images/Button2.png"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                            <Trigger Property="IsPressed" Value="True">
-                                                <Setter TargetName="border" Property="Background">
-                                                    <Setter.Value>
-                                                        <ImageBrush ImageSource="/images/Button3.png"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <CheckBox x:Name="Random_gods" Content="Random gods" HorizontalAlignment="Left" Margin="668,103,0,0" VerticalAlignment="Top" Foreground="White" Checked="Random_gods_Checked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Shuffle_sides" Content="Shuffle sides" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.51,0.466" Checked="Shuffle_sides_Checked" TextBlock.FontWeight="Bold" Margin="668,128,0,0"/>
-                <CheckBox x:Name="Stutter_on_desync" Content="Stutter on desynchronization" HorizontalAlignment="Left" Margin="848,103,0,0" VerticalAlignment="Top" Foreground="White" Checked="Stutter_on_desync_Checked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="No_particles" Content="No particles" HorizontalAlignment="Left" Margin="848,128,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.504,0.533" Checked="No_particles_Checked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Slaughter" Content="Enable slaughter" HorizontalAlignment="Left" Margin="668,203,0,0" VerticalAlignment="Top" Foreground="White" Checked="Slaughter_Checked" TextBlock.FontWeight="Bold"/>
-                <Slider x:Name="Slaughter_target_kills" Margin="848,203,0,0" Width="144" Height="20" Minimum="0" Maximum="999" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBlock x:Name="Slaughter_kills_number" Text="{Binding ElementName=Slaughter_target_kills, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1002,201,0,0" FontSize="16" Background="White" Width="42" Height="18" TextAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <CheckBox x:Name="Custom_souls" Content="Custom souls" HorizontalAlignment="Left" Margin="668,153,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_souls_Checked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Custom_level" Content="Custom level" HorizontalAlignment="Left" Margin="668,178,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_level_Checked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Custom_level_bounds" Content="Custom level bounds" HorizontalAlignment="Left" Margin="848,178,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_level_bounds_Checked" TextBlock.FontWeight="Bold"/>
-                <TextBlock x:Name="Map_list" TextWrapping="Wrap" Margin="668,226,0,0" Text="Map list:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                <ComboBox x:Name="Map_list1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="848,226,0,0" Padding="3,1,0,0" VerticalContentAlignment="Top" VerticalAlignment="Top" Width="144" Height="20" FontWeight="Bold" SelectionChanged="Map_list1_SelectionChanged">>
-                    <ComboBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </ComboBox.OpacityMask>
-                </ComboBox>
-                <Button x:Name="Reroll_button" Content="Roll" Click="ButtonRoll_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="998,221,0,0" Height="28" Width="56"/>
-                <TextBlock x:Name="Map_select" TextWrapping="Wrap" Margin="668,251,0,0" Text="Map name:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                <TextBox x:Name="Map_selection" GotFocus="Selection_GotFocus" PreviewMouseDown="Selection_PreviewMouseDown" Padding="0,0,0,0" VerticalScrollBarVisibility="Auto" IsReadOnly="False" TextWrapping="Wrap" Width="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="848,251,0,0" FontWeight="Bold" Height="20">
-                    <TextBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </TextBox.OpacityMask>
-                </TextBox>
-                <CheckBox x:Name="Restart_game" Content="Restart game from replay:" HorizontalAlignment="Left" Margin="668,276,0,0" VerticalAlignment="Top" Foreground="White" TextBlock.FontWeight="Bold" Checked="Restart_game_Checked"/>
-                <CheckBox x:Name="Watch_replay" Content="Watch replay:" HorizontalAlignment="Left" Margin="668,276,0,0" VerticalAlignment="Top" Foreground="White" TextBlock.FontWeight="Bold" Checked="Watch_replay_Checked"/>
-                <ComboBox x:Name="ReplaysComboBox" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="848,276,0,0" Padding="3,1,0,0" VerticalContentAlignment="Top" Width="196" Height="20" FontWeight="Bold" SelectionChanged="ReplaysComboBox_SelectionChanged">
-                    <ComboBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </ComboBox.OpacityMask>
-                </ComboBox>
-                <TextBlock x:Name="Continue_at" TextWrapping="Wrap" Margin="668,301,0,0" Text="Continue at frame (leave empty to continue from last frame):" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                <TextBlock x:Name="Continue_at2" TextWrapping="Wrap" Margin="668,301,0,0" Text="Continue at frame (leave empty to start at beginning):" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                <TextBox x:Name="Frame" TextWrapping="Wrap" Margin="1018,301,0,0" FontWeight="Bold" Height="20" Padding="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" >
-                    <TextBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </TextBox.OpacityMask>
-                </TextBox>
+                    <TextBlock x:Name="Starting_souls" HorizontalAlignment="Left" Margin="29,155,0,0" TextWrapping="Wrap" Text="Starting souls:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+                    <Slider x:Name="Start_souls_slider" Margin="159,155,0,0" Width="144" Height="20" Minimum="0" Maximum="24" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="Souls1" Text="{Binding ElementName=Start_souls_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="309,155,0,0" TextAlignment="Center" Foreground="White"/>
+                    <TextBlock x:Name="Min_level" HorizontalAlignment="Left" Margin="29,180,0,0" TextWrapping="Wrap" Text="Minimum level:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+                    <Slider x:Name="Min_level_slider" Margin="159,180,0,0" Width="144" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Min_level_slider_ValueChanged"/>
+                    <TextBlock x:Name="Minlevel1" Text="{Binding ElementName=Min_level_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="309,180,0,0" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock x:Name="Max_level" HorizontalAlignment="Left" Margin="29,205,0,0" TextWrapping="Wrap" Text="Maximum level:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+                    <Slider x:Name="Max_level_slider" Margin="159,205,0,0" Width="144" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Max_level_slider_ValueChanged"/>
+                    <TextBlock x:Name="Maxlevel1" Text="{Binding ElementName=Max_level_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="309,205,0,0" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock x:Name="xp_Rate" HorizontalAlignment="Left" Margin="29,230,0,0" TextWrapping="Wrap" Text="XP Rate:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+                    <Slider x:Name="xp_rate_slider" Margin="159,230,0,0" Width="144" Height="20" Minimum="0.00" Maximum="4.00" IsSnapToTickEnabled="True" TickFrequency="0.01" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="xp_rate_slider_ValueChanged"/>
+                    <TextBlock x:Name="Xprate1" Text="{Binding ElementName=xp_rate_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="309,230,0,0" Padding="0,0,0,0" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
 
-                <Button x:Name="LaunchButton1" Content="Start game" Click="LaunchButton_Click" Padding="0,0,0,0" Margin="920,344,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana">
-                    <Button.Foreground>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFE09002"/>
-                            <GradientStop Color="#FFE09002" Offset="1"/>
-                            <GradientStop Color="White" Offset="0.373"/>
-                        </LinearGradientBrush>
-                    </Button.Foreground>
-                    <Button.Background>
-                        <ImageBrush ImageSource="/images/Button1.png"/>
-                    </Button.Background>
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#00000000"/>
-                            <!-- Default background color -->
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="Background">
-                                                    <Setter.Value>
-                                                        <ImageBrush ImageSource="/images/Button2.png"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                            <Trigger Property="IsPressed" Value="True">
-                                                <Setter TargetName="border" Property="Background">
-                                                    <Setter.Value>
-                                                        <ImageBrush ImageSource="/images/Button3.png"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                    <CheckBox x:Name="Observer" Content="Observer" HorizontalAlignment="Left" Margin="29,255,0,0" VerticalAlignment="Top" Foreground="White" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Savereplays" Content="Save replays" HorizontalAlignment="Left" IsChecked="True" Margin="159,255,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.575,0.599" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Enable_green_souls" Content="Enable green souls" HorizontalAlignment="Left" Margin="29,280,0,0" VerticalAlignment="Top" Foreground="White" Checked="Enable_green_souls_Checked" RenderTransformOrigin="0.575,0.599" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Refuse_green_souls" Content="Refuse green souls" HorizontalAlignment="Left" Margin="159,280,0,0" VerticalAlignment="Top" Foreground="White" Checked="Refuse_green_souls_Checked" RenderTransformOrigin="0.575,0.599" TextBlock.FontWeight="Bold"/>
+
+                    <Button x:Name="Resetbutton" Content="Reset for hosting" Padding="0,0,0,0" Margin="265,328,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Resetbutton_Click">
+                        <Button.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF8C6600"/>
+                                <GradientStop Color="#FF8C6600" Offset="1"/>
+                                <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Background>
+                            <ImageBrush ImageSource="/images/Button1.png"/>
+                        </Button.Background>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#00000000"/>
+                                <!-- Default background color -->
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background">
+                                                        <Setter.Value>
+                                                            <ImageBrush ImageSource="/images/Button2.png"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter TargetName="border" Property="TextBlock.Foreground">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                <GradientStop Color="#FFBA8D1E"/>
+                                                                <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                                <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                            </LinearGradientBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="border" Property="Background">
+                                                        <Setter.Value>
+                                                            <ImageBrush ImageSource="/images/Button3.png"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+                <Grid Margin="0,0,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="388" Width="450">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="images/frame.png"/>
+                    </Grid.Background>
+                    <TextBlock x:Name="Game_settings" HorizontalAlignment="Center" Padding="10" Margin="0,0,0,0" TextWrapping="Wrap" Text="G a m e   S e t t i n g s" VerticalAlignment="Top" Height="40" Width="400" FontSize="18" TextAlignment="Center" FontFamily="ElGar" Foreground="White"/>
+                </Grid>
+                <Grid Margin="640,0,30,32">
+                    <TextBlock x:Name="Players" TextWrapping="Wrap" Margin="28,49,0,0" Text="Players:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
+                    <RadioButton x:Name="P2" GroupName="Players" Content="2" HorizontalAlignment="Left" Margin="138,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
+                    <RadioButton x:Name="P3" GroupName="Players" Content="3" HorizontalAlignment="Left" Margin="178,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
+                    <RadioButton x:Name="P4" GroupName="Players" Content="4" HorizontalAlignment="Left" Margin="218,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
+                    <RadioButton x:Name="P5" GroupName="Players" Content="5" HorizontalAlignment="Left" Margin="258,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
+                    <RadioButton x:Name="P6" GroupName="Players" Content="6" HorizontalAlignment="Left" Margin="298,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
+                    <RadioButton x:Name="P7" GroupName="Players" Content="7" HorizontalAlignment="Left" Margin="338,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
+                    <RadioButton x:Name="P8" GroupName="Players" Content="8" HorizontalAlignment="Left" Margin="378,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
+                    <!-- Enter IP TextBlock -->
+                    <TextBlock x:Name="EnterIP" TextWrapping="Wrap" Text="Enter IP:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,49,0,0" Foreground="White" FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=Guest}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <!-- IP TextBox -->
+                    <TextBox x:Name="IP" GotFocus="IP_GotFocus" PreviewMouseDown="IP_PreviewMouseDown" TextWrapping="Wrap" Width="145" Margin="208,49,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Height="22" TextChanged="IP_TextChanged">
+                        <TextBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </TextBox.OpacityMask>
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=Guest}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBlock x:Name="Game_mode" TextWrapping="Wrap" Margin="28,74,0,0" Text="Game mode:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
+                    <ComboBox x:Name="Game_mode_list" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Padding="3,1,0,0" Margin="208,74,0,0"  VerticalContentAlignment="Top" VerticalAlignment="Top" Width="144" Height="20" SelectionChanged="Game_mode_list_SelectionChanged" FontWeight="Bold">
+                        <ComboBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </ComboBox.OpacityMask>
+                    </ComboBox>
+                    <CheckBox x:Name="Random_gods" Content="Random gods" HorizontalAlignment="Left" Margin="28,98,0,0" VerticalAlignment="Top" Foreground="White" Checked="Random_gods_Checked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Stutter_on_desync" Content="Stutter on desynchronization" HorizontalAlignment="Left" Margin="208,98,0,0" VerticalAlignment="Top" Foreground="White" Checked="Stutter_on_desync_Checked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Shuffle_sides" Content="Shuffle sides" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.51,0.466" Checked="Shuffle_sides_Checked" TextBlock.FontWeight="Bold" Margin="28,123,0,0"/>
+                    <CheckBox x:Name="No_particles" Content="No particles" HorizontalAlignment="Left" Margin="208,123,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.504,0.533" Checked="No_particles_Checked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Custom_souls" Content="Custom souls" HorizontalAlignment="Left" Margin="28,148,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_souls_Checked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Custom_xp_rate" Content="Custom XP rate" HorizontalAlignment="Left" Margin="208,148,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_XP_rate_Checked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Custom_level" Content="Custom level" HorizontalAlignment="Left" Margin="28,173,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_level_Checked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Custom_level_bounds" Content="Custom level bounds" HorizontalAlignment="Left" Margin="208,173,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_level_bounds_Checked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Slaughter" Content="Enable slaughter" HorizontalAlignment="Left" Margin="28,198,0,0" VerticalAlignment="Top" Foreground="White" Checked="Slaughter_Checked" TextBlock.FontWeight="Bold"/>
+                    <Slider x:Name="Slaughter_target_kills" Margin="208,198,0,0" Width="144" Height="20" Minimum="0" Maximum="999" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="Slaughter_kills_number" Text="{Binding ElementName=Slaughter_target_kills, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="362,196,0,0" FontWeight="Bold" Foreground="White" TextAlignment="Center"/>
+                    <TextBlock x:Name="Map_list" TextWrapping="Wrap" Margin="28,221,0,0" Text="Map list:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
+                    <ComboBox x:Name="Map_list1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="208,221,0,0" Padding="3,1,0,0" VerticalContentAlignment="Top" VerticalAlignment="Top" Width="144" Height="20" FontWeight="Bold" SelectionChanged="Map_list1_SelectionChanged">>
+                        <ComboBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </ComboBox.OpacityMask>
+                    </ComboBox>
+                    <Button x:Name="Reroll_button" Content="Roll" Click="ButtonRoll_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="358,216,0,0" Height="28" Width="56"/>
+                    <TextBlock x:Name="Map_select" TextWrapping="Wrap" Margin="28,246,0,0" Text="Map name:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
+                    <TextBox x:Name="Map_selection" GotFocus="Selection_GotFocus" PreviewMouseDown="Selection_PreviewMouseDown" Padding="0,0,0,0" VerticalScrollBarVisibility="Auto" IsReadOnly="False" TextWrapping="NoWrap" Width="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="208,246,0,0" FontWeight="Bold" Height="20">
+                        <TextBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </TextBox.OpacityMask>
+                    </TextBox>
+                    <CheckBox x:Name="Restart_game" Content="Restart game from replay:" HorizontalAlignment="Left" Margin="28,271,0,0" VerticalAlignment="Top" Foreground="White" TextBlock.FontWeight="Bold" Checked="Restart_game_Checked"/>
+                    <CheckBox x:Name="Watch_replay" Content="Watch replay:" HorizontalAlignment="Left" Margin="28,271,0,0" VerticalAlignment="Top" Foreground="White" TextBlock.FontWeight="Bold" Checked="Watch_replay_Checked"/>
+                    <ComboBox x:Name="ReplaysComboBox" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="208,271,0,0" Padding="3,1,0,0" VerticalContentAlignment="Top" Width="196" Height="20" FontWeight="Bold" SelectionChanged="ReplaysComboBox_SelectionChanged">
+                        <ComboBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </ComboBox.OpacityMask>
+                    </ComboBox>
+                    <TextBlock x:Name="Continue_at" TextWrapping="Wrap" Margin="28,296,0,0" Text="Continue at frame (leave empty to continue from last frame):" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
+                    <TextBlock x:Name="Continue_at2" TextWrapping="Wrap" Margin="28,296,0,0" Text="Continue at frame (leave empty to start at beginning):" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
+                    <TextBox x:Name="Frame" TextWrapping="Wrap" Margin="378,296,0,0" FontWeight="Bold" Height="20" Padding="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" >
+                        <TextBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </TextBox.OpacityMask>
+                    </TextBox>
+                    <Button x:Name="Save_button" Content="Save" Padding="0,0,0,0" Margin="40,328,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Save_button_Click">
+                        <Button.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF8C6600"/>
+                                <GradientStop Color="#FF8C6600" Offset="1"/>
+                                <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Background>
+                            <ImageBrush ImageSource="/images/Button1.png"/>
+                        </Button.Background>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#00000000"/>
+                                <!-- Default background color -->
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background">
+                                                        <Setter.Value>
+                                                            <ImageBrush ImageSource="/images/Button2.png"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter TargetName="border" Property="TextBlock.Foreground">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                <GradientStop Color="#FFBA8D1E"/>
+                                                                <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                                <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                            </LinearGradientBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="border" Property="Background">
+                                                        <Setter.Value>
+                                                            <ImageBrush ImageSource="/images/Button3.png"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button x:Name="LaunchButton1" Content="Start game" Click="LaunchButton_Click" Padding="0,0,0,0" Margin="265,328,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana">
+                        <Button.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF8C6600"/>
+                                <GradientStop Color="#FF8C6600" Offset="1"/>
+                                <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Background>
+                            <ImageBrush ImageSource="/images/Button1.png"/>
+                        </Button.Background>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#00000000"/>
+                                <!-- Default background color -->
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background">
+                                                        <Setter.Value>
+                                                            <ImageBrush ImageSource="/images/Button2.png"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter TargetName="border" Property="TextBlock.Foreground">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                <GradientStop Color="#FFBA8D1E"/>
+                                                                <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                                <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                            </LinearGradientBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="border" Property="Background">
+                                                        <Setter.Value>
+                                                            <ImageBrush ImageSource="/images/Button3.png"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
             </Grid>
-            <Grid x:Name="Settings_grid" Margin="0,-50,0,0">
-                <TextBlock x:Name="Graphics_options" HorizontalAlignment="Left" Margin="60,114,0,0" TextWrapping="Wrap" Text="Graphics options" VerticalAlignment="Top" Height="36" Width="376" FontSize="22" FontWeight="Bold" TextAlignment="Center" Foreground="#FFFFAF00" RenderTransformOrigin="0.511,0.535" FontStyle="Italic">
-                    <TextBlock.Background>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="Transparent"/>
-                            <GradientStop Color="White" Offset="0.9"/>
-                            <GradientStop Color="Black" Offset="0.7"/>
-                            <GradientStop Color="#BF000000" Offset="0.058"/>
-                            <GradientStop Color="Transparent" Offset="1"/>
-                        </RadialGradientBrush>
-                    </TextBlock.Background>
-                </TextBlock>
-                <RadioButton x:Name="Detect_Resolution" Content="Detect Resolution" IsChecked="True" GroupName="Resolution" HorizontalAlignment="Left" Margin="60,154,0,0" VerticalAlignment="Top" Foreground="White" Checked="Detect_Resolution_Checked" TextBlock.FontWeight="Bold"/>
-                <RadioButton x:Name="Choose_Resolution" Content="Choose Resolution" GroupName="Resolution" HorizontalAlignment="Left" Margin="312,154,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.0,0.0" Foreground="White" Checked="Choose_Resolution_Checked" TextBlock.FontWeight="Bold"/>
-                <ComboBox x:Name="Resolution_list" HorizontalAlignment="Left" Padding="3,1,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Margin="300,180,0,0" VerticalAlignment="Top" Width="136" Height="20" SelectionChanged="Resolution_list_SelectionChanged" TextBlock.FontWeight="Bold">
-                    <ComboBox.Background>
-                        <LinearGradientBrush EndPoint="0,1">
-                            <GradientStop Color="#FFF0F0F0"/>
-                            <GradientStop Color="#FFE5E5E5" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ComboBox.Background>
-                    <ComboBox.OpacityMask>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </ComboBox.OpacityMask>
-                    <ComboBoxItem Content="640x480"/>
-                    <ComboBoxItem Content="800x600"/>
-                    <ComboBoxItem Content="1024x768"/>
-                    <ComboBoxItem Content="1280x720"/>
-                    <ComboBoxItem Content="1366x768"/>
-                    <ComboBoxItem Content="1440x900"/>
-                    <ComboBoxItem Content="1600x900"/>
-                    <ComboBoxItem Content="1600x1200"/>
-                    <ComboBoxItem Content="1920x1080"/>
-                    <ComboBoxItem Content="2560x1440"/>
-                    <ComboBoxItem Content="4096x2160"/>
-                </ComboBox>
-                <CheckBox x:Name="Fullscreen" Content="Fullscreen" IsChecked="True" HorizontalAlignment="Left" Margin="60,182,0,0" VerticalAlignment="Top" Foreground="White" Checked="Fullscreen_Checked" Unchecked="Fullscreen_Unchecked" Height="18" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Widgets" Content="Disable widgets" IsChecked="True" HorizontalAlignment="Left" Margin="60,208,0,0" VerticalAlignment="Top" Foreground="White" Checked="Widgets_Checked" Unchecked="Widgets_Unchecked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Fog" Content="Disable fogging" IsChecked="True" HorizontalAlignment="Left" Margin="60,232,0,0" VerticalAlignment="Top" Foreground="White" Checked="Fog_Checked" Unchecked="Fog_Unchecked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="MapBottom" Content="Map bottom(Disable this option if you have performance issues!)" IsChecked="True" HorizontalAlignment="Left" Margin="60,258,0,0" VerticalAlignment="Top" Foreground="White" Checked="MapBottom_Checked" Unchecked="MapBottom_Unchecked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Glow" Content="Enable glow" HorizontalAlignment="Left" IsChecked="True" Margin="60,282,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_Checked" Unchecked="Glow_Unchecked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Glow_brightness" Content="Glow brightness" HorizontalAlignment="Left" IsChecked="True" Margin="60,308,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_brightness_Checked" Unchecked="Glow_brightness_Unchecked"  TextBlock.FontWeight="Bold"/>
-                <Slider x:Name="Glow_brightness_slider" Margin="238,308,0,0" Width="144" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Glow_brightness_slider_ValueChanged"/>
-                <TextBlock x:Name="Glow1" Text="{Binding ElementName=Glow_brightness_slider, Path=Value}"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Margin="388,308,0,0"
-                   FontSize="16" TextAlignment="Center" Background="White" Width="46" Height="18" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <CheckBox x:Name="Antialiasing" Content="Antialiasing" IsChecked="True" HorizontalAlignment="Left" Margin="60,332,0,0" VerticalAlignment="Top" Foreground="White" Checked="Antialiasing_Checked" Unchecked="Antialiasing_Unchecked" TextBlock.FontWeight="Bold"/>
-                <CheckBox x:Name="Sun_strength" Content="Sun strength" IsChecked="True" HorizontalAlignment="Left" Margin="60,358,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sun_strength_Checked" Unchecked="Sun_strength_Unchecked" Height="16" TextBlock.FontWeight="Bold"/>
-                <Slider x:Name="Sun_strength_slider" Margin="238,358,0,0" Width="144" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Sun_strength_slider_ValueChanged"/>
-                <TextBlock x:Name="Sun" Text="{Binding ElementName=Sun_strength_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="388,358,0,0" FontSize="16" Background="White" Width="46" Height="18" TextAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <CheckBox x:Name="Ambient_strength" Content="Ambient strength" IsChecked="True" HorizontalAlignment="Left" Margin="60,382,0,0" VerticalAlignment="Top" Foreground="White" Checked="Ambient_strength_Checked" Unchecked="Ambient_strength_Unchecked" Height="18" TextBlock.FontWeight="Bold"/>
-                <Slider x:Name="Ambient_strength_slider" Margin="238,382,0,0" Width="144" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Ambient_strength_slider_ValueChanged"/>
-                <TextBlock x:Name="Ambient" Text="{Binding ElementName=Ambient_strength_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="388,382,0,0" FontSize="16" Background="White" Width="46" Height="18" TextAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <TextBlock x:Name="Audio_options" HorizontalAlignment="Left" Margin="718,114,0,0" TextWrapping="Wrap" Text="Audio options" VerticalAlignment="Top" Height="36" Width="376" FontSize="22" FontWeight="Bold" TextAlignment="Center" Foreground="#FFFFAF00" RenderTransformOrigin="0.511,0.535" FontStyle="Italic">
-                    <TextBlock.Background>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="Transparent"/>
-                            <GradientStop Color="White" Offset="0.9"/>
-                            <GradientStop Color="Black" Offset="0.7"/>
-                            <GradientStop Color="#BF000000" Offset="0.058"/>
-                            <GradientStop Color="Transparent" Offset="1"/>
-                        </RadialGradientBrush>
-                    </TextBlock.Background>
-                </TextBlock>
-                <CheckBox x:Name="Master_volume" Content="Volume" HorizontalAlignment="Left" Margin="717,159,0,0" VerticalAlignment="Top" Foreground="White" Checked="Master_volume_Checked" Unchecked="Master_volume_Unchecked" TextBlock.FontWeight="Bold"/>
-                <Slider x:Name="Master_volume_slider" Margin="895,159,0,0" Width="144" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Master_volume_slider_ValueChanged"/>
-                <TextBlock x:Name="Master" Text="{Binding ElementName=Master_volume_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1045,159,0,0" FontSize="16" Background="White" Width="46" Height="18" TextAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <CheckBox x:Name="Music_volume" Content="Music volume" HorizontalAlignment="Left" Margin="717,183,0,0" VerticalAlignment="Top" Foreground="White" Checked="Music_volume_Checked" Unchecked="Music_volume_Unchecked" TextBlock.FontWeight="Bold"/>
-                <Slider x:Name="Music_volume_slider" Margin="895,183,0,0" Width="144" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Music_volume_slider_ValueChanged"/>
-                <TextBlock x:Name="Music" Text="{Binding ElementName=Music_volume_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1045,183,0,0" FontSize="16" Background="White" Width="46" Height="18" TextAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <CheckBox x:Name="Sound_volume" Content="Sound volume" HorizontalAlignment="Left" Margin="717,209,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sound_volume_Checked" Unchecked="Sound_volume_Unchecked" TextBlock.FontWeight="Bold"/>
-                <Slider x:Name="Sound_volume_slider" Margin="895,209,0,0" Width="144" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Sound_volume_slider_ValueChanged"/>
-                <TextBlock x:Name="Sound" Text="{Binding ElementName=Sound_volume_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1045,209,0,0" FontSize="16" Background="White" Width="46" Height="18" TextAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
-                <CheckBox x:Name="No_advisor_help_speech" IsChecked="True" Content="Advisor help speech(Zyzyx)" HorizontalAlignment="Left" Margin="717,233,0,0" VerticalAlignment="Top" Foreground="White" Checked="No_advisor_help_speech_Checked" TextBlock.FontWeight="Bold"/>
-            </Grid>
-            <Grid>
-                <Button x:Name="Save_button" Content="Save" Padding="0,0,0,0" Margin="720,344,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Save_button_Click">
-                    <Button.Foreground>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFE09002"/>
-                            <GradientStop Color="#FFE09002" Offset="1"/>
-                            <GradientStop Color="White" Offset="0.373"/>
-                        </LinearGradientBrush>
-                    </Button.Foreground>
-                    <Button.Background>
-                        <ImageBrush ImageSource="/images/Button1.png"/>
-                    </Button.Background>
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#00000000"/>
-                            <!-- Default background color -->
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="Background">
-                                                    <Setter.Value>
-                                                        <ImageBrush ImageSource="/images/Button2.png"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                            <Trigger Property="IsPressed" Value="True">
-                                                <Setter TargetName="border" Property="Background">
-                                                    <Setter.Value>
-                                                        <ImageBrush ImageSource="/images/Button3.png"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="1070,0,0,0" Height="75" Width="80" Click="CloseButton_Click">
-                    <Button.Background>
-                        <ImageBrush ImageSource="/images/ncst1.png"/>
-                    </Button.Background>
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#00000000"/>
-                            <!-- Default background color -->
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="Background">
-                                                    <Setter.Value>
-                                                        <ImageBrush ImageSource="/images/ncst2.png"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                            <Trigger Property="IsPressed" Value="True">
-                                                <Setter TargetName="border" Property="Background">
-                                                    <Setter.Value>
-                                                        <ImageBrush ImageSource="/images/ncst2.png"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
+            <Grid x:Name="Settings_grid" Margin="10000,-50,0,0">
+                <Grid Margin="30,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="388" Width="450">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="images/frame.png"/>
+                    </Grid.Background>
+                    <TextBlock x:Name="Graphics_options" HorizontalAlignment="Center" Padding="10" Margin="0,0,0,0" TextWrapping="Wrap" Text="G r a p h i c s   O p t i o n s" VerticalAlignment="Top" Height="40" Width="400" FontSize="18" TextAlignment="Center" FontFamily="ElGar" Foreground="White"/>
+                </Grid>
+                <Grid Margin="30,80,0,0">
+                    <RadioButton x:Name="Detect_Resolution" Content="Detect Resolution" IsChecked="True" GroupName="Resolution" HorizontalAlignment="Left" Margin="29,49,0,0" VerticalAlignment="Top" Foreground="White" Checked="Detect_Resolution_Checked" TextBlock.FontWeight="Bold"/>
+                    <RadioButton x:Name="Choose_Resolution" Content="Choose Resolution" GroupName="Resolution" HorizontalAlignment="Left" Margin="281,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.0,0.0" Foreground="White" Checked="Choose_Resolution_Checked" TextBlock.FontWeight="Bold"/>
+                    <ComboBox x:Name="Resolution_list" HorizontalAlignment="Left" Padding="3,1,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Margin="269,75,0,0" VerticalAlignment="Top" Width="136" Height="20" SelectionChanged="Resolution_list_SelectionChanged" TextBlock.FontWeight="Bold">
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="#FFF0F0F0"/>
+                                <GradientStop Color="#FFE5E5E5" Offset="1"/>
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
+                        <ComboBox.OpacityMask>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </ComboBox.OpacityMask>
+                        <ComboBoxItem Content="640x480"/>
+                        <ComboBoxItem Content="800x600"/>
+                        <ComboBoxItem Content="1024x768"/>
+                        <ComboBoxItem Content="1280x720"/>
+                        <ComboBoxItem Content="1366x768"/>
+                        <ComboBoxItem Content="1440x900"/>
+                        <ComboBoxItem Content="1600x900"/>
+                        <ComboBoxItem Content="1600x1200"/>
+                        <ComboBoxItem Content="1920x1080"/>
+                        <ComboBoxItem Content="2560x1440"/>
+                        <ComboBoxItem Content="4096x2160"/>
+                    </ComboBox>
+                    <CheckBox x:Name="Fullscreen" Content="Fullscreen" IsChecked="True" HorizontalAlignment="Left" Margin="29,77,0,0" VerticalAlignment="Top" Foreground="White" Checked="Fullscreen_Checked" Unchecked="Fullscreen_Unchecked" Height="18" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Widgets" Content="Disable widgets" IsChecked="True" HorizontalAlignment="Left" Margin="29,103,0,0" VerticalAlignment="Top" Foreground="White" Checked="Widgets_Checked" Unchecked="Widgets_Unchecked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Fog" Content="Disable fogging" IsChecked="True" HorizontalAlignment="Left" Margin="29,127,0,0" VerticalAlignment="Top" Foreground="White" Checked="Fog_Checked" Unchecked="Fog_Unchecked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="MapBottom" Content="Map bottom(Disable this option if you have performance issues!)" IsChecked="True" HorizontalAlignment="Left" Margin="29,153,0,0" VerticalAlignment="Top" Foreground="White" Checked="MapBottom_Checked" Unchecked="MapBottom_Unchecked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Glow" Content="Enable glow" HorizontalAlignment="Left" IsChecked="True" Margin="29,177,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_Checked" Unchecked="Glow_Unchecked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Glow_brightness" Content="Glow brightness" HorizontalAlignment="Left" IsChecked="True" Margin="29,203,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_brightness_Checked" Unchecked="Glow_brightness_Unchecked"  TextBlock.FontWeight="Bold"/>
+                    <Slider x:Name="Glow_brightness_slider" Margin="207,203,0,0" Width="144" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Glow_brightness_slider_ValueChanged"/>
+                    <TextBlock x:Name="Glow1" Text="{Binding ElementName=Glow_brightness_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="357,203,0,0" TextAlignment="Center" Foreground="White" />
+                    <CheckBox x:Name="Antialiasing" Content="Antialiasing" IsChecked="True" HorizontalAlignment="Left" Margin="29,227,0,0" VerticalAlignment="Top" Foreground="White" Checked="Antialiasing_Checked" Unchecked="Antialiasing_Unchecked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Sun_strength" Content="Sun strength" IsChecked="True" HorizontalAlignment="Left" Margin="29,253,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sun_strength_Checked" Unchecked="Sun_strength_Unchecked" Height="16" TextBlock.FontWeight="Bold"/>
+                    <Slider x:Name="Sun_strength_slider" Margin="207,253,0,0" Width="144" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Sun_strength_slider_ValueChanged"/>
+                    <TextBlock x:Name="Sun1" Text="{Binding ElementName=Sun_strength_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="357,253,0,0" TextAlignment="Center" Foreground="White" />
+                    <CheckBox x:Name="Ambient_strength" Content="Ambient strength" IsChecked="True" HorizontalAlignment="Left" Margin="29,277,0,0" VerticalAlignment="Top" Foreground="White" Checked="Ambient_strength_Checked" Unchecked="Ambient_strength_Unchecked" Height="18" TextBlock.FontWeight="Bold"/>
+                    <Slider x:Name="Ambient_strength_slider" Margin="207,277,0,0" Width="144" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Ambient_strength_slider_ValueChanged"/>
+                    <TextBlock x:Name="Ambient1" Text="{Binding ElementName=Ambient_strength_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="357,277,0,0" TextAlignment="Center" Foreground="White"/>
+                </Grid>
+                <Grid>
+                    <Grid Margin="0,80,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="388" Width="450">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="images/frame.png"/>
+                        </Grid.Background>
+                        <TextBlock x:Name="Audio_options" HorizontalAlignment="Center" Padding="10" Margin="0,0,0,0" TextWrapping="Wrap" Text="S o u n d   O p t i o n s" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" RenderTransformOrigin="0.511,0.535" FontFamily="ElGar" Foreground="White"/>
+                    </Grid>
+                    <Grid Margin="0,80,30,32" HorizontalAlignment="Right" Width="450">
+                        <CheckBox x:Name="Master_volume" Content="Volume" HorizontalAlignment="Left" Margin="29,49,0,0" VerticalAlignment="Top" Foreground="White" Checked="Master_volume_Checked" Unchecked="Master_volume_Unchecked" TextBlock.FontWeight="Bold"/>
+                        <Slider x:Name="Master_volume_slider" Margin="207,49,0,0" Width="144" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Master_volume_slider_ValueChanged"/>
+                        <TextBlock x:Name="Master1" Text="{Binding ElementName=Master_volume_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="357,49,0,0" TextAlignment="Center" Foreground="White" />
+                        <CheckBox x:Name="Music_volume" Content="Music volume" HorizontalAlignment="Left" Margin="29,73,0,0" VerticalAlignment="Top" Foreground="White" Checked="Music_volume_Checked" Unchecked="Music_volume_Unchecked" TextBlock.FontWeight="Bold"/>
+                        <Slider x:Name="Music_volume_slider" Margin="207,73,0,0" Width="144" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Music_volume_slider_ValueChanged"/>
+                        <TextBlock x:Name="Music1" Text="{Binding ElementName=Music_volume_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="357,73,0,0" TextAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                        <CheckBox x:Name="Sound_volume" Content="Sound volume" HorizontalAlignment="Left" Margin="29,99,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sound_volume_Checked" Unchecked="Sound_volume_Unchecked" TextBlock.FontWeight="Bold"/>
+                        <Slider x:Name="Sound_volume_slider" Margin="207,99,0,0" Width="144" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Sound_volume_slider_ValueChanged"/>
+                        <TextBlock x:Name="Sound1" Text="{Binding ElementName=Sound_volume_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="357,99,0,0" TextAlignment="Center" Foreground="White"/>
+                        <CheckBox x:Name="No_advisor_help_speech" IsChecked="True" Content="Advisor help speech(Zyzyx)" HorizontalAlignment="Left" Margin="29,123,0,0" VerticalAlignment="Top" Foreground="White" Checked="No_advisor_help_speech_Checked" TextBlock.FontWeight="Bold"/>
+                        <Button x:Name="Save_button1" Content="Save" Padding="0,0,0,0" Margin="265,328,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Save_button_Click">
+                            <Button.Foreground>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF8C6600"/>
+                                    <GradientStop Color="#FF8C6600" Offset="1"/>
+                                    <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+                            <Button.Background>
+                                <ImageBrush ImageSource="/images/Button1.png"/>
+                            </Button.Background>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#00000000"/>
+                                    <!-- Default background color -->
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="border" Property="Background">
+                                                            <Setter.Value>
+                                                                <ImageBrush ImageSource="/images/Button2.png"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter TargetName="border" Property="TextBlock.Foreground">
+                                                            <Setter.Value>
+                                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                    <GradientStop Color="#FFBA8D1E"/>
+                                                                    <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                                    <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                                </LinearGradientBrush>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="border" Property="Background">
+                                                            <Setter.Value>
+                                                                <ImageBrush ImageSource="/images/Button3.png"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
