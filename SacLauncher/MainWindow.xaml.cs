@@ -6,8 +6,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using System.ComponentModel;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media.Media3D;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace SacLauncher
 {
@@ -16,12 +19,14 @@ namespace SacLauncher
     public partial class MainWindow : Window
     {
         private readonly string folderPath;
+        private AxisAngleRotation3D rotation; // Class-level field for rotation
 
         public MainWindow()
         {
             InitializeComponent();
             folderPath = AppDomain.CurrentDomain.BaseDirectory;
             LoadReplays();
+            InitializeDefaultImage();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -64,9 +69,11 @@ namespace SacLauncher
             Slaughter.Visibility = Visibility.Visible;
             Slaughter_target_kills.Visibility = Visibility.Visible;
             Slaughter_kills_number.Visibility = Visibility.Visible;
+            Random_Spellbook.Visibility = Visibility.Visible;
             Reroll_button.Visibility = Visibility.Visible;
             Map_list.Visibility = Visibility.Visible;
             Map_list1.Visibility = Visibility.Visible;
+            Map_preview.Visibility = Visibility.Visible;
             Map_select.Visibility = Visibility.Visible;
             Map_selection.Visibility = Visibility.Visible;
             Restart_game.Visibility = Visibility.Hidden;
@@ -105,9 +112,11 @@ namespace SacLauncher
             Slaughter.Visibility = Visibility.Visible;
             Slaughter_target_kills.Visibility = Visibility.Visible;
             Slaughter_kills_number.Visibility = Visibility.Visible;
+            Random_Spellbook.Visibility = Visibility.Visible;
             Reroll_button.Visibility = Visibility.Visible;
             Map_list.Visibility = Visibility.Visible;
             Map_list1.Visibility = Visibility.Visible;
+            Map_preview.Visibility = Visibility.Visible;
             Map_select.Visibility = Visibility.Visible;
             Map_selection.Visibility = Visibility.Visible;
             Restart_game.Visibility = Visibility.Visible;
@@ -146,9 +155,11 @@ namespace SacLauncher
             Slaughter.Visibility = Visibility.Hidden;
             Slaughter_target_kills.Visibility = Visibility.Hidden;
             Slaughter_kills_number.Visibility = Visibility.Hidden;
+            Random_Spellbook.Visibility = Visibility.Hidden;
             Reroll_button.Visibility = Visibility.Hidden;
             Map_list.Visibility = Visibility.Hidden;
             Map_list1.Visibility = Visibility.Hidden;
+            Map_preview.Visibility = Visibility.Hidden;
             Map_select.Visibility = Visibility.Hidden;
             Map_selection.Visibility = Visibility.Hidden;
             Restart_game.Visibility = Visibility.Hidden;
@@ -219,14 +230,6 @@ namespace SacLauncher
             {
                 MessageBox.Show("Error accessing directory or finding files: " + ex.Message);
             }
-        }
-
-        private bool IsFileNameMatchingPattern(string fileName, string pattern)
-        {
-            // Implement your custom logic to check if the file name matches the pattern
-            // For example, you can use string manipulation methods like StartsWith, Contains, EndsWith, etc.
-            // Here's a simple example assuming the pattern starts with "maps-" and ends with ".txt":
-            return fileName.StartsWith("maps-") && fileName.EndsWith(".txt");
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -1049,6 +1052,299 @@ namespace SacLauncher
             // Handle map select unchecked event if needed
         }
 
+        public delegate int ExtractCallback(string name, int subfiles, int type, byte[] data);
+
+        private void InitializeDefaultImage()
+        {
+            try
+            {
+                // Load the default image from resources
+                BitmapImage defaultImage = new BitmapImage();
+                defaultImage.BeginInit();
+                defaultImage.UriSource = new Uri("pack://application:,,,/Images/defaultmap.png");
+                defaultImage.CacheOption = BitmapCacheOption.OnLoad;
+                defaultImage.EndInit();
+
+                // Set the default image to ImagePreview
+                ImagePreview.Source = defaultImage;
+            }
+            catch (Exception ex)
+            {
+                // Display a message if there's an issue loading the default image
+                MessageBox.Show($"Error initializing default image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MapSelection_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Define the folder to scan
+            string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "maps");
+
+            // Get the raw input from the TextBox
+            string fullInput = Map_selection.Text.Trim();
+
+            // Determine the valid file name
+            string fileName;
+            if (fullInput.Contains(".scp"))
+            {
+                // Extract everything before and including ".scp"
+                int index = fullInput.IndexOf(".scp") + 4; // ".scp" is 4 characters long
+                fileName = fullInput.Substring(0, index).Trim();
+            }
+            else
+            {
+                // If no ".scp" is found, treat it as invalid
+                fileName = string.Empty;
+            }
+
+            // Debugging output
+            Console.WriteLine($"Input: {fullInput}, Extracted File Name: {fileName}");
+
+            // Ensure a valid file name or reset to default image if the field is empty
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                Console.WriteLine("No valid .scp file name found. Loading default image.");
+                InitializeDefaultImage();
+                return; // Exit if no valid file name is found
+            }
+
+            // Construct the full file path
+            string filePath = Path.Combine(folderPath, fileName);
+
+            Console.WriteLine($"Constructed File Path: {filePath}");
+
+            // Check if the file exists in the "maps" folder
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    // Load the file and process it
+                    byte[] fileData = File.ReadAllBytes(filePath);
+                    PreviewScpFile(fileData); // Call your file preview function
+                }
+                catch (Exception ex)
+                {
+                    // Display an error message if the file cannot be loaded
+                    Console.WriteLine($"Error loading file: {ex.Message}");
+                    MessageBox.Show($"Error loading file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"File not found: {filePath}. Loading default image.");
+                // Load the default image if the file is not found
+                InitializeDefaultImage();
+            }
+        }
+
+        public void PreviewScpFile(byte[] fileData)
+        {
+            // Clear previous content
+            ImagePreview.Source = null;
+
+            // Extract data from SCP file
+            Extract(fileData, (name, subfiles, type, data) =>
+            {
+                // Ensure we always return an int (e.g., 0 here)
+                Dispatcher.Invoke(() =>
+                {
+                    // Check if the current file is a .prev file
+                    if (name.EndsWith(".PREV"))
+                    {
+                        if (data.Length == 32768)
+                        {
+                            // Convert the .prev file data into an image
+                            var image = ConvertPrevToImage(data);
+
+                            // Set the ImagePreview to the generated image
+                            ImagePreview.Source = image;
+                        }
+                    }
+                });
+
+                // Return a value (assuming 0 means success)
+                return 0;
+            });
+        }
+
+        private WriteableBitmap ConvertPrevToImage(byte[] prevData)
+        {
+            // Create a WriteableBitmap to hold the image data
+            WriteableBitmap writableBitmap = new WriteableBitmap(128, 128, 96, 96, PixelFormats.Bgr32, null);
+
+            // Ensure the image is writable and we can set pixels
+            writableBitmap.Lock();
+
+            try
+            {
+                // The .prev file contains 128x128 pixels, each represented by a 16-bit value (RGB 5-6-5)
+                int pixelIndex = 0;
+                byte[] pixels = new byte[128 * 128 * 4]; // Buffer for RGBA data (4 bytes per pixel)
+
+                for (int y = 0; y < 128; y++)
+                {
+                    for (int x = 0; x < 128; x++)
+                    {
+                        // Extract the 16-bit pixel value
+                        ushort pixel = BitConverter.ToUInt16(prevData, pixelIndex);
+
+                        // Extract RGB components from the 16-bit pixel (5-6-5 format)
+                        byte b = (byte)(((pixel >> 11) & 0x1F) * 255 / 31);
+                        byte g = (byte)(((pixel >> 5) & 0x3F) * 255 / 63);
+                        byte r = (byte)((pixel & 0x1F) * 255 / 31);
+
+                        // Assign the RGBA values to the pixel buffer (4 bytes per pixel: R, G, B, A)
+                        int bufferIndex = (y * 128 + x) * 4;
+                        pixels[bufferIndex] = r;    // Red
+                        pixels[bufferIndex + 1] = g; // Green
+                        pixels[bufferIndex + 2] = b; // Blue
+                        pixels[bufferIndex + 3] = 255; // Alpha (fully opaque)
+
+                        // Move to the next pixel
+                        pixelIndex += 2;
+                    }
+                }
+
+                // Write the pixel data to the WriteableBitmap
+                writableBitmap.WritePixels(
+                    new Int32Rect(0, 0, 128, 128),
+                    pixels,
+                    128 * 4, // stride (bytes per row)
+                    0 // offset (no additional offset)
+                );
+            }
+            catch (Exception ex)
+            {
+                writableBitmap.Unlock();
+                return null;
+            }
+
+            // Unlock the bitmap after the operation is done
+            writableBitmap.Unlock();
+
+            return writableBitmap;
+        }
+
+        public static int Extract(byte[] input, ExtractCallback callback)
+        {
+            int ParseLE(byte[] data, int offset)
+            {
+                return BitConverter.ToInt32(data, offset);
+            }
+
+            int infoOff = ParseLE(input, 4);
+            int infoSize = ParseLE(input, 8);
+            int unknown1 = ParseLE(input, 12);
+            int unknown2 = ParseLE(input, 16);
+            int offset = 20;
+
+            byte[] info = Decompress(input[infoOff..]);
+
+            var names = new Dictionary<string, Dictionary<string, int>>();
+            var dirSiz = new Stack<int>();
+
+            int idx = 0;
+            while (info.Length > idx)
+            {
+                string ReadString(int length)
+                {
+                    var tmp = new byte[length];
+                    Array.Copy(info, idx, tmp, 0, length);
+                    Array.Reverse(tmp);
+                    idx += length;
+                    return Encoding.UTF8.GetString(tmp);
+                }
+
+                string name = ReadString(4);
+                string ext = ReadString(4);
+
+                if (!names.ContainsKey(ext))
+                {
+                    names[ext] = new Dictionary<string, int>();
+                }
+
+                int zsize = ParseLE(info, idx); idx += 4;
+                int size = ParseLE(info, idx); idx += 4;
+                int subfiles = ParseLE(info, idx); idx += 4;
+                int type = ParseLE(info, idx); idx += 4;
+                int unknown = ParseLE(info, idx); idx += 4;
+
+                switch (type)
+                {
+                    case 0: // uncompressed file
+                        if (subfiles != 0 || size != zsize)
+                            throw new Exception("Invalid uncompressed file.");
+
+                        if (callback($"{name}.{ext}", subfiles, type, input[offset..(offset + size)]) != 0)
+                            return 1;
+
+                        offset += size;
+                        break;
+
+                    case 2: // compressed file
+                        if (subfiles != 0)
+                            throw new Exception("Invalid compressed file.");
+
+                        byte[] data = zsize > 0 ? Decompress(input[offset..(offset + zsize)]) : Array.Empty<byte>();
+                        if (callback($"{name}.{ext}", subfiles, type, data) != 0)
+                            return 1;
+
+                        offset += zsize;
+                        break;
+
+                    case 1: // folder
+                        if (dirSiz.Count > 0)
+                            dirSiz.Push(dirSiz.Pop() - 1);
+
+                        if (callback($"{name}.{ext}", subfiles, type, Array.Empty<byte>()) != 0)
+                            return 1;
+
+                        dirSiz.Push(subfiles);
+                        break;
+
+                    default:
+                        Console.Error.WriteLine($"Warning: unknown type {type}");
+
+                        if (subfiles != 0)
+                        {
+                            goto case 1;
+                        }
+                        else if (zsize < size)
+                        {
+                            goto case 2;
+                        }
+                        else
+                        {
+                            goto case 0;
+                        }
+                }
+
+                if (type != 1 && subfiles == 0 && dirSiz.Count > 0)
+                    dirSiz.Push(dirSiz.Pop() - 1);
+
+                while (dirSiz.Count > 0 && dirSiz.Peek() == 0)
+                {
+                    dirSiz.Pop();
+                }
+            }
+
+            if (dirSiz.Count != 0)
+                throw new Exception("Directory stack is not empty.");
+
+            return 0;
+        }
+
+        private static byte[] Decompress(byte[] compressedData)
+        {
+            using (var inputStream = new MemoryStream(compressedData))
+            using (var outputStream = new MemoryStream())
+            using (var decompressor = new Ionic.Zlib.ZlibStream(inputStream, Ionic.Zlib.CompressionMode.Decompress))
+            {
+                decompressor.CopyTo(outputStream);
+                return outputStream.ToArray();
+            }
+        }
+
         private void Restart_game_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -1392,16 +1688,87 @@ namespace SacLauncher
             if (string.IsNullOrWhiteSpace(Map_selection.Text) && !string.IsNullOrWhiteSpace(Map_list1.Text)) sb.AppendLine($"--map-list={Map_list1.Text}");
             else if (!string.IsNullOrWhiteSpace(Map_list1.Text)) sb.AppendLine($"# --map-list={Map_list1.Text}");
             if (Host_game.IsChecked == true && !string.IsNullOrWhiteSpace(Map_selection.Text))
-                sb.AppendLine($"maps/{Map_selection.Text}");
+            {
+                string mapText = Map_selection.Text;
+
+                // Locate the map name by finding ".scp"
+                int scpIndex = mapText.IndexOf(".scp");
+                if (scpIndex > 0)
+                {
+                    // Include ".scp" in the map name
+                    string mapName = mapText.Substring(0, scpIndex + 4);
+                    sb.AppendLine($"maps/{mapName}");
+
+                    // Extract the parameters (everything after the map name)
+                    string parameters = mapText.Substring(scpIndex + 4).Trim();
+                    if (!string.IsNullOrWhiteSpace(parameters))
+                    {
+                        string[] args = parameters.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+                        // Append only recognized parameters
+                        foreach (string arg in args)
+                        {
+                            if (arg.StartsWith("--level=") ||
+                                arg.StartsWith("--souls=") ||
+                                arg.StartsWith("--min-level=") ||
+                                arg.StartsWith("--max-level="))
+                            {
+                                sb.AppendLine(arg); // Append recognized arguments as-is
+                            }
+                            // Ignore unrecognized arguments
+                        }
+                    }
+                }
+                else
+                {
+                    // If no ".scp" is found, assume the entire text is the map name
+                    sb.AppendLine($"maps/{mapText}");
+                }
+            }
             if (Singleplayer.IsChecked == true && !string.IsNullOrWhiteSpace(Map_selection.Text))
             {
-                sb.AppendLine($"maps/{Map_selection.Text}");
+                string mapText = Map_selection.Text;
+
+                // Locate the map name by finding ".scp"
+                int scpIndex = mapText.IndexOf(".scp");
+                if (scpIndex > 0)
+                {
+                    // Include ".scp" in the map name
+                    string mapName = mapText.Substring(0, scpIndex + 4);
+                    sb.AppendLine($"maps/{mapName}");
+
+                    // Extract the parameters (everything after the map name)
+                    string parameters = mapText.Substring(scpIndex + 4).Trim();
+                    if (!string.IsNullOrWhiteSpace(parameters))
+                    {
+                        string[] args = parameters.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+                        // Append only recognized parameters
+                        foreach (string arg in args)
+                        {
+                            if (arg.StartsWith("--level=") ||
+                                arg.StartsWith("--souls=") ||
+                                arg.StartsWith("--min-level=") ||
+                                arg.StartsWith("--max-level="))
+                            {
+                                sb.AppendLine(arg); // Append recognized arguments as-is
+                            }
+                            // Ignore unrecognized arguments
+                        }
+                    }
+                }
+                else
+                {
+                    // If no ".scp" is found, assume the entire text is the map name
+                    sb.AppendLine($"maps/{mapText}");
+                }
             }
 
             // Append observer and save replays settings
             sb.AppendLine(Observer.IsChecked == true ? "--observer" : "# --observer");
             if (Enable_green_souls.IsChecked == true) sb.AppendLine("--green-ally-souls");
             if (Refuse_green_souls.IsChecked == true) sb.AppendLine("--refuse-green-souls");
+            if (Random_Spellbook.IsChecked == true) sb.AppendLine("--random-spellbooks");
             sb.AppendLine(Savereplays.IsChecked == true ? "--record-folder=replays" : "# --record-folder=replays");
             if (Host_game.IsChecked == true && Restart_game.IsChecked == true)
             {
@@ -1883,6 +2250,9 @@ namespace SacLauncher
                         break;
                     case "--refuse-green-souls":
                         Refuse_green_souls.IsChecked = true;
+                        break;
+                    case "--random-spellbooks":
+                        Random_Spellbook.IsChecked = true;
                         break;
                     case "--record-folder":
                         Savereplays.IsChecked = true;
