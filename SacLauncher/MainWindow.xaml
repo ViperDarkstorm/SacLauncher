@@ -9,12 +9,1338 @@
         ContentRendered="Window_ContentRendered"
         WindowStyle="None"
         AllowsTransparency="True"
-        Title="SacEngine Launcher" Height="700" Width="1366" Loaded="Window_Loaded"
+        Title="SacEngine Launcher" Height="768" Width="1366" Loaded="Window_Loaded"
         ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- Define Brushes for Textures -->
+        <ImageBrush x:Key="StartTextureBrush" ImageSource="/images/button_start_active.png"/>
+        <ImageBrush x:Key="EndTextureBrush" ImageSource="/images/button_end_active.png"/>
+        <Style x:Key="CustomTextBox1Style" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <!-- Start Section -->
+                            <Rectangle x:Name="StartRectangle" Width="20" HorizontalAlignment="Left">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <!-- Tile Section with Text Content -->
+                            <Grid HorizontalAlignment="Stretch" Margin="20,0,20,0" Height="22">
+                                <Rectangle x:Name="TileRectangle" Height="22">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" 
+                                            Viewport="0,0,22,22" 
+                                            ViewportUnits="Absolute" 
+                                            TileMode="Tile" Stretch="Fill"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <!-- PART_ContentHost for text rendering -->
+                                <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                            </Grid>
+                            <!-- End Section -->
+                            <Rectangle x:Name="EndRectangle" Width="20" HorizontalAlignment="Right">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!-- MouseOver State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+                                    ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+
+
+                            <!-- MouseOver and Checked State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- Focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="False" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- MouseOver and Focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- MouseOver checked and focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Custom ComboBox Style -->
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <!-- Start Texture -->
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Middle Section -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- End Texture -->
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Start Texture -->
+                            <Border x:Name="StartTexture" Grid.Column="0" Width="20" Background="{StaticResource StartTextureBrush}"/>
+
+                            <!-- Middle Section -->
+                            <Grid Grid.Column="1">
+                                <Rectangle>
+                                    <Rectangle.Fill>
+                                        <VisualBrush TileMode="Tile" Viewport="0,0,20,20" ViewportUnits="Absolute">
+                                            <VisualBrush.Visual>
+                                                <Image Source="/images/textbox_middle.png"/>
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <!-- Editable Text Box -->
+                                <TextBox x:Name="PART_EditableTextBox"
+                                     Visibility="Collapsed"
+                                     Background="Transparent"
+                                     BorderBrush="Transparent"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     Margin="5,0,25,0"/>
+                                <!-- Content Presenter -->
+                                <ContentPresenter VerticalAlignment="Center"
+                                              Margin="5,0,25,0"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"/>
+                                <!-- Drop Down Button -->
+                                <ToggleButton x:Name="PART_DropDownToggle"
+                                          Content="▼"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Right"
+                                          Width="20"
+                                          Foreground="White"
+                                          Background="Transparent"
+                                          BorderBrush="Transparent"
+                                          IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                            </Grid>
+
+                            <!-- End Texture -->
+                            <Border x:Name="EndTexture" Grid.Column="2" Width="20" Background="{StaticResource EndTextureBrush}"/>
+
+                            <!-- Popup for Drop-Down Items -->
+                            <Popup x:Name="PART_Popup" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" AllowsTransparency="True">
+                                <Border BorderBrush="Black" BorderThickness="1">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="Images/dropdownmenu_texture.png" TileMode="Tile" Viewport="0,0,20,20" ViewportUnits="Absolute" />
+                                    </Border.Background>
+                                    <ScrollViewer>
+                                        <ItemsPresenter Width="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=ActualWidth}"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+
+                        </Grid>
+
+                        <!-- Triggers -->
+                        <ControlTemplate.Triggers>
+                            <!-- Show TextBox when IsEditable is true -->
+                            <Trigger Property="IsEditable" Value="True">
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="IsReadOnly" Value="False"/>
+                                <Setter Property="ContentPresenter.Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <!-- Close dropdown when IsDropDownOpen is false -->
+                            <Trigger Property="IsDropDownOpen" Value="False">
+                                <Setter TargetName="PART_Popup" Property="IsOpen" Value="False"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsDropDownOpen" Value="False"/>
+                                    <Condition Property="IsFocused" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartTexture" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndTexture" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+
+                            <!-- Dropdown Open State -->
+                            <Trigger Property="IsDropDownOpen" Value="True">
+                                <Setter TargetName="StartTexture" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndTexture" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!-- Handle Focus (Optional, for visual consistency) -->
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="StartTexture" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndTexture" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Custom Style for ToggleButton/Checkbox -->
+        <Style x:Key="CustomToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="#00000000"/>
+            <Setter Property="BorderBrush" Value="#00000000"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                            <!-- Trigger for when IsChecked is True -->
+                            <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/Button3.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+
+                            <!-- MultiTrigger for when IsMouseOver is True and IsChecked is False -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/Button2.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+
+                            <!-- Trigger for when IsMouseOver is False (Unchecked state) -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="False"/>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/Button1.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+
+                            <!-- Trigger for when IsMouseOver is False (Checked state) -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="False"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/Button3.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Custom Slider Style -->
+        <Style x:Key="CustomSliderStyle" TargetType="Slider">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid>
+                            <!-- Background Line with Tiled Texture -->
+                            <Rectangle Height="20" VerticalAlignment="Center">
+                                <Rectangle.Fill>
+                                    <VisualBrush TileMode="Tile" Viewport="0,0,20,20" ViewportUnits="Absolute">
+                                        <VisualBrush.Visual>
+                                            <Image Source="Images/line_texture.png"/>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <!-- Buttons and Track -->
+                            <Grid VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <!-- Decrease Button -->
+                                <Button Grid.Column="0" VerticalAlignment="Center"
+        Click="DecreaseButton_Click" BorderBrush="{x:Null}" 
+        Width="20" Height="20" Tag="{Binding RelativeSource={RelativeSource AncestorType=Slider}}">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <!-- Default Background -->
+                                            <Setter Property="Background">
+                                                <Setter.Value>
+                                                    <ImageBrush ImageSource="/images/slider_minus.png"/>
+                                                </Setter.Value>
+                                            </Setter>
+
+                                            <!-- Template for Visual Structure -->
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Name="border" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <!-- Slider Active (Focused) -->
+                                                            <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType=Slider}}" Value="True">
+                                                                <Setter TargetName="border" Property="Background">
+                                                                    <Setter.Value>
+                                                                        <ImageBrush ImageSource="/images/slider_minus_active.png"/>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+
+                                <!-- Track Area -->
+                                <Track x:Name="PART_Track" Grid.Column="1" VerticalAlignment="Center">
+                                    <Track.Thumb>
+                                        <Thumb x:Name="PART_Thumb" Width="20" Height="20" VerticalAlignment="Center" DragDelta="Thumb_DragDelta">
+                                            <Thumb.Template>
+                                                <ControlTemplate TargetType="Thumb">
+                                                    <Image Source="Images/slider_square.png" Stretch="Uniform"/>
+                                                </ControlTemplate>
+                                            </Thumb.Template>
+                                        </Thumb>
+                                    </Track.Thumb>
+                                </Track>
+
+                                <!-- Increase Button -->
+                                <Button Grid.Column="2" VerticalAlignment="Center"
+        Click="IncreaseButton_Click" BorderBrush="{x:Null}" 
+        Width="20" Height="20" Tag="{Binding RelativeSource={RelativeSource AncestorType=Slider}}">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <!-- Default Background -->
+                                            <Setter Property="Background">
+                                                <Setter.Value>
+                                                    <ImageBrush ImageSource="/images/slider_plus.png"/>
+                                                </Setter.Value>
+                                            </Setter>
+
+                                            <!-- Template for Visual Structure -->
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Name="border" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <!-- Slider Active (Focused) -->
+                                                            <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType=Slider}}" Value="True">
+                                                                <Setter TargetName="border" Property="Background">
+                                                                    <Setter.Value>
+                                                                        <ImageBrush ImageSource="/images/slider_plus_active.png"/>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CustomCheckboxStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="#00000000"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <!-- Start Section -->
+                            <Rectangle x:Name="StartRectangle" Width="20" HorizontalAlignment="Left">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <!-- Checkbox Section -->
+                            <Rectangle x:Name="CheckboxRectangle" Width="20" HorizontalAlignment="Left" Margin="20,0,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/images/checkbox_unchecked.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <!-- Tile Section with Text Content -->
+                            <Grid HorizontalAlignment="Stretch" Margin="40,0,20,0" Height="22">
+                                <Rectangle x:Name="TileRectangle" Height="22">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="/images/button_middle.png" 
+                                    Viewport="0,0,22,22" 
+                                    ViewportUnits="Absolute" 
+                                    TileMode="Tile" Stretch="Fill"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <!-- Centered Content -->
+                                <TextBlock x:Name="ContentText"
+       Text="{TemplateBinding Content}" 
+       HorizontalAlignment="Left" 
+       VerticalAlignment="Center" 
+       FontFamily="Verdana">
+                                    <TextBlock.Foreground>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF8C6600"/>
+                                            <GradientStop Color="#FF8C6600" Offset="1"/>
+                                            <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </Grid>
+
+                            <!-- End Section -->
+                            <Rectangle x:Name="EndRectangle" Width="20" HorizontalAlignment="Right">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Checked State -->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_checked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+                                    ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_checked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!-- MouseOver State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                    <Condition Property="IsFocused" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_unchecked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+                                    ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" TargetName="ContentText">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFBA8D1E"/>
+                                            <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                            <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+
+
+                            <!-- MouseOver and Checked State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                    <Condition Property="IsFocused" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_checked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" TargetName="ContentText">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFBA8D1E"/>
+                                            <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                            <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- Focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="False" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_unchecked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- MouseOver and Focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_unchecked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" TargetName="ContentText">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFBA8D1E"/>
+                                            <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                            <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- MouseOver checked and focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_checked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" TargetName="ContentText">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFBA8D1E"/>
+                                            <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                            <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CustomRBStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="#00000000"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+
+                            <!-- Checkbox Section -->
+                            <Rectangle x:Name="CheckboxRectangle" Width="20" HorizontalAlignment="Left" Margin="0,0,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/images/checkbox_unchecked.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <!-- Tile Section with Text Content -->
+                            <Grid HorizontalAlignment="Stretch" Margin="20,0,20,0" Height="22">
+                                <Rectangle x:Name="TileRectangle" Height="22">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="/images/button_middle.png" 
+                                    Viewport="0,0,22,22" 
+                                    ViewportUnits="Absolute" 
+                                    TileMode="Tile" Stretch="Fill"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <!-- Centered Content -->
+                                <TextBlock x:Name="ContentText"
+       Text="{TemplateBinding Content}" 
+       HorizontalAlignment="Left" 
+       VerticalAlignment="Center" 
+       FontFamily="Verdana">
+                                    <TextBlock.Foreground>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF8C6600"/>
+                                            <GradientStop Color="#FF8C6600" Offset="1"/>
+                                            <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+
+                            </Grid>
+                            <!-- End Section -->
+                            <Rectangle x:Name="EndRectangle" Width="25" Margin="30,0,0,0" HorizontalAlignment="Left">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Checked State -->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_checked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+                                    ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <!-- End Section -->
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_checked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!-- MouseOver State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                    <Condition Property="IsFocused" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_unchecked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+                                    ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" TargetName="ContentText">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFBA8D1E"/>
+                                            <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                            <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- MouseOver and Checked State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                    <Condition Property="IsFocused" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_checked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" TargetName="ContentText">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFBA8D1E"/>
+                                            <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                            <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- Focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="False" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_unchecked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- MouseOver and Focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_unchecked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" TargetName="ContentText">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFBA8D1E"/>
+                                            <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                            <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- MouseOver checked and focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="CheckboxRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/checkbox_checked.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" TargetName="ContentText">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFBA8D1E"/>
+                                            <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                            <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CustomTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <!-- Start Section -->
+                            <Rectangle x:Name="StartRectangle" Width="20" HorizontalAlignment="Left">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <!-- Tile Section with Text Content -->
+                            <Grid HorizontalAlignment="Stretch" Margin="20,0,20,0" Height="22">
+                                <Rectangle x:Name="TileRectangle" Height="22">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" 
+                                            Viewport="0,0,22,22" 
+                                            ViewportUnits="Absolute" 
+                                            TileMode="Tile" Stretch="Fill"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <!-- PART_ContentHost for text rendering -->
+                                <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                            </Grid>
+                            <!-- End Section -->
+                            <Rectangle x:Name="EndRectangle" Width="20" HorizontalAlignment="Right">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!-- MouseOver State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+                                    ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+
+
+                            <!-- MouseOver and Checked State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- Focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="False" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- MouseOver and Focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <!-- MouseOver checked and focused State -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsFocused" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="StartRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="TileRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/textbox_middle.png" Viewport="0,0,22,22" 
+ViewportUnits="Absolute" TileMode="Tile"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="EndRectangle" Property="Fill">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Background="Black">
-        <Image x:Name="Background" Stretch="Uniform" Source="images/Sacrifice_1920x1200.jpg" HorizontalAlignment="Center" Width="1366" Height="900"/>
+        <!-- MediaElement to play music -->
+        <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" />
+        <Grid x:Name="Tunnel_background">
+            <Viewport3D Name="viewport3D">
+                <!-- Camera -->
+                <Viewport3D.Camera>
+                    <PerspectiveCamera x:Name="camera"
+           Position="0,0,0" 
+           LookDirection="0,0,1"
+           UpDirection="0,1,0"
+           FieldOfView="70" />
+                </Viewport3D.Camera>
+
+                <!-- Ambient Light: Ensures overall brightness -->
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <AmbientLight Color="Gray" />
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+
+                <!-- Directional Light: Adds highlights and depth -->
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <DirectionalLight Color="White" Direction="-1,-1,-1" />
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+
+                <!-- Tunnel Model -->
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <GeometryModel3D x:Name="tunnelModel">
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <ImageBrush ImageSource="pack://application:,,,/Images/tunnel.png" />
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.BackMaterial>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <ImageBrush ImageSource="pack://application:,,,/Images/tunnel.png" />
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.BackMaterial>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D />
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+            </Viewport3D>
+            <Image x:Name="Logo" Stretch="Uniform" Source="images/Logo.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="568" Height="136" />
+        </Grid>
+        <Grid x:Name="Image_background">
+            <Image x:Name="Background" Stretch="Uniform" Source="images/Sacrifice_1920x1200.jpg" HorizontalAlignment="Center" Width="1600" Height="900"/>
+        </Grid>
+        <ToggleButton x:Name="Skin_changer" Content="Skin changer" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="Skin_changer_Checked" Unchecked="Skin_changer_Unchecked" Width="150" Height="22" BorderBrush="#00000000" Margin="48,46,0,0" FontFamily="Verdana">
+            <ToggleButton.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF8C6600"/>
+                    <GradientStop Color="#FF8C6600" Offset="1"/>
+                    <GradientStop Color="#FFCFCFFE" Offset="0.5"/>
+                </LinearGradientBrush>
+            </ToggleButton.Foreground>
+            <ToggleButton.Background>
+                <ImageBrush ImageSource="/images/Button1.png"/>
+            </ToggleButton.Background>
+            <ToggleButton.Style>
+                <Style TargetType="ToggleButton">
+                    <Setter Property="Background" Value="#00000000"/>
+                    <!-- Default background color -->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ToggleButton">
+                                <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="#00000000" BorderThickness="1">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+
+                                    <!-- DataTrigger for IsPressedDown -->
+                                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Value="True">
+                                        <Setter TargetName="border" Property="Background">
+                                            <Setter.Value>
+                                                <ImageBrush ImageSource="/images/Button3.png"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+
+                                    <!-- MultiTrigger for IsMouseOver when IsPressedDown is false -->
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsMouseOver" Value="True"/>
+                                            <Condition Property="IsChecked" Value="False"/>
+                                        </MultiTrigger.Conditions>
+                                        <Setter TargetName="border" Property="Background">
+                                            <Setter.Value>
+                                                <ImageBrush ImageSource="/images/Button2.png"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter TargetName="border" Property="TextBlock.Foreground">
+                                            <Setter.Value>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFBA8D1E"/>
+                                                    <GradientStop Color="#FFAC7E00" Offset="1"/>
+                                                    <GradientStop Color="#FFFEFEFE" Offset="0.5"/>
+                                                </LinearGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </MultiTrigger>
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ToggleButton.Style>
+        </ToggleButton>
+
         <Grid>
-            <Grid Margin="610,290,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid Margin="610,340,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <StackPanel x:Name="Menus">
                     <ToggleButton x:Name="Singleplayer" Content="Singleplayer" HorizontalAlignment="Center" VerticalAlignment="Top" Checked="Menus_Checked" Width="150" Height="22" BorderBrush="#00000000" Margin="0,0,0,0" FontFamily="Verdana">
                         <ToggleButton.Foreground>
@@ -314,35 +1640,18 @@
                     </Button.Style>
                 </Button>
             </Grid>
-            <Grid x:Name="Player_details_grid" Margin="30,50,0,0">
+            <Grid x:Name="Player_details_grid" Margin="30,130,0,0">
                 <Grid Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="592" Width="544">
                     <Grid.Background>
                         <ImageBrush ImageSource="images/frame.png"/>
                     </Grid.Background>
                     <TextBlock x:Name="Player_details" HorizontalAlignment="Center" Padding="5" Margin="0,0,0,0" TextWrapping="Wrap" Text="P l a y e r   D e t a i l s" VerticalAlignment="Top" Height="40" Width="400" FontSize="18" TextAlignment="Center" FontFamily="ElGar" Foreground="White"/>
                     <TextBlock x:Name="Nick" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nickname:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="28,49,0,0"/>
-                    <TextBox x:Name="Nickname" GotFocus="Nickname_GotFocus" PreviewMouseDown="Nickname_PreviewMouseDown" Margin="228,49,0,0" Padding="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"  TextWrapping="NoWrap" Text="Player Name" Width="140" Foreground="Black" TextChanged="Nickname_TextChanged" Height="20" RenderTransformOrigin="0.5,0.502" FontWeight="Bold">
-                        <TextBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </TextBox.OpacityMask>
+                    <TextBox x:Name="Nickname" Style="{StaticResource CustomTextBoxStyle}" GotFocus="Nickname_GotFocus" PreviewMouseDown="Nickname_PreviewMouseDown" Margin="242,49,0,0" Padding="3,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"  TextWrapping="NoWrap" Text="Player Name" Foreground="White" TextChanged="Nickname_TextChanged" Width="160" Height="20" FontWeight="Bold">
                     </TextBox>
                     <TextBlock x:Name="Wiz" HorizontalAlignment="Left" Margin="28,75,0,0" TextWrapping="Wrap" Text="Wizard:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                    <ComboBox x:Name="Wizard_list" HorizontalAlignment="Left" SelectedIndex="0" Padding="3,1,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Margin="228,75,0,0" VerticalAlignment="Top" Width="140" Height="20" Foreground="Black" SelectionChanged="Wizard_list_SelectionChanged" FontWeight="Bold" TextBlock.FontWeight="Bold">
-                        <ComboBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </ComboBox.OpacityMask>
-                        <ComboBox.Background>
-                            <LinearGradientBrush EndPoint="0,1">
-                                <GradientStop Color="#FFF0F0F0"/>
-                                <GradientStop Color="#3FFFFFFF" Offset="1"/>
-                            </LinearGradientBrush>
-                        </ComboBox.Background>
+                    <ComboBox x:Name="Wizard_list" Style="{StaticResource CustomComboBoxStyle}" HorizontalAlignment="Left" SelectedIndex="0" Padding="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Margin="242,75,0,0" VerticalAlignment="Top" Width="160" Height="20" Foreground="White" SelectionChanged="Wizard_list_SelectionChanged" FontWeight="Bold" TextBlock.FontWeight="Bold">
+
                         <ComboBoxItem Content="Abraxus"/>
                         <ComboBoxItem Content="Acheron"/>
                         <ComboBoxItem Content="Ambassador Buta"/>
@@ -360,54 +1669,38 @@
                         <ComboBoxItem Content="Yogo"/>
                     </ComboBox>
                     <TextBlock x:Name="God" HorizontalAlignment="Left" Margin="28,99,0,0" TextWrapping="Wrap" Text="God:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" RenderTransformOrigin="1.055,-1.253"/>
-                    <ComboBox x:Name="God_list" HorizontalAlignment="Left" SelectedIndex="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="3,0,0,0" Margin="228,99,0,0" VerticalAlignment="Top" Width="140" Height="20" Foreground="Black" SelectionChanged="God_list_SelectionChanged" FontWeight="Bold" TextBlock.FontWeight="Bold">
-                        <ComboBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </ComboBox.OpacityMask>
-                        <ComboBox.Background>
-                            <LinearGradientBrush EndPoint="0,1">
-                                <GradientStop Color="#FFF0F0F0"/>
-                                <GradientStop Color="#3FFFFFFF" Offset="1"/>
-                            </LinearGradientBrush>
-                        </ComboBox.Background>
+                    <ComboBox x:Name="God_list" Style="{StaticResource CustomComboBoxStyle}" HorizontalAlignment="Left" SelectedIndex="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="3,0,0,0" Margin="242,99,0,0" VerticalAlignment="Top" Width="160" Height="20" Foreground="White" SelectionChanged="God_list_SelectionChanged" FontWeight="Bold" TextBlock.FontWeight="Bold">
+
                         <ComboBoxItem Content="persephone"/>
                         <ComboBoxItem Content="james"/>
                         <ComboBoxItem Content="stratos"/>
                         <ComboBoxItem Content="pyro"/>
                         <ComboBoxItem Content="charnel"/>
                     </ComboBox>
-                    <CheckBox x:Name="Randomgod" Content="Random god" IsChecked="True" Foreground="White" Margin="378,99,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="Randomgod_Checked" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Randomgod" Content="Random" Style="{StaticResource CustomCheckboxStyle}" Width="110" Height="20" IsChecked="True" Foreground="White" Margin="416,99,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="Randomgod_Checked" />
                     <TextBlock x:Name="zerotier" HorizontalAlignment="Left" Margin="28,125,0,0" TextWrapping="Wrap" Text="Zerotier network ID:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                    <TextBox x:Name="network" GotFocus="network_GotFocus" PreviewMouseDown="network_PreviewMouseDown" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="228,125,0,0" TextWrapping="NoWrap" Text="6ab565387ab194c6" VerticalAlignment="Top" Width="140" FontWeight="Bold" Height="22" TextChanged="network_TextChanged">
-                        <TextBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </TextBox.OpacityMask>
+                    <TextBox x:Name="network" GotFocus="network_GotFocus" Style="{StaticResource CustomTextBoxStyle}" PreviewMouseDown="network_PreviewMouseDown" Padding="3,0,0,0" HorizontalAlignment="Left" Margin="242,125,0,0" TextWrapping="NoWrap" Foreground="White" Text="6ab565387ab194c6" VerticalAlignment="Top" Width="160" Height="20" FontWeight="Bold" TextChanged="network_TextChanged">
+
                     </TextBox>
 
                     <TextBlock x:Name="Starting_souls" HorizontalAlignment="Left" Margin="28,155,0,0" TextWrapping="Wrap" Text="Starting souls:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                    <Slider x:Name="Start_souls_slider" Margin="228,155,0,0" Width="144" Height="20" Minimum="0" Maximum="24" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="Souls1" Text="{Binding ElementName=Start_souls_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,155,0,0" TextAlignment="Center" Foreground="White"/>
+                    <Slider x:Name="Start_souls_slider" Style="{StaticResource CustomSliderStyle}" Margin="242,155,0,0" Width="195" Height="20" Minimum="0" Maximum="24" IsSnapToTickEnabled="True" TickFrequency="1" SmallChange="1" LargeChange="10" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Start_souls_slider_ValueChanged"/>
+                    <TextBlock x:Name="Souls1" Text="{Binding ElementName=Start_souls_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="450,157,0,0" TextAlignment="Center" Foreground="White"/>
                     <TextBlock x:Name="Min_level" HorizontalAlignment="Left" Margin="28,180,0,0" TextWrapping="Wrap" Text="Minimum level:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                    <Slider x:Name="Min_level_slider" Margin="228,180,0,0" Width="144" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Min_level_slider_ValueChanged"/>
-                    <TextBlock x:Name="Minlevel1" Text="{Binding ElementName=Min_level_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,180,0,0" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                    <Slider x:Name="Min_level_slider" Style="{StaticResource CustomSliderStyle}" Margin="242,180,0,0" Width="195" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" SmallChange="1" LargeChange="10" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Min_level_slider_ValueChanged"/>
+                    <TextBlock x:Name="Minlevel1" Text="{Binding ElementName=Min_level_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="450,182,0,0" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
                     <TextBlock x:Name="Max_level" HorizontalAlignment="Left" Margin="28,205,0,0" TextWrapping="Wrap" Text="Maximum level:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                    <Slider x:Name="Max_level_slider" Margin="228,205,0,0" Width="144" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Max_level_slider_ValueChanged"/>
-                    <TextBlock x:Name="Maxlevel1" Text="{Binding ElementName=Max_level_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,205,0,0" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                    <Slider x:Name="Max_level_slider" Style="{StaticResource CustomSliderStyle}" Margin="242,205,0,0" Width="195" Height="20" Minimum="1" Maximum="9" IsSnapToTickEnabled="True" TickFrequency="1"  
+SmallChange="1" LargeChange="10" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Max_level_slider_ValueChanged"/>
+                    <TextBlock x:Name="Maxlevel1" Text="{Binding ElementName=Max_level_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="450,207,0,0" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
                     <TextBlock x:Name="xp_Rate" HorizontalAlignment="Left" Margin="28,230,0,0" TextWrapping="Wrap" Text="XP Rate:" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                    <Slider x:Name="xp_rate_slider" Margin="228,230,0,0" Width="144" Height="20" Minimum="0.00" Maximum="4.00" IsSnapToTickEnabled="True" TickFrequency="0.01" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="xp_rate_slider_ValueChanged"/>
-                    <TextBlock x:Name="Xprate1" Text="{Binding ElementName=xp_rate_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,230,0,0" Padding="0,0,0,0" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
-
-                    <CheckBox x:Name="Observer" Content="Observer" HorizontalAlignment="Left" Margin="28,305,0,0" VerticalAlignment="Top" Foreground="White" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Savereplays" Content="Save replays" HorizontalAlignment="Left" IsChecked="True" Margin="28,330,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.575,0.599" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Enable_green_souls" Content="Enable green souls" HorizontalAlignment="Left" Margin="28,255,0,0" VerticalAlignment="Top" Foreground="White" Checked="Enable_green_souls_Checked" RenderTransformOrigin="0.575,0.599" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Refuse_green_souls" Content="Refuse green souls" HorizontalAlignment="Left" Margin="28,280,0,0" VerticalAlignment="Top" Foreground="White" Checked="Refuse_green_souls_Checked" RenderTransformOrigin="0.575,0.599" TextBlock.FontWeight="Bold"/>
-                    <Button x:Name="Resetbutton" Content="Reset for hosting" Padding="0,0,0,0" Margin="265,528,45,0" VerticalAlignment="Top" HorizontalAlignment="Right" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Resetbutton_Click">
+                    <Slider x:Name="xp_rate_slider" Style="{StaticResource CustomSliderStyle}" Margin="242,230,0,0" Width="195" Height="20" Minimum="0.00" Maximum="4.00" IsSnapToTickEnabled="True" TickFrequency="0.01" SmallChange="0.01" LargeChange="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="xp_rate_slider_ValueChanged"/>
+                    <TextBlock x:Name="Xprate1" Text="{Binding ElementName=xp_rate_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="450,232,0,0" Padding="0,0,0,0" TextAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                    <CheckBox x:Name="Enable_green_souls" Content="Enable green souls" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="28,255,0,0" VerticalAlignment="Top" Foreground="White" Checked="Enable_green_souls_Checked" RenderTransformOrigin="0.575,0.599" />
+                    <CheckBox x:Name="Refuse_green_souls" Content="Refuse green souls" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="28,280,0,0" VerticalAlignment="Top" Foreground="White" Checked="Refuse_green_souls_Checked" RenderTransformOrigin="0.575,0.599" />
+                    <CheckBox x:Name="Observer" Content="Observer" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="28,305,0,0" VerticalAlignment="Top" Foreground="White" />
+                    <CheckBox x:Name="Savereplays" Content="Save replays" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" IsChecked="True" Margin="28,330,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.575,0.599" />
+                    <Button x:Name="Resetbutton" Content="Reset for hosting" Padding="0,0,0,0" Margin="265,528,45,0" VerticalAlignment="Top" HorizontalAlignment="Right" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="20" FontFamily="Verdana" Click="Resetbutton_Click">
                         <Button.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF8C6600"/>
@@ -467,13 +1760,13 @@
                     <TextBlock x:Name="Game_settings" HorizontalAlignment="Center" Padding="5" Margin="0,0,0,0" TextWrapping="Wrap" Text="G a m e   S e t t i n g s" VerticalAlignment="Top" Height="40" Width="400" FontSize="18" TextAlignment="Center" FontFamily="ElGar" Foreground="White"/>
 
                     <TextBlock x:Name="Players" TextWrapping="Wrap" Margin="28,49,0,0" Text="Players:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                    <RadioButton x:Name="P2" GroupName="Players" Content="2" HorizontalAlignment="Left" Margin="138,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                    <RadioButton x:Name="P3" GroupName="Players" Content="3" HorizontalAlignment="Left" Margin="178,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                    <RadioButton x:Name="P4" GroupName="Players" Content="4" HorizontalAlignment="Left" Margin="218,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                    <RadioButton x:Name="P5" GroupName="Players" Content="5" HorizontalAlignment="Left" Margin="258,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                    <RadioButton x:Name="P6" GroupName="Players" Content="6" HorizontalAlignment="Left" Margin="298,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                    <RadioButton x:Name="P7" GroupName="Players" Content="7" HorizontalAlignment="Left" Margin="338,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
-                    <RadioButton x:Name="P8" GroupName="Players" Content="8" HorizontalAlignment="Left" Margin="378,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" FontWeight="Bold" Height="14"/>
+                    <RadioButton x:Name="P2" GroupName="Players" Style="{StaticResource CustomRBStyle}" Content="2" HorizontalAlignment="Left" Margin="90,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" Width="60" Height="20"/>
+                    <RadioButton x:Name="P3" GroupName="Players" Style="{StaticResource CustomRBStyle}" Content="3" HorizontalAlignment="Left" Margin="150,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" Width="60" Height="20"/>
+                    <RadioButton x:Name="P4" GroupName="Players" Style="{StaticResource CustomRBStyle}" Content="4" HorizontalAlignment="Left" Margin="210,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" Width="60" Height="20"/>
+                    <RadioButton x:Name="P5" GroupName="Players" Style="{StaticResource CustomRBStyle}" Content="5" HorizontalAlignment="Left" Margin="270,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" Width="60" Height="20"/>
+                    <RadioButton x:Name="P6" GroupName="Players" Style="{StaticResource CustomRBStyle}" Content="6" HorizontalAlignment="Left" Margin="330,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" Width="60" Height="20"/>
+                    <RadioButton x:Name="P7" GroupName="Players" Style="{StaticResource CustomRBStyle}" Content="7" HorizontalAlignment="Left" Margin="390,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" Width="60" Height="20"/>
+                    <RadioButton x:Name="P8" GroupName="Players" Style="{StaticResource CustomRBStyle}" Content="8" HorizontalAlignment="Left" Margin="450,49,0,0" IsEnabled="False" VerticalAlignment="Top" Foreground="White" Checked="RadioButton_Checked" Width="60" Height="20"/>
                     <!-- Enter IP TextBlock -->
                     <TextBlock x:Name="EnterIP" TextWrapping="Wrap" Text="Enter IP:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,49,0,0" Foreground="White" FontWeight="Bold">
                         <TextBlock.Style>
@@ -488,55 +1781,31 @@
                         </TextBlock.Style>
                     </TextBlock>
                     <!-- IP TextBox -->
-                    <TextBox x:Name="IP" GotFocus="IP_GotFocus" PreviewMouseDown="IP_PreviewMouseDown" TextWrapping="Wrap" Width="145" Margin="208,49,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Height="22" TextChanged="IP_TextChanged">
-                        <TextBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </TextBox.OpacityMask>
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked, ElementName=Guest}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
+                    <TextBox x:Name="IP" GotFocus="IP_GotFocus" Style="{StaticResource CustomTextBoxStyle}" PreviewMouseDown="IP_PreviewMouseDown" Foreground="White" TextWrapping="Wrap" Width="150" Margin="208,49,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Height="20" TextChanged="IP_TextChanged">
+
                     </TextBox>
                     <TextBlock x:Name="Game_mode" TextWrapping="Wrap" Margin="28,74,0,0" Text="Game mode:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                    <ComboBox x:Name="Game_mode_list" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Padding="3,1,0,0" Margin="208,74,0,0"  VerticalContentAlignment="Top" VerticalAlignment="Top" Width="144" Height="20" SelectionChanged="Game_mode_list_SelectionChanged" FontWeight="Bold">
-                        <ComboBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </ComboBox.OpacityMask>
+                    <ComboBox x:Name="Game_mode_list" HorizontalAlignment="Left" Foreground="White" Style="{StaticResource CustomComboBoxStyle}" HorizontalContentAlignment="Center" Padding="3,1,0,0" Margin="208,74,0,0"  VerticalContentAlignment="Top" VerticalAlignment="Top" Width="150" Height="20" SelectionChanged="Game_mode_list_SelectionChanged" FontWeight="Bold">
+
                     </ComboBox>
-                    <CheckBox x:Name="Random_gods" Content="Random gods" HorizontalAlignment="Left" Margin="28,98,0,0" VerticalAlignment="Top" Foreground="White" Checked="Random_gods_Checked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Stutter_on_desync" Content="Stutter on desynchronization" HorizontalAlignment="Left" Margin="208,98,0,0" VerticalAlignment="Top" Foreground="White" Checked="Stutter_on_desync_Checked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Shuffle_sides" Content="Shuffle sides" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.51,0.466" Checked="Shuffle_sides_Checked" TextBlock.FontWeight="Bold" Margin="28,123,0,0"/>
-                    <CheckBox x:Name="No_particles" Content="No particles" HorizontalAlignment="Left" Margin="208,123,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.504,0.533" Checked="No_particles_Checked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Custom_souls" Content="Custom souls" HorizontalAlignment="Left" Margin="28,148,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_souls_Checked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Custom_xp_rate" Content="Custom XP rate" HorizontalAlignment="Left" Margin="208,148,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_XP_rate_Checked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Custom_level" Content="Custom level" HorizontalAlignment="Left" Margin="28,173,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_level_Checked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Custom_level_bounds" Content="Custom level bounds" HorizontalAlignment="Left" Margin="208,173,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_level_bounds_Checked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Slaughter" Content="Enable slaughter" HorizontalAlignment="Left" Margin="28,198,0,0" VerticalAlignment="Top" Foreground="White" Checked="Slaughter_Checked" TextBlock.FontWeight="Bold"/>
-                    <Slider x:Name="Slaughter_target_kills" Margin="208,198,0,0" Width="144" Height="20" Minimum="0" Maximum="999" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="Slaughter_kills_number" Text="{Binding ElementName=Slaughter_target_kills, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="362,196,0,0" FontWeight="Bold" Foreground="White" TextAlignment="Center"/>
-                    <CheckBox x:Name="Random_Spellbook" Content="Random spellbook" HorizontalAlignment="Left" Margin="29,223,0,0" VerticalAlignment="Top" Foreground="White" Checked="Refuse_green_souls_Checked" RenderTransformOrigin="0.575,0.599" TextBlock.FontWeight="Bold"/>
+                    <CheckBox x:Name="Random_gods" Content="Random gods" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="28,100,0,0" VerticalAlignment="Top" Foreground="White" Checked="Random_gods_Checked" />
+                    <CheckBox x:Name="Stutter_on_desync" Content="Stutter on desynch" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="311,100,0,0" VerticalAlignment="Top" Foreground="White" Checked="Stutter_on_desync_Checked" />
+                    <CheckBox x:Name="Shuffle_sides" Content="Shuffle sides" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.51,0.466" Checked="Shuffle_sides_Checked"  Margin="28,125,0,0"/>
+                    <CheckBox x:Name="No_particles" Content="No particles" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="311,125,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.504,0.533" Checked="No_particles_Checked" />
+                    <CheckBox x:Name="Custom_souls" Content="Custom souls" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="28,150,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_souls_Checked" />
+                    <CheckBox x:Name="Custom_xp_rate" Content="Custom XP rate" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="311,150,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_XP_rate_Checked" />
+                    <CheckBox x:Name="Custom_level" Content="Custom level" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="28,175,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_level_Checked" />
+                    <CheckBox x:Name="Custom_level_bounds" Content="Custom level bounds" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="311,175,0,0" VerticalAlignment="Top" Foreground="White" Checked="Custom_level_bounds_Checked"/>
+                    <CheckBox x:Name="Slaughter" Content="Enable slaughter" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="28,200,0,0" VerticalAlignment="Top" Foreground="White" Checked="Slaughter_Checked" />
+                    <Slider x:Name="Slaughter_target_kills" Style="{StaticResource CustomSliderStyle}" Margin="311,200,0,0" Width="171" Height="20" Minimum="0" Maximum="999" IsSnapToTickEnabled="True" TickFrequency="1"  
+SmallChange="1" LargeChange="10" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="Slaughter_kills_number" Text="{Binding ElementName=Slaughter_target_kills, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="487,200,0,0" FontWeight="Bold" Foreground="White" TextAlignment="Center"/>
+                    <CheckBox x:Name="Random_Spellbook" Content="Random spellbook" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="29,225,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.575,0.599" />
                     <TextBlock x:Name="Map_list" TextWrapping="Wrap" Margin="28,248,0,0" Text="Map list:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                    <ComboBox x:Name="Map_list1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="29,273,0,0" Padding="3,1,0,0" VerticalContentAlignment="Top" VerticalAlignment="Top" Width="183" Height="20" FontWeight="Bold" SelectionChanged="Map_list1_SelectionChanged">>
-                        <ComboBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </ComboBox.OpacityMask>
+                    <ComboBox x:Name="Map_list1" Style="{StaticResource CustomComboBoxStyle}" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="29,273,0,0" Padding="3,1,0,0" VerticalContentAlignment="Top" VerticalAlignment="Top" Width="195" Height="20" FontWeight="Bold" SelectionChanged="Map_list1_SelectionChanged">>
+
                     </ComboBox>
-                    <Button x:Name="Reroll_button" Content="Roll" Padding="0,0,0,0" Margin="45,380,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="ButtonRoll_Click">
+                    <Button x:Name="Reroll_button" Content="Roll" Padding="0,0,0,0" Margin="45,380,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="20" FontFamily="Verdana" Click="ButtonRoll_Click">
                         <Button.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF8C6600"/>
@@ -590,40 +1859,25 @@
                     </Button>
                     <Grid x:Name="Map_preview">
                         <!-- Image Preview -->
-                        <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" MaxHeight="200" MaxWidth="200" Margin="91,24,-91,-24">
+                        <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" MaxHeight="200" MaxWidth="200" Margin="312,223,32,169">
                             <Image x:Name="ImagePreview" Stretch="Uniform" />
                         </Border>
                     </Grid>
                     <TextBlock x:Name="Map_select" TextWrapping="Wrap" Margin="28,425,0,0" Text="Map name:" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                    <TextBox x:Name="Map_selection" GotFocus="Selection_GotFocus" TextChanged="MapSelection_TextChanged" PreviewMouseDown="Selection_PreviewMouseDown" Padding="0,0,0,0" VerticalScrollBarVisibility="Auto" IsReadOnly="False" TextWrapping="NoWrap" Width="299" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="208,425,0,0" FontWeight="Bold" Height="20">
-                        <TextBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </TextBox.OpacityMask>
+                    <TextBox x:Name="Map_selection" GotFocus="Selection_GotFocus" Style="{StaticResource CustomTextBoxStyle}" TextChanged="MapSelection_TextChanged" Foreground="White" PreviewMouseDown="Selection_PreviewMouseDown" Padding="3,0,0,0" VerticalScrollBarVisibility="Auto" IsReadOnly="False" TextWrapping="NoWrap" Width="281" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="231,425,0,0" FontWeight="Bold" Height="20">
+
                     </TextBox>
-                    <CheckBox x:Name="Restart_game" Content="Restart game from replay:" HorizontalAlignment="Left" Margin="28,450,0,0" VerticalAlignment="Top" Foreground="White" TextBlock.FontWeight="Bold" Checked="Restart_game_Checked"/>
-                    <CheckBox x:Name="Watch_replay" Content="Watch replay:" HorizontalAlignment="Left" Margin="28,450,0,0" VerticalAlignment="Top" Foreground="White" TextBlock.FontWeight="Bold" Checked="Watch_replay_Checked"/>
-                    <ComboBox x:Name="ReplaysComboBox" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="208,450,0,0" Padding="3,1,0,0" VerticalContentAlignment="Top" Width="299" Height="20" FontWeight="Bold" SelectionChanged="ReplaysComboBox_SelectionChanged">
-                        <ComboBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </ComboBox.OpacityMask>
+                    <CheckBox x:Name="Restart_game" Content="Restart from replay:" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="28,450,0,0" VerticalAlignment="Top" Foreground="White" Checked="Restart_game_Checked"/>
+                    <CheckBox x:Name="Watch_replay" Content="Watch replay:" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="28,450,0,0" VerticalAlignment="Top" Foreground="White" Checked="Watch_replay_Checked"/>
+                    <ComboBox x:Name="ReplaysComboBox" Style="{StaticResource CustomComboBoxStyle}" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="231,450,0,0" Padding="3,1,0,0" VerticalContentAlignment="Top" Foreground="White" Width="281" Height="20" FontWeight="Bold" SelectionChanged="ReplaysComboBox_SelectionChanged">
+
                     </ComboBox>
                     <TextBlock x:Name="Continue_at" TextWrapping="Wrap" Margin="28,475,0,0" Text="Continue at frame (leave empty to continue from last frame):" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
                     <TextBlock x:Name="Continue_at2" TextWrapping="Wrap" Margin="28,475,0,0" Text="Continue at frame (leave empty to start at beginning):" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold"/>
-                    <TextBox x:Name="Frame" TextWrapping="Wrap" Margin="378,475,0,0" FontWeight="Bold" Height="20" Padding="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" >
-                        <TextBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </TextBox.OpacityMask>
+                    <TextBox x:Name="Frame" TextWrapping="Wrap" Style="{StaticResource CustomTextBoxStyle}" Margin="391,475,0,0" FontWeight="Bold" Height="20" Padding="0,0,0,0" HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Top" Width="121" >
+
                     </TextBox>
-                    <Button x:Name="Save_button" Content="Save" Padding="0,0,0,0" Margin="45,528,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Save_button_Click">
+                    <Button x:Name="Save_button" Content="Save" Padding="0,0,0,0" Margin="45,528,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="20" FontFamily="Verdana" Click="Save_button_Click">
                         <Button.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF8C6600"/>
@@ -675,7 +1929,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Button x:Name="LaunchButton1" Content="Start game" Click="LaunchButton_Click" Padding="0,0,0,0" Margin="0,528,45,0" VerticalAlignment="Top" HorizontalAlignment="Right" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana">
+                    <Button x:Name="LaunchButton1" Content="Start game" Click="LaunchButton_Click" Padding="0,0,0,0" Margin="0,528,45,0" VerticalAlignment="Top" HorizontalAlignment="Right" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="20" FontFamily="Verdana">
                         <Button.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF8C6600"/>
@@ -727,31 +1981,18 @@
                             </Style>
                         </Button.Style>
                     </Button>
-
                 </Grid>
-
             </Grid>
-            <Grid x:Name="Settings_grid" Margin="30,50,30,0">
-                <Grid Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="592" Width="544">
+            <Grid x:Name="Settings_grid" Margin="0,50,0,0">
+                <Grid Margin="30,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="592" Width="544">
                     <Grid.Background>
                         <ImageBrush ImageSource="images/frame.png"/>
                     </Grid.Background>
                     <TextBlock x:Name="Graphics_options" HorizontalAlignment="Center" Padding="5" Margin="0,0,0,0" TextWrapping="Wrap" Text="G r a p h i c s   O p t i o n s" VerticalAlignment="Top" Height="40" Width="400" FontSize="18" TextAlignment="Center" FontFamily="ElGar" Foreground="White"/>
-                    <RadioButton x:Name="Detect_Resolution" Content="Detect Resolution" IsChecked="True" GroupName="Resolution" HorizontalAlignment="Left" Margin="28,49,0,0" VerticalAlignment="Top" Foreground="White" Checked="Detect_Resolution_Checked" TextBlock.FontWeight="Bold"/>
-                    <RadioButton x:Name="Choose_Resolution" Content="Choose Resolution" GroupName="Resolution" HorizontalAlignment="Left" Margin="281,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.0,0.0" Foreground="White" Checked="Choose_Resolution_Checked" TextBlock.FontWeight="Bold"/>
-                    <ComboBox x:Name="Resolution_list" HorizontalAlignment="Left" Padding="3,1,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Margin="269,75,0,0" VerticalAlignment="Top" Width="136" Height="20" SelectionChanged="Resolution_list_SelectionChanged" TextBlock.FontWeight="Bold">
-                        <ComboBox.Background>
-                            <LinearGradientBrush EndPoint="0,1">
-                                <GradientStop Color="#FFF0F0F0"/>
-                                <GradientStop Color="#FFE5E5E5" Offset="1"/>
-                            </LinearGradientBrush>
-                        </ComboBox.Background>
-                        <ComboBox.OpacityMask>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Black"/>
-                                <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                            </RadialGradientBrush>
-                        </ComboBox.OpacityMask>
+                    <RadioButton x:Name="Detect_Resolution" Style="{StaticResource CustomCheckboxStyle}" Content="Detect Resolution" IsChecked="True" GroupName="Resolution" HorizontalAlignment="Left" Margin="28,49,0,0" VerticalAlignment="Top" Foreground="White" Checked="Detect_Resolution_Checked" Width="195" />
+                    <RadioButton x:Name="Choose_Resolution" Style="{StaticResource CustomCheckboxStyle}" Content="Choose Resolution" GroupName="Resolution" HorizontalAlignment="Left" Margin="272,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.0,0.0" Foreground="White" Checked="Choose_Resolution_Checked" Width="200" />
+                    <ComboBox x:Name="Resolution_list" Style="{StaticResource CustomComboBoxStyle}" HorizontalAlignment="Left" Padding="3,1,0,0" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Margin="272,77,0,0" VerticalAlignment="Top" Width="200" Height="20" SelectionChanged="Resolution_list_SelectionChanged" FontWeight="Bold">
+
                         <ComboBoxItem Content="640x480"/>
                         <ComboBoxItem Content="800x600"/>
                         <ComboBoxItem Content="1024x768"/>
@@ -764,39 +2005,76 @@
                         <ComboBoxItem Content="2560x1440"/>
                         <ComboBoxItem Content="4096x2160"/>
                     </ComboBox>
-                    <CheckBox x:Name="Fullscreen" Content="Fullscreen" IsChecked="True" HorizontalAlignment="Left" Margin="28,77,0,0" VerticalAlignment="Top" Foreground="White" Checked="Fullscreen_Checked" Unchecked="Fullscreen_Unchecked" Height="18" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Widgets" Content="Disable widgets" IsChecked="True" HorizontalAlignment="Left" Margin="28,103,0,0" VerticalAlignment="Top" Foreground="White" Checked="Widgets_Checked" Unchecked="Widgets_Unchecked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Fog" Content="Disable fogging" IsChecked="True" HorizontalAlignment="Left" Margin="28,127,0,0" VerticalAlignment="Top" Foreground="White" Checked="Fog_Checked" Unchecked="Fog_Unchecked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="MapBottom" Content="Map bottom(Disable this option if you have performance issues!)" IsChecked="True" HorizontalAlignment="Left" Margin="28,153,0,0" VerticalAlignment="Top" Foreground="White" Checked="MapBottom_Checked" Unchecked="MapBottom_Unchecked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Glow" Content="Enable glow" HorizontalAlignment="Left" IsChecked="True" Margin="28,177,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_Checked" Unchecked="Glow_Unchecked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Glow_brightness" Content="Glow brightness" HorizontalAlignment="Left" IsChecked="True" Margin="28,203,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_brightness_Checked" Unchecked="Glow_brightness_Unchecked"  TextBlock.FontWeight="Bold"/>
-                    <Slider x:Name="Glow_brightness_slider" Margin="260,203,0,0" Width="144" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Glow_brightness_slider_ValueChanged"/>
-                    <TextBlock x:Name="Glow1" Text="{Binding ElementName=Glow_brightness_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="410,203,0,0" TextAlignment="Center" Foreground="White" />
-                    <CheckBox x:Name="Antialiasing" Content="Antialiasing" IsChecked="True" HorizontalAlignment="Left" Margin="28,227,0,0" VerticalAlignment="Top" Foreground="White" Checked="Antialiasing_Checked" Unchecked="Antialiasing_Unchecked" TextBlock.FontWeight="Bold"/>
-                    <CheckBox x:Name="Sun_strength" Content="Sun strength" IsChecked="True" HorizontalAlignment="Left" Margin="28,253,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sun_strength_Checked" Unchecked="Sun_strength_Unchecked" Height="16" TextBlock.FontWeight="Bold"/>
-                    <Slider x:Name="Sun_strength_slider" Margin="260,253,0,0" Width="144" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Sun_strength_slider_ValueChanged"/>
-                    <TextBlock x:Name="Sun1" Text="{Binding ElementName=Sun_strength_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="410,253,0,0" TextAlignment="Center" Foreground="White" />
-                    <CheckBox x:Name="Ambient_strength" Content="Ambient strength" IsChecked="True" HorizontalAlignment="Left" Margin="28,277,0,0" VerticalAlignment="Top" Foreground="White" Checked="Ambient_strength_Checked" Unchecked="Ambient_strength_Unchecked" Height="18" TextBlock.FontWeight="Bold"/>
-                    <Slider x:Name="Ambient_strength_slider" Margin="260,277,0,0" Width="144" Height="20" Minimum="0" Maximum="10" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Ambient_strength_slider_ValueChanged"/>
-                    <TextBlock x:Name="Ambient1" Text="{Binding ElementName=Ambient_strength_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="410,277,0,0" TextAlignment="Center" Foreground="White"/>
+                    <CheckBox x:Name="Fullscreen" Content="Fullscreen" Style="{StaticResource CustomCheckboxStyle}" IsChecked="True" HorizontalAlignment="Left" Margin="28,77,0,0" Width="195" VerticalAlignment="Top" Foreground="White" Checked="Fullscreen_Checked" Unchecked="Fullscreen_Unchecked" Height="20" />
+                    <CheckBox x:Name="Widgets" Content="Disable widgets" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" IsChecked="True" HorizontalAlignment="Left" Margin="28,103,0,0" VerticalAlignment="Top" Foreground="White" Checked="Widgets_Checked" Unchecked="Widgets_Unchecked" />
+                    <CheckBox x:Name="Fog" Content="Disable fogging" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" IsChecked="True" HorizontalAlignment="Left" Margin="28,127,0,0" VerticalAlignment="Top" Foreground="White" Checked="Fog_Checked" Unchecked="Fog_Unchecked" />
+                    <CheckBox x:Name="MapBottom" Content="Map bottom(Keep it!)" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" IsChecked="True" HorizontalAlignment="Left" Margin="28,153,0,0" VerticalAlignment="Top" Foreground="White" Checked="MapBottom_Checked" Unchecked="MapBottom_Unchecked" />
+                    <CheckBox x:Name="Glow" Content="Enable glow" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" IsChecked="True" Margin="28,177,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_Checked" Unchecked="Glow_Unchecked" />
+                    <Grid>
+                        <CheckBox x:Name="Glow_brightness" Content="Glow brightness" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" IsChecked="True" Margin="28,203,0,0" VerticalAlignment="Top" Foreground="White" Checked="Glow_brightness_Checked" Unchecked="Glow_brightness_Unchecked" />
+                        <CheckBox x:Name="Antialiasing" Content="Antialiasing" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" IsChecked="True" HorizontalAlignment="Left" Margin="28,227,0,0" VerticalAlignment="Top" Foreground="White" Checked="Antialiasing_Checked" Unchecked="Antialiasing_Unchecked" />
+                        <CheckBox x:Name="Sun_strength" Content="Sun strength" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" IsChecked="True" HorizontalAlignment="Left" Margin="28,253,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sun_strength_Checked" Unchecked="Sun_strength_Unchecked" />
+                        <CheckBox x:Name="Ambient_strength" Content="Ambient strength" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" IsChecked="True" HorizontalAlignment="Left" Margin="28,277,0,0" VerticalAlignment="Top" Foreground="White" Checked="Ambient_strength_Checked" Unchecked="Ambient_strength_Unchecked" />
+                        <!-- Glow Brightness Slider -->
+                        <Slider x:Name="Glow_brightness_slider" Style="{StaticResource CustomSliderStyle}" 
+            Margin="272,203,77,369" Height="20" Width="195"
+            Minimum="0" Maximum="10" 
+            IsSnapToTickEnabled="True" TickFrequency="0.1" 
+            SmallChange="0.1" LargeChange="1" ValueChanged="Glow_brightness_slider_ValueChanged"/>
+
+                        <!-- Sun Strength Slider -->
+                        <Slider x:Name="Sun_strength_slider" Style="{StaticResource CustomSliderStyle}" 
+            Margin="272,251,75,321" Height="20" Width="195"
+            Minimum="0" Maximum="10" 
+            IsSnapToTickEnabled="True" TickFrequency="0.1" 
+            SmallChange="0.1" LargeChange="1" ValueChanged="Sun_strength_slider_ValueChanged"/>
+
+                        <!-- Ambient Strength Slider -->
+                        <Slider x:Name="Ambient_strength_slider" Style="{StaticResource CustomSliderStyle}" 
+            Margin="272,276,75,296" Height="20" Width="195"
+            Minimum="0" Maximum="10" 
+            IsSnapToTickEnabled="True" TickFrequency="0.1" 
+            SmallChange="0.1" LargeChange="1" ValueChanged="Ambient_strength_slider_ValueChanged"/>
+
+                        <!-- TextBlocks for Displaying Slider Values -->
+                        <TextBlock x:Name="Glow1" Text="{Binding ElementName=Glow_brightness_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="482,203,0,0" TextAlignment="Center" Foreground="White" RenderTransformOrigin="0.652,0.564"/>
+                        <TextBlock x:Name="Sun1" Text="{Binding ElementName=Sun_strength_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="482,251,0,0" TextAlignment="Center" Foreground="White"/>
+                        <TextBlock x:Name="Ambient1" Text="{Binding ElementName=Ambient_strength_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="482,277,0,0" TextAlignment="Center" Foreground="White"/>
+                    </Grid>
+                    <TextBlock x:Name="Custom_args" HorizontalAlignment="Left" Margin="28,346,0,0" TextWrapping="Wrap" Text="Custom arguments:" Foreground="White" FontWeight="Bold" VerticalAlignment="Top" Width="121"/>
+                    <TextBox x:Name="UnhandledArgumentsTextBox" 
+         HorizontalAlignment="Left" 
+         VerticalAlignment="Top" 
+         Width="444" 
+         Height="186" 
+         TextWrapping="Wrap" 
+         AcceptsReturn="True" 
+         Foreground="White"
+         FontWeight="Bold"
+         IsReadOnly="False" Margin="28,364,0,0" >
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="Images/dropdownmenu_texture.png" TileMode="Tile" Viewport="0,0,20,20" ViewportUnits="Absolute" />
+                        </TextBox.Background>
+                    </TextBox>
+
                 </Grid>
                 <Grid>
-                    <Grid Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="592" Width="544">
+                    <Grid Margin="0,80,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="592" Width="544">
                         <Grid.Background>
                             <ImageBrush ImageSource="images/frame.png"/>
                         </Grid.Background>
                         <TextBlock x:Name="Audio_options" HorizontalAlignment="Center" Padding="5" Margin="0,0,0,0" TextWrapping="Wrap" Text="S o u n d   O p t i o n s" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" RenderTransformOrigin="0.511,0.535" FontFamily="ElGar" Foreground="White"/>
-                        <CheckBox x:Name="Master_volume" Content="Volume" HorizontalAlignment="Left" Margin="29,49,0,0" VerticalAlignment="Top" Foreground="White" Checked="Master_volume_Checked" Unchecked="Master_volume_Unchecked" TextBlock.FontWeight="Bold"/>
-                        <Slider x:Name="Master_volume_slider" Margin="281,49,0,0" Width="144" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Master_volume_slider_ValueChanged"/>
-                        <TextBlock x:Name="Master1" Text="{Binding ElementName=Master_volume_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="431,49,0,0" TextAlignment="Center" Foreground="White" />
-                        <CheckBox x:Name="Music_volume" Content="Music volume" HorizontalAlignment="Left" Margin="29,73,0,0" VerticalAlignment="Top" Foreground="White" Checked="Music_volume_Checked" Unchecked="Music_volume_Unchecked" TextBlock.FontWeight="Bold"/>
-                        <Slider x:Name="Music_volume_slider" Margin="281,73,0,0" Width="144" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Music_volume_slider_ValueChanged"/>
-                        <TextBlock x:Name="Music1" Text="{Binding ElementName=Music_volume_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="431,73,0,0" TextAlignment="Center" Foreground="White" FontWeight="Bold"/>
-                        <CheckBox x:Name="Sound_volume" Content="Sound volume" HorizontalAlignment="Left" Margin="29,99,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sound_volume_Checked" Unchecked="Sound_volume_Unchecked" TextBlock.FontWeight="Bold"/>
-                        <Slider x:Name="Sound_volume_slider" Margin="281,99,0,0" Width="144" Height="20" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Sound_volume_slider_ValueChanged"/>
-                        <TextBlock x:Name="Sound1" Text="{Binding ElementName=Sound_volume_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="431,99,0,0" TextAlignment="Center" Foreground="White"/>
-                        <CheckBox x:Name="No_advisor_help_speech" IsChecked="True" Content="Advisor help speech(Zyzyx)" HorizontalAlignment="Left" Margin="29,123,0,0" VerticalAlignment="Top" Foreground="White" Checked="No_advisor_help_speech_Checked" TextBlock.FontWeight="Bold"/>
-                        <Button x:Name="Save_button1" Content="Save" Padding="0,0,0,0" Margin="0,528,45,0" VerticalAlignment="Top" HorizontalAlignment="Right" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="22" FontFamily="Verdana" Click="Save_button_Click">
+                        <CheckBox x:Name="Master_volume" Content="Volume" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="22" HorizontalAlignment="Left" Margin="29,49,0,0" VerticalAlignment="Top" Foreground="White" Checked="Master_volume_Checked" Unchecked="Master_volume_Unchecked" />
+                        <Slider x:Name="Master_volume_slider" Style="{StaticResource CustomSliderStyle}" Margin="270,49,0,0" Width="195" Height="20" Minimum="0" Maximum="1" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Master_volume_slider_ValueChanged"/>
+                        <TextBlock x:Name="Master1" Text="{Binding ElementName=Master_volume_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="476,49,0,0" TextAlignment="Center" Foreground="White" />
+                        <CheckBox x:Name="Music_volume" Content="Music volume" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="29,73,0,0" VerticalAlignment="Top" Foreground="White" Checked="Music_volume_Checked" Unchecked="Music_volume_Unchecked" />
+                        <Slider x:Name="Music_volume_slider" Style="{StaticResource CustomSliderStyle}" Margin="270,73,0,0" Width="195" Height="20" Minimum="0" Maximum="1" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Music_volume_slider_ValueChanged"/>
+                        <TextBlock x:Name="Music1" Text="{Binding ElementName=Music_volume_slider, Path=Value}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="476,73,0,0" TextAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                        <CheckBox x:Name="Sound_volume" Content="Sound volume" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="29,99,0,0" VerticalAlignment="Top" Foreground="White" Checked="Sound_volume_Checked" Unchecked="Sound_volume_Unchecked" />
+                        <Slider x:Name="Sound_volume_slider" Style="{StaticResource CustomSliderStyle}" Margin="270,99,0,0" Width="195" Height="20" Minimum="0" Maximum="1" TickFrequency="0.1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Top" ValueChanged="Sound_volume_slider_ValueChanged"/>
+                        <TextBlock x:Name="Sound1" Text="{Binding ElementName=Sound_volume_slider, Path=Value}" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="476,99,0,0" TextAlignment="Center" Foreground="White"/>
+                        <CheckBox x:Name="No_advisor_help_speech" IsChecked="True" Content="Advisor help speech" Style="{StaticResource CustomCheckboxStyle}" Width="195" Height="20" HorizontalAlignment="Left" Margin="29,123,0,0" VerticalAlignment="Top" Foreground="White" Checked="No_advisor_help_speech_Checked" />
+                        <Button x:Name="Save_button1" Content="Save" Padding="0,0,0,0" Margin="0,528,45,0" VerticalAlignment="Top" HorizontalAlignment="Right" BorderBrush="{x:Null}" RenderTransformOrigin="0.393,0.521" Width="150" Height="20" FontFamily="Verdana" Click="Save_button_Click">
                             <Button.Foreground>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="#FF8C6600"/>
@@ -852,5 +2130,6 @@
                 </Grid>
             </Grid>
         </Grid>
+
     </Grid>
 </Window>

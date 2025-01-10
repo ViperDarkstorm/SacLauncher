@@ -12,16 +12,43 @@
   <ItemGroup>
     <None Remove="00008.png" />
     <None Remove="00010.png" />
+    <None Remove="button minus.png" />
+    <None Remove="button plus.png" />
     <None Remove="Button1.png" />
+    <None Remove="dropdownmenu_texture.png" />
     <None Remove="elgar.ttf" />
     <None Remove="images\4run.ico" />
+    <None Remove="images\button minus.png" />
+    <None Remove="images\button plus.png" />
     <None Remove="images\Button1.png" />
     <None Remove="images\Button2.png" />
     <None Remove="images\Button3.png" />
+    <None Remove="images\buttonend.png" />
+    <None Remove="images\buttonstart.png" />
+    <None Remove="images\button_end_active.png" />
+    <None Remove="images\button_end_inactive.png" />
+    <None Remove="images\button_middle.png" />
+    <None Remove="images\button_start_active.png" />
+    <None Remove="images\button_start_inactive.png" />
+    <None Remove="images\checkbox_checked.png" />
+    <None Remove="images\checkbox_unchecked.png" />
     <None Remove="images\defaultmap.png" />
+    <None Remove="images\dropdownmenu_texture.png" />
     <None Remove="images\frame.png" />
+    <None Remove="images\frame2.png" />
     <None Remove="images\frame5.png" />
+    <None Remove="images\line_texture.png" />
+    <None Remove="images\logo.png" />
     <None Remove="images\Sacrifice_1920x1200.jpg" />
+    <None Remove="images\slider_minus.png" />
+    <None Remove="images\slider_minus_active.png" />
+    <None Remove="images\slider_plus.png" />
+    <None Remove="images\slider_plus_active.png" />
+    <None Remove="images\slider_square.png" />
+    <None Remove="images\textbox_end.png" />
+    <None Remove="images\textbox_middle.png" />
+    <None Remove="images\textbox_start.png" />
+    <None Remove="images\tunnel.png" />
     <None Remove="ncst1.png" />
     <None Remove="ncst2.png" />
   </ItemGroup>
@@ -42,9 +69,27 @@
     <Resource Include="images\Button1.png" />
     <Resource Include="images\Button2.png" />
     <Resource Include="images\Button3.png" />
+    <Resource Include="images\button_end_active.png" />
+    <Resource Include="images\button_end_inactive.png" />
+    <Resource Include="images\button_middle.png" />
+    <Resource Include="images\button_start_active.png" />
+    <Resource Include="images\button_start_inactive.png" />
+    <Resource Include="images\checkbox_checked.png" />
+    <Resource Include="images\checkbox_unchecked.png" />
     <Resource Include="images\defaultmap.png" />
+    <Resource Include="images\dropdownmenu_texture.png" />
     <Resource Include="images\frame.png" />
+    <Resource Include="images\frame2.png" />
+    <Resource Include="images\line_texture.png" />
+    <Resource Include="images\logo.png" />
     <Resource Include="images\Sacrifice_1920x1200.jpg" />
+    <Resource Include="images\slider_minus.png" />
+    <Resource Include="images\slider_minus_active.png" />
+    <Resource Include="images\slider_plus.png" />
+    <Resource Include="images\slider_plus_active.png" />
+    <Resource Include="images\slider_square.png" />
+    <Resource Include="images\textbox_middle.png" />
+    <Resource Include="images\tunnel.png" />
   </ItemGroup>
 
 </Project>

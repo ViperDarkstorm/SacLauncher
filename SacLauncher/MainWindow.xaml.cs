@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Media3D;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -19,11 +20,14 @@ namespace SacLauncher
     public partial class MainWindow : Window
     {
         private readonly string folderPath;
-        private AxisAngleRotation3D rotation; // Class-level field for rotation
+
 
         public MainWindow()
         {
             InitializeComponent();
+            InitializeTunnel();
+            AddTubes();
+            AnimateCamera();
             folderPath = AppDomain.CurrentDomain.BaseDirectory;
             LoadReplays();
             InitializeDefaultImage();
@@ -40,12 +44,131 @@ namespace SacLauncher
             Master_volume_slider.Value = 0.5;  
             Sound_volume_slider.Value = 0.5;   
             Music_volume_slider.Value = 0.5;   
-            Start_souls_slider.Value = 12;
+            Start_souls_slider.Value = 16;
             Max_level_slider.Value = 9;
             Min_level_slider.Value = 5;
             xp_rate_slider.Value = 1.00;
             Slaughter_target_kills.Value = 999;
             LoadSettings();
+        }
+
+        private void InitializeTunnel()
+        {
+            // Generate the tunnel mesh
+            MeshGeometry3D tunnelMesh = TunnelMeshGenerator.CreateTunnelMesh(32, 5, 50);
+
+            // Apply the generated mesh to the GeometryModel3D in XAML
+            tunnelModel.Geometry = tunnelMesh;
+        }
+
+        private void AnimateCamera()
+        {
+            // Create a Transform3DGroup to combine rotation and translation
+            Transform3DGroup cameraTransformGroup = new Transform3DGroup();
+
+            // Rotation: Rotate around the Z-axis
+            AxisAngleRotation3D rotation = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 0);
+            RotateTransform3D rotateTransform = new RotateTransform3D(rotation);
+
+            // Translation: Move along the Z-axis
+            TranslateTransform3D translateTransform = new TranslateTransform3D(0, 0, 0);
+
+            // Add transforms to the group
+            cameraTransformGroup.Children.Add(rotateTransform);
+            cameraTransformGroup.Children.Add(translateTransform);
+
+            // Apply the transformation group to the camera
+            camera.Transform = cameraTransformGroup;
+
+            // Animate the rotation angle (rotation around Z-axis)
+            DoubleAnimation rotationAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = -360,
+                Duration = TimeSpan.FromSeconds(20),
+                RepeatBehavior = RepeatBehavior.Forever
+            };
+            rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, rotationAnimation);
+
+            // Animate the translation along the Z-axis (move through the tunnel)
+            DoubleAnimation translationAnimation = new DoubleAnimation
+            {
+                From = 100,
+                To = 300, // Match total tunnel length
+                Duration = TimeSpan.FromSeconds(20), // Adjust for camera speed
+                RepeatBehavior = RepeatBehavior.Forever
+            };
+            translateTransform.BeginAnimation(TranslateTransform3D.OffsetZProperty, translationAnimation);
+
+            // Periodically reposition tubes to prevent gaps
+            DispatcherTimer repositionTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(100) // Adjust frequency as needed
+            };
+            repositionTimer.Tick += (s, e) => UpdateTunnelPosition();
+            repositionTimer.Start();
+        }
+
+
+
+
+        private void UpdateTunnelPosition()
+        {
+        // Move tubes that go out of view to the end of the tunnel
+        foreach (ModelVisual3D visual in viewport3D.Children)
+            {
+            if (visual.Content is GeometryModel3D tubeModel)
+                {
+                if (tubeModel.Transform is TranslateTransform3D translate)
+                    {
+                    if (translate.OffsetZ < -50) // Tube goes out of view
+                        {
+                        translate.OffsetZ += 100; // Reposition to the end of the tunnel
+                        }
+                    }
+                }
+            }
+        }
+
+        private void AddTubes()
+        {
+        int tubeCount = 50; // Number of tubes
+        double tubeLength = 50; // Length of each tube
+        double tubeSpacing = tubeLength; // Spacing equal to tube length to remove gaps
+
+        for (int i = 0; i < tubeCount; i++)
+        {
+            // Generate a new mesh for the tube
+            MeshGeometry3D tunnelMesh = TunnelMeshGenerator.CreateTunnelMesh(32, 5, tubeLength);
+
+            // Create a new GeometryModel3D for the tube
+            GeometryModel3D tubeModel = new GeometryModel3D
+            {
+                Geometry = tunnelMesh,
+                Material = new DiffuseMaterial
+                {
+                    Brush = new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/tunnel.png"))
+                    }
+                },
+                BackMaterial = new DiffuseMaterial
+                {
+                    Brush = new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/tunnel.png"))
+                    }
+                }
+            };
+
+            // Apply transformation to position the tube
+            TranslateTransform3D transform = new TranslateTransform3D(0, 0, i * tubeSpacing);
+            tubeModel.Transform = transform;
+
+            // Wrap the model in a ModelVisual3D and add to the Viewport3D
+            ModelVisual3D visual = new ModelVisual3D { Content = tubeModel };
+            viewport3D.Children.Add(visual);
+            }
         }
 
         private void SetSingleplayerMode()
@@ -183,55 +306,6 @@ namespace SacLauncher
             Settings.IsChecked = true;
         }
 
-
-        private void PopulateDropdown(string pattern)
-        {
-            Map_list1.Items.Clear();
-
-            if (string.IsNullOrEmpty(pattern))
-            {
-            MessageBox.Show("Invalid pattern. Unable to populate dropdown.");
-            return;
-            }
-
-            Regex regex;
-            try
-            {
-                regex = new Regex(pattern);
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show("Invalid regex pattern: " + ex.Message);
-                return;
-            }
-
-            try
-            {
-                string[] mapFiles = Directory.GetFiles(folderPath, "maps*.txt");
-                foreach (string filePath in mapFiles)
-                {
-                    string fileName = Path.GetFileName(filePath);
-                    if (regex.IsMatch(fileName))
-                    {
-                        Map_list1.Items.Add(fileName);
-                    }
-                }
-
-                if (Map_list1.Items.Count > 0)
-                {
-                    Map_list1.SelectedIndex = 0;
-                }
-                else
-                {
-                MessageBox.Show("Couldn't locate a maplist file pattern: " + pattern);
-                }
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show("Error accessing directory or finding files: " + ex.Message);
-            }
-        }
-
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             UpdateGame_mode_listDropdown();
@@ -327,6 +401,53 @@ namespace SacLauncher
             PopulateDropdown(pattern);
         }
 
+        private void PopulateDropdown(string pattern)
+        {
+            Map_list1.Items.Clear();
+
+            if (string.IsNullOrEmpty(pattern))
+            {
+                MessageBox.Show("Invalid pattern. Unable to populate dropdown.");
+                return;
+            }
+
+            Regex regex;
+            try
+            {
+                regex = new Regex(pattern);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("Invalid regex pattern: " + ex.Message);
+                return;
+            }
+
+            try
+            {
+                string[] mapFiles = Directory.GetFiles(folderPath, "maps*.txt");
+                foreach (string filePath in mapFiles)
+                {
+                    string fileName = Path.GetFileName(filePath);
+                    if (regex.IsMatch(fileName))
+                    {
+                        Map_list1.Items.Add(fileName);
+                    }
+                }
+
+                if (Map_list1.Items.Count > 0)
+                {
+                    Map_list1.SelectedIndex = 0;
+                }
+                else
+                {
+                    MessageBox.Show("Couldn't locate a maplist file pattern: " + pattern);
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error accessing directory or finding files: " + ex.Message);
+            }
+        }
 
         private Random random = new Random();
 
@@ -357,6 +478,7 @@ namespace SacLauncher
             }
         }
 
+
         private string GetRandomEntry(string filePath)
         {
             var entries = new List<string>();
@@ -372,26 +494,6 @@ namespace SacLauncher
             }
 
             return entries.Count > 0 ? entries[random.Next(entries.Count)] : null;
-        }
-
-        private void Singleplayer1_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void Host_game_button_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void Join_game_button_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
 
         private void ButtonRoll_Click(object sender, RoutedEventArgs e)
@@ -412,6 +514,7 @@ namespace SacLauncher
 
             Map_selection.Text = randomEntry ?? "No entries found.";
         }
+
 
         private void LoadReplays()
         {
@@ -650,20 +753,12 @@ namespace SacLauncher
 
         private void Master_volume_Checked(object sender, RoutedEventArgs e)
         {
-            if (Master_volume_slider != null)
-            {
-                Master_volume_slider.Value = 0.5;  // Set the slider to a default value when the checkbox is checked
-                Master_volume_slider.IsEnabled = true;  // Enable the slider
-            }
+            
         }
 
         private void Master_volume_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (Master_volume_slider != null)
-            {
-                Master_volume_slider.Value = 0;  // Set the slider value to 0 when the checkbox is unchecked
-                Master_volume_slider.IsEnabled = true;  // Keep the slider enabled
-            }
+            
         }
 
         private void Master_volume_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -688,20 +783,12 @@ namespace SacLauncher
 
         private void Music_volume_Checked(object sender, RoutedEventArgs e)
         {
-            if (Music_volume_slider != null)
-            {
-                // Set the slider to a default value (0.5) when the checkbox is checked
-                Music_volume_slider.Value = 0.5;
-            }
+            
         }
 
         private void Music_volume_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (Music_volume_slider != null)
-            {
-                // Set the slider value to 0 when the checkbox is unchecked
-                Music_volume_slider.Value = 0;
-            }
+            
         }
 
         private void Music_volume_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -726,20 +813,12 @@ namespace SacLauncher
 
         private void Sound_volume_Checked(object sender, RoutedEventArgs e)
         {
-            if (Sound_volume_slider != null)
-            {
-                Sound_volume_slider.Value = 0.5;  // Set the slider to a default value when the checkbox is checked
-                Sound_volume_slider.IsEnabled = true;  // Enable the slider
-            }
+
         }
 
         private void Sound_volume_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (Sound_volume_slider != null)
-            {
-                Sound_volume_slider.Value = 0;  // Set the slider value to 0 when the checkbox is unchecked
-                Sound_volume_slider.IsEnabled = true;  // Keep the slider enabled
-            }
+
         }
 
         private void Sound_volume_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -747,13 +826,11 @@ namespace SacLauncher
             if (Sound_volume_slider != null)
             {
                 Sound1.Text = Sound_volume_slider.Value.ToString("F1", CultureInfo.InvariantCulture);
-
-                // If the slider value is 0, uncheck the checkbox
                 if (Sound_volume_slider.Value == 0)
                 {
                     Sound_volume.IsChecked = false;
                 }
-                else if (Sound_volume_slider.Value > 0 && Sound_volume.IsChecked == false)
+                else if (Sound_volume_slider.Value > 0 && Music_volume.IsChecked == false)
                 {
                     // If the slider is moved above 0, recheck the checkbox if it was unchecked
                     Sound_volume.IsChecked = true;
@@ -762,149 +839,11 @@ namespace SacLauncher
         }
 
 
+
         private void No_advisor_help_speech_Checked(object sender, RoutedEventArgs e)
         {
             // Handle no advisor help speech checked event if needed
         }
-
-        /*private void Host_game_Checked(object sender, RoutedEventArgs e)
-        {
-            Settings_grid.Visibility = Visibility.Hidden;
-            Player_details_grid.Visibility = Visibility.Visible;
-            Save_button.Visibility = Visibility.Visible;
-            Players.Visibility = Visibility.Visible;
-            EnterIP.Visibility = Visibility.Hidden;
-            IP.Visibility = Visibility.Hidden;
-            Game_mode.Visibility = Visibility.Visible;
-            Game_mode_list.Visibility = Visibility.Visible;
-            Random_gods.Visibility = Visibility.Visible;
-            Custom_souls.Visibility = Visibility.Visible;
-            Custom_level.Visibility = Visibility.Visible;
-            Custom_level_bounds.Visibility = Visibility.Visible;
-            Shuffle_sides.Visibility = Visibility.Visible;
-            Stutter_on_desync.Visibility = Visibility.Visible;
-            No_particles.Visibility = Visibility.Visible;
-            Slaughter.Visibility = Visibility.Visible;
-            Slaughter_target_kills.Visibility = Visibility.Visible;
-            Slaughter_kills_number.Visibility = Visibility.Visible;
-            Reroll_button.Visibility = Visibility.Visible;
-            Map_list.Visibility = Visibility.Visible;
-            Map_list1.Visibility = Visibility.Visible;
-            Map_select.Visibility = Visibility.Visible;
-            Map_selection.Visibility = Visibility.Visible;
-            Restart_game.Visibility = Visibility.Visible;
-            Watch_replay.Visibility = Visibility.Hidden;
-            ReplaysComboBox.Visibility = Visibility.Visible;
-            Continue_at.Visibility = Visibility.Visible;
-            Continue_at2.Visibility = Visibility.Hidden;
-            Frame.Visibility = Visibility.Visible;
-            LaunchButton1.Visibility = Visibility.Visible;
-            SetPlayerVisibility(Visibility.Visible);
-            SetPlayerEnabled(true);
-            SetControlsEnabled(true);
-            P6.IsChecked = true;
-            UpdateNoParticlesCheckbox();
-            Singleplayer1.IsChecked = false;
-            Join_game.IsChecked = false;
-            Settings.IsChecked = false;
-        }
-        
-
-        private void Join_game_Checked(object sender, RoutedEventArgs e)
-        {
-            Settings_grid.Visibility = Visibility.Hidden;
-            Player_details_grid.Visibility = Visibility.Visible;
-            Save_button.Visibility = Visibility.Visible;
-            Players.Visibility = Visibility.Hidden;
-            Game_mode.Visibility = Visibility.Hidden;
-            Game_mode_list.Visibility = Visibility.Hidden;
-            EnterIP.Visibility = Visibility.Visible;
-            IP.Visibility = Visibility.Visible;
-            Random_gods.Visibility = Visibility.Hidden;
-            Custom_souls.Visibility = Visibility.Hidden;
-            Custom_level.Visibility = Visibility.Hidden;
-            Custom_level_bounds.Visibility = Visibility.Hidden;
-            Shuffle_sides.Visibility = Visibility.Hidden;
-            Stutter_on_desync.Visibility = Visibility.Hidden;
-            No_particles.Visibility = Visibility.Hidden;
-            Slaughter.Visibility = Visibility.Hidden;
-            Slaughter_target_kills.Visibility = Visibility.Hidden;
-            Slaughter_kills_number.Visibility = Visibility.Hidden;
-            Reroll_button.Visibility = Visibility.Hidden;
-            Map_list.Visibility = Visibility.Hidden;
-            Map_list1.Visibility = Visibility.Hidden;
-            Map_select.Visibility = Visibility.Hidden;
-            Map_selection.Visibility = Visibility.Hidden;
-            Restart_game.Visibility = Visibility.Hidden;
-            Watch_replay.Visibility = Visibility.Hidden;
-            ReplaysComboBox.Visibility = Visibility.Hidden;
-            Continue_at.Visibility = Visibility.Hidden;
-            Continue_at2.Visibility = Visibility.Hidden;
-            Frame.Visibility = Visibility.Hidden;
-            LaunchButton1.Visibility = Visibility.Visible;
-            SetPlayerVisibility(Visibility.Hidden);
-            SetPlayerCheckStates(false);
-            SetControlsEnabled(false);
-            Singleplayer.IsChecked = false;
-            Host_game.IsChecked = false;
-            Settings.IsChecked = false;
-        }
-
-        private void Singleplayer_Checked(object sender, RoutedEventArgs e)
-        {
-            { 
-                Settings_grid.Visibility = Visibility.Hidden;
-                Player_details_grid.Visibility = Visibility.Visible;
-                Save_button.Visibility = Visibility.Visible;
-                Players.Visibility = Visibility.Visible;
-                EnterIP.Visibility = Visibility.Hidden;
-                IP.Visibility = Visibility.Hidden;
-                Game_mode.Visibility = Visibility.Visible;
-                Game_mode_list.Visibility = Visibility.Visible;
-                Random_gods.Visibility = Visibility.Visible;
-                Custom_souls.Visibility = Visibility.Visible;
-                Custom_level.Visibility = Visibility.Visible;
-                Custom_level_bounds.Visibility = Visibility.Visible;
-                Shuffle_sides.Visibility = Visibility.Visible;
-                Stutter_on_desync.Visibility = Visibility.Visible;
-                No_particles.Visibility = Visibility.Visible;
-                Slaughter.Visibility = Visibility.Visible;
-                Slaughter_target_kills.Visibility = Visibility.Visible;
-                Slaughter_kills_number.Visibility = Visibility.Visible;
-                Reroll_button.Visibility = Visibility.Visible;
-                Map_list.Visibility = Visibility.Visible;
-                Map_list1.Visibility = Visibility.Visible;
-                Map_select.Visibility = Visibility.Visible;
-                Map_selection.Visibility = Visibility.Visible;
-                Restart_game.Visibility = Visibility.Hidden;
-                Watch_replay.Visibility = Visibility.Visible;
-                ReplaysComboBox.Visibility = Visibility.Visible;
-                Continue_at.Visibility = Visibility.Hidden;
-                Continue_at2.Visibility = Visibility.Visible;
-                Frame.Visibility = Visibility.Visible;
-                LaunchButton1.Visibility = Visibility.Visible;
-                SetPlayerVisibility(Visibility.Visible);
-                SetPlayerEnabled(true);
-                SetControlsEnabled(true);
-                P6.IsChecked = true;
-                UpdateNoParticlesCheckbox();
-                Host_game.IsChecked = false;
-                Join_game.IsChecked = false;
-                Settings.IsChecked = false; 
-            }
-        }
-
-        private void Settings_Checked(object sender, RoutedEventArgs e)
-        {
-            Player_details_grid.Visibility = Visibility.Hidden;
-            Settings_grid.Visibility = Visibility.Visible;
-            Singleplayer.IsChecked = false;
-            Host_game.IsChecked = false;
-            Join_game.IsChecked = false;
-            Settings.IsChecked = true;
-        }*/
-
-
 
         private void Start_souls_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -1360,7 +1299,7 @@ namespace SacLauncher
             network.Text = "6ab565387ab194c6";
             Host_game.IsChecked = true;
             P6.IsChecked = true;
-            Start_souls_slider.Value = 12;
+            Start_souls_slider.Value = 16;
             Max_level_slider.Value = 9;
             Min_level_slider.Value = 5;
             xp_rate_slider.Value = 1.00;
@@ -1669,6 +1608,17 @@ namespace SacLauncher
             {
                 sb.AppendLine($"--{Game_mode_list.SelectedItem}");
             }
+            if (Singleplayer.IsChecked == true && P2.IsChecked == true) sb.Append("# --host=2").Append(Environment.NewLine);
+            if (Singleplayer.IsChecked == true && P3.IsChecked == true) sb.Append("# --host=3").Append(Environment.NewLine);
+            if (Singleplayer.IsChecked == true && P4.IsChecked == true) sb.Append("# --host=4").Append(Environment.NewLine);
+            if (Singleplayer.IsChecked == true && P5.IsChecked == true) sb.Append("# --host=5").Append(Environment.NewLine);
+            if (Singleplayer.IsChecked == true && P6.IsChecked == true) sb.Append("# --host=6").Append(Environment.NewLine);
+            if (Singleplayer.IsChecked == true && P7.IsChecked == true) sb.Append("# --host=7").Append(Environment.NewLine);
+            if (Singleplayer.IsChecked == true && P8.IsChecked == true) sb.Append("# --host=8").Append(Environment.NewLine);
+            if (Singleplayer.IsChecked == true && Game_mode_list.SelectedItem != null)
+            {
+                sb.AppendLine($"# --{Game_mode_list.SelectedItem}");
+            }
             sb.AppendLine($"--souls={Start_souls_slider.Value}");
             sb.AppendLine($"--level={Min_level_slider.Value}");
             sb.AppendLine($"--min-level={Min_level_slider.Value}");
@@ -1780,6 +1730,17 @@ namespace SacLauncher
                 sb.AppendLine($"--play=replays/{ReplaysComboBox.Text}");
                 if (!string.IsNullOrWhiteSpace(Frame.Text)) sb.AppendLine($"--continue-at={Frame.Text}");
             }
+            if (Skin_changer.IsChecked == true) sb.AppendLine("# tunnel background");
+            // Process unhandled arguments from the TextBox
+            if (!string.IsNullOrWhiteSpace(UnhandledArgumentsTextBox.Text))
+            {
+                // Split the text box content into lines
+                string[] unhandledLines = UnhandledArgumentsTextBox.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var line in unhandledLines)
+                {
+                    sb.AppendLine(line.Trim()); // Append each unhandled argument
+                }
+            }
             return sb.ToString();
         }
 
@@ -1886,6 +1847,22 @@ namespace SacLauncher
                                 }
                             }
                         }
+                        break;
+                    case "--hotkeys":
+                        break;
+                    case "--1v1":
+                        break;
+                    case "--2v2":
+                        break;
+                    case "--3v3":
+                        break;
+                    case "--4v4":
+                        break;
+                    case "--ffa":
+                        break;
+                    case "--level":
+                        break;
+                    case "maps":
                         break;
                     case "--detect-resolution":
                         Detect_Resolution.IsChecked = true;
@@ -2116,6 +2093,57 @@ namespace SacLauncher
                             }
                         }
                         break;
+                    case "# --host":
+                        if (value != null)
+                        {
+                            int hostValue = int.Parse(value);
+                            switch (hostValue)
+                            {
+                                case 2:
+                                    Singleplayer.IsChecked = true;
+                                    P2.IsChecked = true;
+                                    Game_mode_list.SelectedIndex = 0;
+                                    Map_list1.SelectedIndex = 4;
+                                    break;
+                                case 3:
+                                    Singleplayer.IsChecked = true;
+                                    P3.IsChecked = true;
+                                    Game_mode_list.SelectedIndex = 0;
+                                    break;
+                                case 4:
+                                    Singleplayer.IsChecked = true;
+                                    P4.IsChecked = true;
+                                    Game_mode_list.SelectedIndex = 0;
+                                    Map_list1.SelectedIndex = 5;
+                                    break;
+                                case 5:
+                                    Singleplayer.IsChecked = true;
+                                    P5.IsChecked = true;
+                                    Game_mode_list.SelectedIndex = 0;
+                                    break;
+                                case 6:
+                                    Singleplayer.IsChecked = true;
+                                    P6.IsChecked = true;
+                                    Game_mode_list.SelectedIndex = 0;
+                                    Map_list1.SelectedIndex = 6;
+                                    break;
+                                case 7:
+                                    Singleplayer.IsChecked = true;
+                                    P7.IsChecked = true;
+                                    Game_mode_list.SelectedIndex = 0;
+                                    break;
+                                case 8:
+                                    Singleplayer.IsChecked = true;
+                                    P8.IsChecked = true;
+                                    Game_mode_list.SelectedIndex = 0;
+                                    Map_list1.SelectedIndex = 7;
+                                    break;
+                                default:
+                                    // Handle invalid host value
+                                    break;
+                            }
+                        }
+                        break;
                     case "--join":
                         Join_game.IsChecked = true;
                         if (value != null)
@@ -2260,12 +2288,147 @@ namespace SacLauncher
                     case "# --record-folder":
                         Savereplays.IsChecked = false;
                         break;
+                    case "# tunnel background":
+                        Skin_changer.IsChecked = true;
+                        break;
 
                     default:
-                        Console.WriteLine("Unhandled key: " + key);
+                        if (!string.IsNullOrEmpty(key))
+                        {
+                            // Append key and value as is, without adding "=No value" if value is null
+                            string entry = value != null ? $"{key}={value}" : key;
+                            UnhandledArgumentsTextBox.Text += $"{entry}{Environment.NewLine}";
+                        }
                         break;
                 }
             }
         }
+
+        private void Skin_changer_Checked(object sender, RoutedEventArgs e)
+        {
+            // Show Tunnel Background and hide Image Background
+            Image_background.Visibility = Visibility.Collapsed;
+            Tunnel_background.Visibility = Visibility.Visible;
+        }
+
+        // When the ToggleButton is Unchecked
+        private void Skin_changer_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Show Image Background and hide Tunnel Background
+            Image_background.Visibility = Visibility.Visible;
+            Tunnel_background.Visibility = Visibility.Collapsed;
+        }
+
+        private void DecreaseButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Ensure the slider remains focused
+            if (sender is Button button && button.Tag is Slider slider)
+            {
+                slider.Focus();
+
+                // Decrease slider value by SmallChange
+                slider.Value = Math.Max(slider.Minimum, slider.Value - slider.SmallChange);
+            }
+        }
+
+        private void IncreaseButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Ensure the slider remains focused
+            if (sender is Button button && button.Tag is Slider slider)
+            {
+                slider.Focus();
+
+                // Increase slider value by SmallChange
+                slider.Value = Math.Min(slider.Maximum, slider.Value + slider.SmallChange);
+            }
+        }
+
+        private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
+        {
+            // Get the Thumb that triggered the event
+            var thumb = sender as Thumb;
+            if (thumb == null)
+                return;
+
+            // Get the Slider that contains this Thumb (parent of the Thumb in the visual tree)
+            var slider = FindParent<Slider>(thumb);
+
+            if (slider == null)
+                return;
+
+            // Calculate the new value based on the horizontal movement (e.HorizontalChange)
+            double newValue = slider.Value + (e.HorizontalChange / slider.ActualWidth) * (slider.Maximum - slider.Minimum);
+
+            // Ensure the new value is within the slider's minimum and maximum range
+            slider.Value = Math.Max(slider.Minimum, Math.Min(slider.Maximum, newValue));
+        }
+
+        // Helper function to find the parent of a specific type in the visual tree
+        private T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            var parent = VisualTreeHelper.GetParent(child);
+            while (parent != null && !(parent is T))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            return parent as T;
+        }
+    }
+
+    public class TunnelMeshGenerator
+    {
+        public static MeshGeometry3D CreateTunnelMesh(int segments, double radius, double length)
+        {
+            MeshGeometry3D mesh = new MeshGeometry3D();
+            int divisionsAlongLength = 100;
+
+            // Adjust the tunnel's center to the origin
+            double centerX = 0;
+            double centerY = 0;
+            double centerZ = 0;
+
+            // Generate vertices and texture coordinates
+            for (int i = 0; i <= segments; i++)
+            {
+                double angle = i * 2 * Math.PI / segments;
+                double x = Math.Cos(angle) * radius;
+                double y = Math.Sin(angle) * radius;
+
+                for (int j = 0; j <= divisionsAlongLength; j++)
+                {
+                    double z = j * (length / divisionsAlongLength);
+
+                    // Add vertex positions, adjusting by the center offset
+                    mesh.Positions.Add(new Point3D(x + centerX, y + centerY, z + centerZ));
+
+                    // Texture coordinates: Map along the tunnel (U = around the circumference, V = along the length)
+                    double u = (double)i / segments;      // Circumference
+                    double v = (double)j / divisionsAlongLength; // Length
+                    mesh.TextureCoordinates.Add(new Point(u, v));
+                }
+            }
+
+            // Generate triangle indices
+            for (int i = 0; i < segments; i++)
+            {
+                for (int j = 0; j < divisionsAlongLength; j++)
+                {
+                    int baseIndex = i * (divisionsAlongLength + 1) + j;
+
+                    // First triangle
+                    mesh.TriangleIndices.Add(baseIndex);
+                    mesh.TriangleIndices.Add(baseIndex + 1);
+                    mesh.TriangleIndices.Add(baseIndex + divisionsAlongLength + 1);
+
+                    // Second triangle
+                    mesh.TriangleIndices.Add(baseIndex + 1);
+                    mesh.TriangleIndices.Add(baseIndex + divisionsAlongLength + 2);
+                    mesh.TriangleIndices.Add(baseIndex + divisionsAlongLength + 1);
+                }
+            }
+
+            return mesh;
+        }
+
     }
 }
