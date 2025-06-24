@@ -13,8 +13,8 @@
         ResizeMode="NoResize">
     <Window.Resources>
         <!-- Define Brushes for Textures -->
-        <ImageBrush x:Key="StartTextureBrush" ImageSource="/images/button_start_active.png"/>
-        <ImageBrush x:Key="EndTextureBrush" ImageSource="/images/button_end_active.png"/>
+        <ImageBrush x:Key="StartTextureBrush" ImageSource="/images/textbox_start.png"/>
+        <ImageBrush x:Key="EndTextureBrush" ImageSource="/images/textbox_end.png"/>
         <Style x:Key="CustomTextBox1Style" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
@@ -23,7 +23,7 @@
                             <!-- Start Section -->
                             <Rectangle x:Name="StartRectangle" Width="20" HorizontalAlignment="Left">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    <ImageBrush ImageSource="/images/buttonstart.png"/>
                                 </Rectangle.Fill>
                             </Rectangle>
 
@@ -43,7 +43,7 @@
                             <!-- End Section -->
                             <Rectangle x:Name="EndRectangle" Width="20" HorizontalAlignment="Right">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    <ImageBrush ImageSource="/images/buttonend.png"/>
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Grid>
@@ -51,7 +51,7 @@
                             <Trigger Property="IsFocused" Value="True">
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -62,7 +62,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -75,7 +75,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonstart.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -86,7 +86,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -100,7 +100,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonstart.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -111,7 +111,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -123,7 +123,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -134,7 +134,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -146,7 +146,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -157,7 +157,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -169,7 +169,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -180,7 +180,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -281,12 +281,12 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartTexture" Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonstart.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="EndTexture" Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -295,12 +295,12 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                             <Trigger Property="IsDropDownOpen" Value="True">
                                 <Setter TargetName="StartTexture" Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="EndTexture" Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -309,12 +309,12 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                             <Trigger Property="IsFocused" Value="True">
                                 <Setter TargetName="StartTexture" Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="EndTexture" Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -514,7 +514,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                             <!-- Start Section -->
                             <Rectangle x:Name="StartRectangle" Width="20" HorizontalAlignment="Left">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    <ImageBrush ImageSource="/images/buttonstart.png"/>
                                 </Rectangle.Fill>
                             </Rectangle>
 
@@ -554,7 +554,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                             <!-- End Section -->
                             <Rectangle x:Name="EndRectangle" Width="20" HorizontalAlignment="Right">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    <ImageBrush ImageSource="/images/buttonend.png"/>
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Grid>
@@ -563,7 +563,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonstart.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="CheckboxRectangle" Property="Fill">
@@ -579,14 +579,14 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
                             <Trigger Property="IsFocused" Value="True">
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="CheckboxRectangle" Property="Fill">
@@ -602,7 +602,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -616,7 +616,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonstart.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="CheckboxRectangle" Property="Fill">
@@ -641,7 +641,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -656,7 +656,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonstart.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="CheckboxRectangle" Property="Fill">
@@ -681,7 +681,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -694,7 +694,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="CheckboxRectangle" Property="Fill">
@@ -710,7 +710,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -723,7 +723,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="CheckboxRectangle" Property="Fill">
@@ -748,7 +748,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -761,7 +761,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="CheckboxRectangle" Property="Fill">
@@ -786,7 +786,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -839,7 +839,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                             <!-- End Section -->
                             <Rectangle x:Name="EndRectangle" Width="25" Margin="30,0,0,0" HorizontalAlignment="Left">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    <ImageBrush ImageSource="/images/buttonend.png"/>
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Grid>
@@ -860,7 +860,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 <!-- End Section -->
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -878,7 +878,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -912,7 +912,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -945,7 +945,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -969,7 +969,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -1002,7 +1002,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -1035,7 +1035,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -1052,7 +1052,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                             <!-- Start Section -->
                             <Rectangle x:Name="StartRectangle" Width="20" HorizontalAlignment="Left">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                    <ImageBrush ImageSource="/images/buttonstart.png"/>
                                 </Rectangle.Fill>
                             </Rectangle>
 
@@ -1072,7 +1072,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                             <!-- End Section -->
                             <Rectangle x:Name="EndRectangle" Width="20" HorizontalAlignment="Right">
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                    <ImageBrush ImageSource="/images/buttonend.png"/>
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Grid>
@@ -1080,7 +1080,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                             <Trigger Property="IsFocused" Value="True">
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -1091,7 +1091,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -1104,7 +1104,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonstart.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -1115,7 +1115,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -1129,7 +1129,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonstart.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -1140,7 +1140,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_inactive.png"/>
+                                        <ImageBrush ImageSource="/images/buttonend.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -1152,7 +1152,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -1163,7 +1163,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -1175,7 +1175,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -1186,7 +1186,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>
@@ -1198,7 +1198,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="StartRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_start_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_start.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter TargetName="TileRectangle" Property="Fill">
@@ -1209,7 +1209,7 @@ ViewportUnits="Absolute" TileMode="Tile"/>
                                 </Setter>
                                 <Setter TargetName="EndRectangle" Property="Fill">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/images/button_end_active.png"/>
+                                        <ImageBrush ImageSource="/images/textbox_end.png"/>
                                     </Setter.Value>
                                 </Setter>
                             </MultiTrigger>

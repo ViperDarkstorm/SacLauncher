@@ -12,15 +12,13 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows.Threading;
+using System;
 
 namespace SacLauncher
 {
-
-
     public partial class MainWindow : Window
     {
         private readonly string folderPath;
-
 
         public MainWindow()
         {
@@ -377,94 +375,40 @@ namespace SacLauncher
             }
         }
 
-        private void UpdateMaplist1Dropdown()
-        {
-            string selectedType = Game_mode_list.SelectedItem?.ToString();
-
-            if (string.IsNullOrEmpty(selectedType)) return;
-
-            string pattern = selectedType switch
-            {
-                "1v1" => @"maps-.*-1v1.txt",
-                "2v2" => @"maps-.*-2v2.txt",
-                "3v3" => @"maps-.*-3v3.txt",
-                "4v4" => @"maps-.*-4v4.txt",
-                "ffa" when P3.IsChecked == true => @"maps-.*-3ffa.txt",
-                "ffa" when P4.IsChecked == true => @"maps-.*-4ffa.txt",
-                "ffa" when P5.IsChecked == true => @"maps-.*-5ffa.txt",
-                "ffa" when P6.IsChecked == true => @"maps-.*-6ffa.txt",
-                "ffa" when P7.IsChecked == true => @"maps-.*-7ffa.txt",
-                "ffa" when P8.IsChecked == true => @"maps-.*-8ffa.txt",
-                _ => string.Empty
-            };
-
-            PopulateDropdown(pattern);
-        }
-
-        private void PopulateDropdown(string pattern)
-        {
-            Map_list1.Items.Clear();
-
-            if (string.IsNullOrEmpty(pattern))
-            {
-                MessageBox.Show("Invalid pattern. Unable to populate dropdown.");
-                return;
-            }
-
-            Regex regex;
-            try
-            {
-                regex = new Regex(pattern);
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show("Invalid regex pattern: " + ex.Message);
-                return;
-            }
-
-            try
-            {
-                string[] mapFiles = Directory.GetFiles(folderPath, "maps*.txt");
-                foreach (string filePath in mapFiles)
-                {
-                    string fileName = Path.GetFileName(filePath);
-                    if (regex.IsMatch(fileName))
-                    {
-                        Map_list1.Items.Add(fileName);
-                    }
-                }
-
-                if (Map_list1.Items.Count > 0)
-                {
-                    Map_list1.SelectedIndex = 0;
-                }
-                else
-                {
-                    MessageBox.Show("Couldn't locate a maplist file pattern: " + pattern);
-                }
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show("Error accessing directory or finding files: " + ex.Message);
-            }
-        }
-
-        private Random random = new Random();
-
         private void Map_list1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(folderPath) || !(Map_list1.SelectedItem is string selectedFileName))
+            if (!(Map_list1.SelectedItem is string selectedFileName))
             {
                 Map_selection.Text = string.Empty;
                 return;
             }
 
-            string selectedFilePath = Path.Combine(folderPath, selectedFileName);
+            // Resolve folder paths
+            string mainFolderPath = AppDomain.CurrentDomain.BaseDirectory;
+            string listsFolderPath = Path.Combine(mainFolderPath, "lists");
 
+            // Determine the correct file path
+            string selectedFilePath;
+            if (File.Exists(Path.Combine(mainFolderPath, selectedFileName)))
+            {
+                selectedFilePath = Path.Combine(mainFolderPath, selectedFileName);
+            }
+            else if (File.Exists(Path.Combine(listsFolderPath, selectedFileName)))
+            {
+                selectedFilePath = Path.Combine(listsFolderPath, selectedFileName);
+            }
+            else
+            {
+                Map_selection.Text = "File not found.";
+                return;
+            }
+
+            // Read a random entry from the file
             if (File.Exists(selectedFilePath))
             {
                 string randomEntry = GetRandomEntry(selectedFilePath);
 
+                // Process the entry if it starts with "maps/"
                 if (randomEntry?.StartsWith("maps/") == true)
                 {
                     randomEntry = randomEntry.Substring("maps/".Length);
@@ -477,6 +421,143 @@ namespace SacLauncher
                 Map_selection.Text = "File not found.";
             }
         }
+
+        private void UpdateMaplist1Dropdown()
+        {
+            string selectedType = Game_mode_list.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(selectedType)) return;
+
+            // Resolve the folder path where files are stored
+            string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lists");
+            if (!Directory.Exists(folderPath))
+            {
+                MessageBox.Show($"Folder does not exist: {folderPath}");
+                return;
+            }
+
+            // Construct the regex pattern based on the game mode
+            string filePattern = selectedType switch
+            {
+                "1v1" => @"maps-.*-1v1\.txt",
+                "2v2" => @"maps-.*-2v2\.txt",
+                "3v3" => @"maps-.*-3v3\.txt",
+                "4v4" => @"maps-.*-4v4\.txt",
+                "ffa" when P3.IsChecked == true => @"maps-.*-3ffa\.txt",
+                "ffa" when P4.IsChecked == true => @"maps-.*-4ffa\.txt",
+                "ffa" when P5.IsChecked == true => @"maps-.*-5ffa\.txt",
+                "ffa" when P6.IsChecked == true => @"maps-.*-6ffa\.txt",
+                "ffa" when P7.IsChecked == true => @"maps-.*-7ffa\.txt",
+                "ffa" when P8.IsChecked == true => @"maps-.*-8ffa\.txt",
+                _ => string.Empty
+            };
+
+            if (string.IsNullOrEmpty(filePattern))
+            {
+                MessageBox.Show("No valid file pattern found.");
+                return;
+            }
+
+            // Populate the dropdown
+            PopulateDropdown(folderPath, filePattern);
+        }
+
+
+        private void PopulateDropdown(string folderPath, string pattern)
+        {
+            // Clear the dropdown items
+            Map_list1.Items.Clear();
+
+            // Check if the pattern is valid
+            if (string.IsNullOrEmpty(pattern))
+            {
+                MessageBox.Show("Invalid pattern. Unable to populate dropdown.");
+                return;
+            }
+
+            Regex regex;
+            try
+            {
+                // Compile the regex pattern
+                regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("Invalid regex pattern: " + ex.Message);
+                return;
+            }
+
+            try
+            {
+                // Fetch all map files in the folder
+                string[] mapFiles = Directory.GetFiles(folderPath, "maps*.txt");
+                foreach (string filePath in mapFiles)
+                {
+                    string fileName = Path.GetFileName(filePath);
+
+                    // Match files using the regex pattern
+                    if (regex.IsMatch(fileName))
+                    {
+                        Map_list1.Items.Add(fileName);
+                    }
+                }
+
+                // Automatically select the first item if files are found
+                if (Map_list1.Items.Count > 0)
+                {
+                    Map_list1.SelectedIndex = 0;
+                }
+                else
+                {
+                    MessageBox.Show($"Couldn't locate a maplist file matching pattern: {pattern}");
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error accessing directory or finding files: " + ex.Message);
+            }
+        }
+
+
+        private Random random = new Random();
+
+        private void ButtonRoll_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Map_list1.SelectedItem is string selectedFileName))
+            {
+                Map_selection.Text = string.Empty;
+                return;
+            }
+
+            // Determine the folderPath dynamically based on the file location
+            string mainFolderPath = AppDomain.CurrentDomain.BaseDirectory;
+            string listsFolderPath = Path.Combine(mainFolderPath, "lists");
+
+            string selectedFilePath;
+            if (File.Exists(Path.Combine(listsFolderPath, selectedFileName)))
+            {
+                selectedFilePath = Path.Combine(listsFolderPath, selectedFileName);
+            }
+            else
+            {
+                MessageBox.Show($"File not found: {selectedFileName}");
+                Map_selection.Text = string.Empty;
+                return;
+            }
+
+            // Get a random entry from the file
+            string randomEntry = GetRandomEntry(selectedFilePath);
+
+            // Clean up the entry if it starts with "maps/"
+            if (randomEntry?.StartsWith("maps/") == true)
+            {
+                randomEntry = randomEntry.Substring("maps/".Length);
+            }
+
+            // Display the result or a fallback message
+            Map_selection.Text = randomEntry ?? "No entries found.";
+        }
+
 
 
         private string GetRandomEntry(string filePath)
@@ -496,7 +577,7 @@ namespace SacLauncher
             return entries.Count > 0 ? entries[random.Next(entries.Count)] : null;
         }
 
-        private void ButtonRoll_Click(object sender, RoutedEventArgs e)
+        /*private void ButtonRoll_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(folderPath) || !(Map_list1.SelectedItem is string selectedFileName))
             {
@@ -513,9 +594,8 @@ namespace SacLauncher
             }
 
             Map_selection.Text = randomEntry ?? "No entries found.";
-        }
-
-
+        }*/
+        
         private void LoadReplays()
         {
             string replaysFolder = Path.Combine(Directory.GetCurrentDirectory(), "replays");
@@ -1623,7 +1703,7 @@ namespace SacLauncher
             sb.AppendLine($"--level={Min_level_slider.Value}");
             sb.AppendLine($"--min-level={Min_level_slider.Value}");
             sb.AppendLine($"--max-level={Max_level_slider.Value}");
-            sb.AppendLine($"--xp-rate={xp_rate_slider.Value}");
+            sb.AppendLine($"--xp-rate={xp_rate_slider.Value.ToString("F2", CultureInfo.InvariantCulture)}");
             sb.AppendLine(Random_gods.IsChecked == true ? "--random-gods" : "# --random-gods");
             sb.AppendLine(Custom_souls.IsChecked == true ? "--no-synchronize-souls" : "# --no-synchronize-souls");
             sb.AppendLine(Custom_xp_rate.IsChecked == true ? "--no-synchronize-xp-rate" : "# --no-synchronize-xp-rate");
@@ -1635,8 +1715,8 @@ namespace SacLauncher
             sb.AppendLine(Slaughter.IsChecked == true ? $"--slaughter={Slaughter_target_kills.Value}" : $"# --slaughter={Slaughter_target_kills.Value}");
 
             // Append map list and selection settings
-            if (string.IsNullOrWhiteSpace(Map_selection.Text) && !string.IsNullOrWhiteSpace(Map_list1.Text)) sb.AppendLine($"--map-list={Map_list1.Text}");
-            else if (!string.IsNullOrWhiteSpace(Map_list1.Text)) sb.AppendLine($"# --map-list={Map_list1.Text}");
+            if (string.IsNullOrWhiteSpace(Map_selection.Text) && !string.IsNullOrWhiteSpace(Map_list1.Text)) sb.AppendLine($"--map-list=lists/{Map_list1.Text}");
+            else if (!string.IsNullOrWhiteSpace(Map_list1.Text)) sb.AppendLine($"# --map-list=lists/{Map_list1.Text}");
             if (Host_game.IsChecked == true && !string.IsNullOrWhiteSpace(Map_selection.Text))
             {
                 string mapText = Map_selection.Text;
@@ -1859,6 +1939,16 @@ namespace SacLauncher
                     case "--4v4":
                         break;
                     case "--ffa":
+                        break;
+                    case "# --1v1":
+                        break;
+                    case "# --2v2":
+                        break;
+                    case "# --3v3":
+                        break;
+                    case "# --4v4":
+                        break;
+                    case "# --ffa":
                         break;
                     case "--level":
                         break;
@@ -2250,15 +2340,75 @@ namespace SacLauncher
                             Slaughter_target_kills.Value = slaughter1;
                         }
                         break;
+                    case "--map-list":
+                        if (value != null)
+                        {
+                            // Extract the part after the last '/' in the value
+                            int slashIndex = value.LastIndexOf('/');
+                            if (slashIndex != -1)
+                            {
+                                // Extract the map filename (everything after the last '/')
+                                string mapFilename = value.Substring(slashIndex + 1).Trim();
+
+                                string directoryPath = "lists/";
+                                if (Directory.Exists(directoryPath))
+                                {
+                                    // Don't clear existing items - we want to keep the existing dropdown population logic intact
+                                    // However, we will add the map if it isn't already present
+                                    if (!Map_list1.Items.Contains(mapFilename))
+                                    {
+                                        Map_list1.Items.Add(mapFilename);
+                                    }
+
+                                    // Try to select the item that matches the extracted filename
+                                    if (Map_list1.Items.Contains(mapFilename))
+                                    {
+                                        Map_list1.SelectedItem = mapFilename;
+                                    }
+                                }
+                            }
+                        }
+                        break;
                     case "# --map-list":
                         if (value != null)
                         {
-                            // Clear existing items in Map_list1 before populating
-                            Map_list1.Items.Clear();
-                            // Assuming value is a single item, add it to Map_list1
-                            Map_list1.Items.Add(value);
-                            // Optionally select the item if needed
-                            Map_list1.SelectedItem = value;
+                            // Extract the part after the last '/' in the value
+                            int slashIndex = value.LastIndexOf('/');
+                            if (slashIndex != -1)
+                            {
+                                // Extract the map filename (everything after the last '/')
+                                string mapFilename = value.Substring(slashIndex + 1).Trim();
+
+                                string directoryPath = "lists/";
+                                if (Directory.Exists(directoryPath))
+                                {
+                                    // Clear ComboBox to avoid adding incorrect or partial entries
+                                    Map_list1.Items.Clear();
+                                    bool exactMatchFound = false;
+
+                                    // Loop through all files in the directory
+                                    foreach (var file in Directory.GetFiles(directoryPath, "*.txt"))
+                                    {
+                                        string fileName = Path.GetFileName(file);
+
+                                        // Check if the file name exactly matches the target map filename
+                                        if (fileName.Equals(mapFilename, StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            // Add the exact match to the ComboBox and select it
+                                            Map_list1.Items.Add(fileName);
+                                            Map_list1.SelectedItem = fileName;
+                                            exactMatchFound = true;
+                                            break; // Exit the loop after finding the first exact match
+                                        }
+                                    }
+
+                                    // If no exact match was found, do not add any invalid entries
+                                    if (!exactMatchFound)
+                                    {
+                                        MessageBox.Show($"No exact match found for {mapFilename}.");
+                                    }
+                                }
+                            }
                         }
                         break;
                     case "maps/":

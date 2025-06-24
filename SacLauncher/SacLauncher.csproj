@@ -25,11 +25,7 @@
     <None Remove="images\Button3.png" />
     <None Remove="images\buttonend.png" />
     <None Remove="images\buttonstart.png" />
-    <None Remove="images\button_end_active.png" />
-    <None Remove="images\button_end_inactive.png" />
     <None Remove="images\button_middle.png" />
-    <None Remove="images\button_start_active.png" />
-    <None Remove="images\button_start_inactive.png" />
     <None Remove="images\checkbox_checked.png" />
     <None Remove="images\checkbox_unchecked.png" />
     <None Remove="images\defaultmap.png" />
@@ -62,6 +58,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="button minus.png" />
+    <Resource Include="button plus.png" />
+    <Resource Include="dropdownmenu_texture.png" />
     <Resource Include="elgar.ttf" />
     <Resource Include="images\00008.png" />
     <Resource Include="images\00010.png" />
@@ -69,11 +68,9 @@
     <Resource Include="images\Button1.png" />
     <Resource Include="images\Button2.png" />
     <Resource Include="images\Button3.png" />
-    <Resource Include="images\button_end_active.png" />
-    <Resource Include="images\button_end_inactive.png" />
+    <Resource Include="images\buttonend.png" />
+    <Resource Include="images\buttonstart.png" />
     <Resource Include="images\button_middle.png" />
-    <Resource Include="images\button_start_active.png" />
-    <Resource Include="images\button_start_inactive.png" />
     <Resource Include="images\checkbox_checked.png" />
     <Resource Include="images\checkbox_unchecked.png" />
     <Resource Include="images\defaultmap.png" />
@@ -88,7 +85,9 @@
     <Resource Include="images\slider_plus.png" />
     <Resource Include="images\slider_plus_active.png" />
     <Resource Include="images\slider_square.png" />
+    <Resource Include="images\textbox_end.png" />
     <Resource Include="images\textbox_middle.png" />
+    <Resource Include="images\textbox_start.png" />
     <Resource Include="images\tunnel.png" />
   </ItemGroup>
 
