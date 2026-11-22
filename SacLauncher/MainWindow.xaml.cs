@@ -2438,6 +2438,21 @@ namespace SacLauncher
                     case "# --record-folder":
                         Savereplays.IsChecked = false;
                         break;
+                    case "--play":
+                        // Ignore replay playback argument
+                        break;
+
+                    case "--continue":
+                        // Ignore replay continuation argument
+                        break;
+
+                    case "--continue-at":
+                        // Ignore replay frame argument
+                        break;
+
+                    case "--frame":
+                        // Ignore frame argument
+                        break;
                     case "# tunnel background":
                         Skin_changer.IsChecked = true;
                         break;
